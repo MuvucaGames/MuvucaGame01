@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class Intro : MonoBehaviour {
 
 	public MovieTexture movie;
-	private AudioSource audio;
+	AudioSource audio;
 
 	// Use this for initialization
 	void Start () {
