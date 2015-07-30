@@ -23,7 +23,7 @@ public class HeroControl : MonoBehaviour {
 	// Update is called once per frame
 	void FixedUpdate () {
 
-		hero.Move (Input.GetAxis("Horizontal"), false, m_Jump);
+		hero.Move (Input.GetAxis("Horizontal"), Input.GetKey(KeyCode.DownArrow), m_Jump);
 
 		m_Jump = false;
 	}

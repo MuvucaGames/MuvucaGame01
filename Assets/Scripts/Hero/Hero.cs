@@ -8,6 +8,9 @@ public abstract class Hero : MonoBehaviour {
 	[SerializeField] private float WalkForce = 40f;
 	[SerializeField] private float JumpHeight = 1f;
 	[SerializeField] private LayerMask whatIsGround;
+	[SerializeField] private LayerMask heroPlatformMask;
+	[SerializeField] private Collider2D headCollider;
+	[SerializeField] private Collider2D heroPlatform;
 
 
 	private bool m_FacingRight = true;
@@ -35,7 +38,19 @@ public abstract class Hero : MonoBehaviour {
 			rigidBody2D.velocity = new Vector2(Mathf.Sign(rigidBody2D.velocity.x) * MaxWalkingSpeed , rigidBody2D.velocity.y);
 		}
 
-		if(jump && Physics2D.OverlapCircle(transform.position, 0.2f, whatIsGround.value)){
+		//CROUCH
+		if (crouch && !headCollider.isTrigger) {
+			//Transfor head in trigger
+			headCollider.isTrigger = crouch;
+
+			heroPlatform.offset = heroPlatform.offset - new Vector2(0f, headCollider.bounds.extents.y*2);
+		} else if(!crouch && headCollider.isTrigger && !Physics2D.OverlapArea(headCollider.bounds.min, headCollider.bounds.max, whatIsGround.value)){
+			headCollider.isTrigger = crouch;
+			heroPlatform.offset = headCollider.offset;
+		}
+
+		//JUMP, IF GROUDED OR ON OTZHER HERO PLATFORM
+		if(jump && Physics2D.OverlapCircle(transform.position, 0.2f, whatIsGround.value | heroPlatformMask.value)){
 			//Impulse to Jump that height
 			//more info look at http://hyperphysics.phy-astr.gsu.edu/hbase/impulse.html and reverse http://hyperphysics.phy-astr.gsu.edu/hbase/flobj.html#c2
 			rigidBody2D.AddForce(new Vector2(0f, (float)jumpForce), ForceMode2D.Impulse);
