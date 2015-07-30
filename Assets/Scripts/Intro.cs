@@ -7,16 +7,17 @@ using UnityEngine.UI;
 public class Intro : MonoBehaviour {
 
 	public MovieTexture movie;
-	private AudioSource audio;
+	private AudioSource m_audio;
 
 	// Use this for initialization
 	void Start () {
 		GetComponent<RawImage> ().texture = movie as MovieTexture;
-		audio = GetComponent<AudioSource> ();
-		audio.clip = movie.audioClip;
+	m_audio = GetComponent<AudioSource> ();
+	m_audio.clip = movie.audioClip;
 		movie.Play ();
-		audio.Play ();
+	m_audio.Play ();
 	}
+
 
 	void Update(){
 		if (!movie.isPlaying) {
