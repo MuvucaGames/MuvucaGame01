@@ -6,5 +6,5 @@ PhysicsMaterial2D:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: HeroMaterial
-  friction: 1.5
+  friction: .800000012
   bounciness: 0
