@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
 
 public abstract class Hero : MonoBehaviour {
 
@@ -12,21 +13,30 @@ public abstract class Hero : MonoBehaviour {
 	private bool m_FacingRight = true;
 	private Rigidbody2D rigidBody2D;
 
+	private float testHeight = 0f;
+	private double jumpForce;
+
 	void Awake(){
 		rigidBody2D = GetComponent<Rigidbody2D> ();
+
+		//Force Math instead of Mathf, tu use double instead of float. (no big results)
+		jumpForce = ((double)rigidBody2D.mass) * ((double)Math.Sqrt ((double)(2D * ((double)JumpHeight) * ((double)rigidBody2D.gravityScale) * ((double)Math.Abs (Physics2D.gravity.y)))));
 	}
 
 	void FixedUpdate(){
 
 
 
-
+		if (testHeight < transform.position.y) {
+			testHeight = transform.position.y;
+			print(testHeight);
+		}
 
 	}
 
 	public void Move(float horizontalMove, bool crouch, bool jump){
-		//TEST
-		rigidBody2D.AddForce(new Vector2(Input.GetAxis("Horizontal")*WalkForce,0), ForceMode2D.Impulse);
+		//WALK HORIZONTALY
+		rigidBody2D.AddForce(new Vector2(horizontalMove*WalkForce,0), ForceMode2D.Impulse);
 		
 		//LIMIT WWALKING SPEED
 		if (Mathf.Abs (rigidBody2D.velocity.x) > MaxWalkingSpeed) {
@@ -36,8 +46,7 @@ public abstract class Hero : MonoBehaviour {
 		if(jump && Physics2D.OverlapCircle(transform.position, 0.2f, whatIsGround.value)){
 			//Impulse to Jump that height
 			//more info look at http://hyperphysics.phy-astr.gsu.edu/hbase/impulse.html and reverse http://hyperphysics.phy-astr.gsu.edu/hbase/flobj.html#c2
-			rigidBody2D.AddForce(new Vector2(0f, rigidBody2D.mass*Mathf.Sqrt(2f*JumpHeight*rigidBody2D.gravityScale*Mathf.Abs(Physics2D.gravity.y))), ForceMode2D.Impulse);
-		
+			rigidBody2D.AddForce(new Vector2(0f, (float)jumpForce), ForceMode2D.Impulse);
 		}
 
 	}

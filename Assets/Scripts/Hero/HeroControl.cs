@@ -22,7 +22,6 @@ public class HeroControl : MonoBehaviour {
 	
 	// Update is called once per frame
 	void FixedUpdate () {
-		if(m_Jump) print("jump");
 
 		hero.Move (Input.GetAxis("Horizontal"), false, m_Jump);
 
