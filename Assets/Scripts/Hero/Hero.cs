@@ -13,24 +13,16 @@ public abstract class Hero : MonoBehaviour {
 	private bool m_FacingRight = true;
 	private Rigidbody2D rigidBody2D;
 
-	private float testHeight = 0f;
 	private double jumpForce;
 
 	void Awake(){
 		rigidBody2D = GetComponent<Rigidbody2D> ();
 
-		//Force Math instead of Mathf, tu use double instead of float. (no big results)
+		//Force using Math instead of Mathf, to use double instead of float. (no big result changes)
 		jumpForce = ((double)rigidBody2D.mass) * ((double)Math.Sqrt ((double)(2D * ((double)JumpHeight) * ((double)rigidBody2D.gravityScale) * ((double)Math.Abs (Physics2D.gravity.y)))));
 	}
 
 	void FixedUpdate(){
-
-
-
-		if (testHeight < transform.position.y) {
-			testHeight = transform.position.y;
-			print(testHeight);
-		}
 
 	}
 
@@ -47,6 +39,10 @@ public abstract class Hero : MonoBehaviour {
 			//Impulse to Jump that height
 			//more info look at http://hyperphysics.phy-astr.gsu.edu/hbase/impulse.html and reverse http://hyperphysics.phy-astr.gsu.edu/hbase/flobj.html#c2
 			rigidBody2D.AddForce(new Vector2(0f, (float)jumpForce), ForceMode2D.Impulse);
+		}
+
+		if((horizontalMove>0 && !m_FacingRight) || (horizontalMove<0 && m_FacingRight)){
+			//Flip the animation
 		}
 
 	}
