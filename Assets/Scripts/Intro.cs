@@ -11,16 +11,27 @@ public class Intro : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		GetComponent<RawImage> ().texture = movie as MovieTexture;
+        //temporary as I cant import the movie
+        StartCoroutine(LoadMainAfterTime(5));
+
+        GetComponent<RawImage>().texture = movie as MovieTexture;
 		audio = GetComponent<AudioSource> ();
 		audio.clip = movie.audioClip;
 		movie.Play ();
 		audio.Play ();
-	}
+    }
 
 	void Update(){
 		if (!movie.isPlaying) {
 			Application.LoadLevel("MainMenu");
 		}
 	}
+
+    //temporary as I cant import the movie
+    IEnumerator LoadMainAfterTime(int secs)
+    {
+        yield return new WaitForSeconds(secs);
+        Application.LoadLevel("MainMenu");
+        yield break;
+    }
 }

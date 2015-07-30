@@ -17,8 +17,6 @@ TagManager:
   - Heroes
   - HeroesPlatform
   - Ground
-  - Player1
-  - Player2
   - 
   - 
   - 
@@ -44,6 +42,6 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
-  - name: Players
+  - name: Heroes
     uniqueID: 1102016415
     locked: 0

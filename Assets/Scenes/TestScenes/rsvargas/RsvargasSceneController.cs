@@ -19,6 +19,8 @@ public class RsvargasSceneController : MonoBehaviour {
 		bride = GameObject.Find ("TestBride");
 		measurer = GameObject.Find ("JumpMeasurer").GetComponent<JumpMeasurer> ();
 		SetPlayer (controllingGroom);
+
+        Game.Teste();
 	}
 	
 	// Update is called once per frame
@@ -27,7 +29,16 @@ public class RsvargasSceneController : MonoBehaviour {
 			controllingGroom = !controllingGroom;
 			SetPlayer (controllingGroom);
 		}
+        else if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            Game.LoadLevel(GameLevel.MainMenu);
+        }
+        else if(Input.GetKeyDown(KeyCode.F2))
+        {
+            ToggleAirControl();
+        }
 	}
+
 
 	void SetPlayer(bool toGroom)
 	{
@@ -47,4 +58,24 @@ public class RsvargasSceneController : MonoBehaviour {
 		measurer.tracker = main.transform;
 
 	}
+
+    void ToggleAirControl()
+    {
+        PlatformerCharacter2D main = GetMain().GetComponent<PlatformerCharacter2D>();
+        main.m_AirControl = !main.m_AirControl; //negate the current value
+
+        PlatformerCharacter2D back = GetMain().GetComponent<PlatformerCharacter2D>();
+        back.m_AirControl = main.m_AirControl; //defines as equals the other
+    }
+
+    private GameObject GetMain()
+    {
+        return controllingGroom ? groom : bride;
+    }
+
+    private GameObject GetBack()
+    {
+        return controllingGroom ? bride: groom;
+    }
+
 }
