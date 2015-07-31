@@ -1,5 +1,21 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &104586
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 466330}
+  - 61: {fileID: 6134288}
+  m_Layer: 8
+  m_Name: BodyCollider
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &127062
 GameObject:
   m_ObjectHideFlags: 0
@@ -9,7 +25,6 @@ GameObject:
   m_Component:
   - 4: {fileID: 453238}
   - 50: {fileID: 5091290}
-  - 61: {fileID: 6162754}
   - 114: {fileID: 11472990}
   - 114: {fileID: 11476276}
   m_Layer: 8
@@ -52,6 +67,34 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &165916
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 422442}
+  - 61: {fileID: 6127904}
+  m_Layer: 8
+  m_Name: HeadColider
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &422442
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 165916}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 453238}
+  m_RootOrder: 1
 --- !u!4 &438748
 Transform:
   m_ObjectHideFlags: 1
@@ -63,7 +106,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 453238}
-  m_RootOrder: 1
+  m_RootOrder: 3
 --- !u!4 &453238
 Transform:
   m_ObjectHideFlags: 1
@@ -75,9 +118,23 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 482656}
+  - {fileID: 422442}
+  - {fileID: 466330}
   - {fileID: 438748}
   m_Father: {fileID: 0}
   m_RootOrder: 0
+--- !u!4 &466330
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 104586}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 453238}
+  m_RootOrder: 2
 --- !u!4 &482656
 Transform:
   m_ObjectHideFlags: 1
@@ -106,6 +163,32 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!61 &6127904
+BoxCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 165916}
+  m_Enabled: 1
+  m_Material: {fileID: 6200000, guid: 825096138afbdb94c91ef8421519409a, type: 2}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_Offset: {x: 0, y: 1.25}
+  serializedVersion: 2
+  m_Size: {x: .5, y: .5}
+--- !u!61 &6134288
+BoxCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 104586}
+  m_Enabled: 1
+  m_Material: {fileID: 6200000, guid: 825096138afbdb94c91ef8421519409a, type: 2}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_Offset: {x: 0, y: .5}
+  serializedVersion: 2
+  m_Size: {x: .5, y: 1}
 --- !u!61 &6159608
 BoxCollider2D:
   m_ObjectHideFlags: 1
@@ -116,22 +199,9 @@ BoxCollider2D:
   m_Material: {fileID: 6200000, guid: 825096138afbdb94c91ef8421519409a, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 1
-  m_Offset: {x: 0, y: 1}
+  m_Offset: {x: 0, y: 1.25}
   serializedVersion: 2
-  m_Size: {x: .5, y: 1}
---- !u!61 &6162754
-BoxCollider2D:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 127062}
-  m_Enabled: 1
-  m_Material: {fileID: 6200000, guid: 825096138afbdb94c91ef8421519409a, type: 2}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_Offset: {x: 0, y: .75}
-  serializedVersion: 2
-  m_Size: {x: .5, y: 1.5}
+  m_Size: {x: .5, y: .5}
 --- !u!114 &11472990
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -148,7 +218,12 @@ MonoBehaviour:
   JumpHeight: 2
   whatIsGround:
     serializedVersion: 2
-    m_Bits: 4294967039
+    m_Bits: 4294965503
+  heroPlatformMask:
+    serializedVersion: 2
+    m_Bits: 512
+  headCollider: {fileID: 6127904}
+  heroPlatform: {fileID: 6159608}
 --- !u!114 &11476276
 MonoBehaviour:
   m_ObjectHideFlags: 1
