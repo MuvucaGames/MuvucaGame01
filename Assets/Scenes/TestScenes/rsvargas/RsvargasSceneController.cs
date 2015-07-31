@@ -19,8 +19,6 @@ public class RsvargasSceneController : MonoBehaviour {
 		bride = GameObject.Find ("TestBride");
 		measurer = GameObject.Find ("JumpMeasurer").GetComponent<JumpMeasurer> ();
 		SetPlayer (controllingGroom);
-
-        Game.Teste();
 	}
 	
 	// Update is called once per frame

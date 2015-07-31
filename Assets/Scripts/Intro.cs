@@ -21,7 +21,7 @@ public class Intro : MonoBehaviour {
 
 	void Update(){
 		if (!movie.isPlaying) {
-			Application.LoadLevel("MainMenu");
+			Game.LoadLevel(GameLevel.MainMenu);
 		}
 	}
 }

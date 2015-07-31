@@ -9,7 +9,7 @@ namespace UnityStandardAssets._2D
         {
             if (other.tag == "Player")
             {
-                Application.LoadLevel(Application.loadedLevelName);
+                Game.ReloadLevel();
             }
         }
     }
