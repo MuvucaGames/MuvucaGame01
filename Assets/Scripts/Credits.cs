@@ -29,7 +29,7 @@ public class Credits : MonoBehaviour {
 
 	void FixedUpdate () {
 		if (listTransform.position.y > textHeight + screenHeight)
-			Application.LoadLevel ("MainMenu");
+            Game.LoadLevel(GameLevel.MainMenu);
 
 		listTransform.position += new Vector3 (0, rollSpeed);
 		creditsTransform.position += new Vector3 (0, rollSpeed);
