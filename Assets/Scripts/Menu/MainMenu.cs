@@ -19,27 +19,27 @@ public class MainMenu : MonoBehaviour {
 	}
 
 	public void NewGameButton(){
-		Application.LoadLevel("SelectSlot");
+        Game.LoadLevel(GameLevel.SelectSlot);
 		Debug.Log("New Game");
 	}
 
 	public void LoadGameButton(){
-		Application.LoadLevel("SelectSlot");
-		Debug.Log("Load Game");
+        Game.LoadLevel(GameLevel.SelectSlot);
+        Debug.Log("Load Game");
 	}
 
 	public void OptionsButton(){
-		Application.LoadLevel("Options");
+        Game.LoadLevel(GameLevel.Options);
 		Debug.Log("Options");
 	}
 
 	public void CreditsButton(){
 		Debug.Log("Credits");
-		Application.LoadLevel("Credits");
+        Game.LoadLevel(GameLevel.Credits);
 	}
 
 	public void ExitGameButton(){
 		Debug.Log("Exit Game");
-		Application.Quit ();
+        Game.Quit();
 	}
 }

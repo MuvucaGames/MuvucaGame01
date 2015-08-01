@@ -33,7 +33,7 @@ public class Intro : MonoBehaviour {
 			//Application.LoadLevel("MainMenu");
 			StartCoroutine (ShowText());
 			if (Input.GetButtonDown ("Submit")) {
-				Application.LoadLevel ("MainMenu");
+                Game.LoadLevel(GameLevel.MainMenu);
 			}
 		}
 	}
