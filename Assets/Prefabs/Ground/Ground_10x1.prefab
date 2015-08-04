@@ -10,7 +10,7 @@ GameObject:
   - 4: {fileID: 464484}
   - 50: {fileID: 5006062}
   - 61: {fileID: 6161584}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Ground_10x1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -27,7 +27,7 @@ GameObject:
   - 4: {fileID: 413048}
   - 33: {fileID: 3300032}
   - 23: {fileID: 2339666}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Quad
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -130,6 +130,10 @@ Prefab:
       propertyPath: m_Material
       value: 
       objectReference: {fileID: 6200000, guid: 0e3a971f3e402504393555f60ad6cb3a, type: 2}
+    - target: {fileID: 0}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 174222}
