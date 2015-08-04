@@ -7,7 +7,6 @@ public class HeroControl : MonoBehaviour {
 
 	private bool m_Jump;
 
-	// Use this for initialization
 	void Awake () {
 		hero = GetComponent<Hero> ();
 	}
@@ -20,7 +19,6 @@ public class HeroControl : MonoBehaviour {
 		}
 	}
 	
-	// Update is called once per frame
 	void FixedUpdate () {
 
 		hero.Move (Input.GetAxis("Horizontal"), Input.GetKey(KeyCode.DownArrow), m_Jump);
