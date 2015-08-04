@@ -28,7 +28,7 @@ GameObject:
   - 114: {fileID: 11472990}
   - 114: {fileID: 11476276}
   m_Layer: 8
-  m_Name: HeroB
+  m_Name: HeroFast
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -277,7 +277,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300016, guid: b9a82a17485af5e488e60dedf7e8cb12, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 45d1d33def9a1cf45817b36e18a3bc69, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
 --- !u!251 &25121564
 PlatformEffector2D:
