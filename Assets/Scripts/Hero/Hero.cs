@@ -9,6 +9,7 @@ public abstract class Hero : MonoBehaviour {
 	[SerializeField] private float JumpHeight = 1f;
 	[SerializeField] private LayerMask whatIsGround;
 	[SerializeField] private LayerMask heroPlatformMask;
+	[SerializeField] private LayerMask mapInteractiveObjectsMask;
 	[SerializeField] private Collider2D headCollider;
 	[SerializeField] private Collider2D heroPlatform;
 
@@ -61,7 +62,7 @@ public abstract class Hero : MonoBehaviour {
 		}
 
 		//JUMP, IF GROUDED OR ON OTHER HERO PLATFORM
-		if(jump && Physics2D.OverlapCircle(transform.position, 0.2f, whatIsGround.value | heroPlatformMask.value)){
+		if(jump && Physics2D.OverlapCircle(transform.position, 0.2f, whatIsGround.value | heroPlatformMask.value | mapInteractiveObjectsMask.value)){
 			//Impulse to Jump that height
 			//more info look at http://hyperphysics.phy-astr.gsu.edu/hbase/impulse.html and reverse http://hyperphysics.phy-astr.gsu.edu/hbase/flobj.html#c2
 			rigidBody2D.AddForce(new Vector2(0f, (float)jumpForce), ForceMode2D.Impulse);
