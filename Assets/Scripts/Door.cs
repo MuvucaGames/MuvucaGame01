@@ -13,11 +13,12 @@ public class Door : MonoBehaviour, IActionableElement {
 	public void Activate()
 	{
 		gameObject.transform.position = openedPosition;
+		gameObject.GetComponent<Rigidbody2D> ().constraints = RigidbodyConstraints2D.FreezeAll;
 	}
 
 	public void Deactivate()
 	{
-		gameObject.transform.position = closedPosition;
+		gameObject.GetComponent<Rigidbody2D> ().constraints = RigidbodyConstraints2D.FreezeRotation | RigidbodyConstraints2D.FreezePositionX;
 	}
 
 }
