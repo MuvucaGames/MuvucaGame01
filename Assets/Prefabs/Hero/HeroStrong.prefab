@@ -247,7 +247,7 @@ MonoBehaviour:
   JumpHeight: 1
   whatIsGround:
     serializedVersion: 2
-    m_Bits: 4294963400
+    m_Bits: 4096
   heroPlatformMask:
     serializedVersion: 2
     m_Bits: 512
@@ -294,7 +294,7 @@ PlatformEffector2D:
     serializedVersion: 2
     m_Bits: 256
   m_UseOneWay: 1
-  m_SurfaceArc: 180
+  m_SurfaceArc: 60
   m_UseSideFriction: 0
   m_UseSideBounce: 0
 --- !u!1001 &100100000
@@ -310,11 +310,15 @@ Prefab:
       objectReference: {fileID: 6200000, guid: 825096138afbdb94c91ef8421519409a, type: 2}
     - target: {fileID: 0}
       propertyPath: whatIsGround.m_Bits
-      value: 4294963400
+      value: 4096
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: mapInteractiveObjectsMask.m_Bits
       value: 1024
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_SurfaceArc
+      value: 60
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
