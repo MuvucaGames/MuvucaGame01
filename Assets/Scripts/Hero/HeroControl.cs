@@ -17,11 +17,15 @@ public class HeroControl : MonoBehaviour {
 			// Read the jump input in Update so button presses aren't missed.
 			m_Jump = Input.GetKeyDown(KeyCode.Space);
 		}
+
+		if (Input.GetKeyDown (KeyCode.Tab))
+			hero.ChangeHero ();
 	}
 	
 	void FixedUpdate () {
 
-		hero.Move (Input.GetAxis("Horizontal"), Input.GetKey(KeyCode.DownArrow), m_Jump);
+		if(hero.IsActive)
+			hero.Move (Input.GetAxis("Horizontal"), Input.GetKey(KeyCode.DownArrow), m_Jump);
 
 		m_Jump = false;
 	}
