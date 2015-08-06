@@ -12,6 +12,7 @@ GameObject:
   - 23: {fileID: 2336074}
   - 61: {fileID: 6150362}
   - 114: {fileID: 11427148}
+  - 50: {fileID: 5029314}
   m_Layer: 0
   m_Name: ActionableDoor
   m_TagString: Untagged
@@ -62,6 +63,22 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 196534}
   m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!50 &5029314
+Rigidbody2D:
+  serializedVersion: 2
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 196534}
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: .0500000007
+  m_GravityScale: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!61 &6150362
 BoxCollider2D:
   m_ObjectHideFlags: 1
