@@ -12,6 +12,7 @@ public abstract class Hero : MonoBehaviour {
 	[SerializeField] private LayerMask mapInteractiveObjectsMask;
 	[SerializeField] private Collider2D headCollider;
 	[SerializeField] private Collider2D heroPlatform;
+	[SerializeField] private Collider2D bodyCollider;
 
 	protected bool m_isActive = false;
 	public bool IsActive{
@@ -57,15 +58,13 @@ public abstract class Hero : MonoBehaviour {
 		animator.SetBool ("walk", Mathf.Abs (horizontalMove) > 0);
 
 		//CROUCH
-		if (crouch && !headCollider.isTrigger) {
-			//Transfor head in trigger
-			headCollider.isTrigger = crouch;
-				heroPlatform.offset = heroPlatform.offset - new Vector2 (0f, headCollider.bounds.extents.y * 2);
+		if (crouch) {
+			//headCollider.isTrigger = crouch;
+			heroPlatform.offset = bodyCollider.offset +  new Vector2(0, bodyCollider.bounds.extents.y - heroPlatform.bounds.extents.y);
 			//Crouch Animation
 			animator.SetBool ("crouch", true);
-		} else if (!crouch && headCollider.isTrigger && !Physics2D.OverlapArea (headCollider.bounds.min, headCollider.bounds.max, whatIsGround.value)) {
-			headCollider.isTrigger = crouch;
-			heroPlatform.offset = headCollider.offset;
+		} else if (!crouch && !Physics2D.OverlapArea (headCollider.bounds.min, headCollider.bounds.max, whatIsGround.value)) {
+			heroPlatform.offset = bodyCollider.offset +  new Vector2(0, bodyCollider.bounds.extents.y + heroPlatform.bounds.extents.y);
 			//Crouch Animatio
 			animator.SetBool ("crouch", false);
 		}

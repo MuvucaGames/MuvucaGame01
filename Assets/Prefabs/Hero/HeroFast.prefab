@@ -172,7 +172,7 @@ BoxCollider2D:
   m_GameObject: {fileID: 165916}
   m_Enabled: 1
   m_Material: {fileID: 6200000, guid: 825096138afbdb94c91ef8421519409a, type: 2}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_Offset: {x: 0, y: 1.25}
   serializedVersion: 2
@@ -245,6 +245,7 @@ MonoBehaviour:
     m_Bits: 5120
   headCollider: {fileID: 6127904}
   heroPlatform: {fileID: 6159608}
+  bodyCollider: {fileID: 6134288}
 --- !u!114 &11476276
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -319,6 +320,18 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: m_SurfaceArc
       value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_IsTrigger
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
