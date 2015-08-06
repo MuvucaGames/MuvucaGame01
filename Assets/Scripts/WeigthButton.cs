@@ -1,24 +1,25 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class WeigthButton : MonoBehaviour {
 	public GameObject actionableObject;
 	public double activationWeight;
 	private double weightAboveMe = 0;
+	private IList<Rigidbody2D> bodyList = new List<Rigidbody2D> ();
 
-	void OnCollisionEnter2D(Collision2D collision)
+	void Update()
 	{
-		if (IsCollisionAboveMe (collision)) 
-		{
-			AddWeightFromCollider(collision.collider);
-		}
+		CheckActivationStatus ();
+		bodyList.Clear ();
+		weightAboveMe = 0;
 	}
 
-	void OnCollisionExit2D(Collision2D collision)
+	void OnCollisionStay2D(Collision2D collision)
 	{
 		if (IsCollisionAboveMe (collision)) 
 		{
-			RemoveWeightFromCollider(collision.collider);
+			AddBodies(collision.collider);
 		}
 	}
 
@@ -34,34 +35,48 @@ public class WeigthButton : MonoBehaviour {
 		return false;
 	}
 
-	private void AddWeightFromCollider(Collider2D collider)
+	private void SumWeightFromBodies()
 	{
-		double colliderMass = collider.transform.parent.GetComponent<Rigidbody2D>().mass;
-		weightAboveMe = weightAboveMe + colliderMass;
-		CheckActivationStatus ();
-	}
-
-	private void RemoveWeightFromCollider(Collider2D collider)
-	{
-		double colliderMass = collider.transform.parent.GetComponent<Rigidbody2D>().mass;
-		weightAboveMe = weightAboveMe - colliderMass;
-		if (weightAboveMe < 0) 
+		foreach (Rigidbody2D rb in bodyList) 
 		{
-			weightAboveMe = 0;
+			weightAboveMe = weightAboveMe + rb.mass;
 		}
-		CheckActivationStatus ();
 	}
 
 	private void CheckActivationStatus()
 	{
-		print (weightAboveMe);
+		SumWeightFromBodies ();
 		IActionableElement actionableElement = actionableObject.GetComponent<IActionableElement> ();
-		if (weightAboveMe >= activationWeight) {
+		if (weightAboveMe >= activationWeight) 
+		{
 			actionableElement.Activate ();
-		} else 
+		} 
+		else 
 		{
 			actionableElement.Deactivate ();
 		}
 	}
 
+	private Rigidbody2D ExtractRigidbody(Collider2D collider)
+	{
+		return collider.GetComponentInParent<Rigidbody2D> ();
+	}
+
+	private void AddBodies(Collider2D collider)
+	{
+		Rigidbody2D rigidbody = ExtractRigidbody (collider);
+		if (rigidbody == null) 
+		{
+			return;
+		}
+
+		if (!bodyList.Contains (rigidbody)) {
+			bodyList.Add (rigidbody);
+			RaycastHit2D[] raycastHits = Physics2D.BoxCastAll (collider.transform.position, new Vector2(1, 0.4f), 0, Vector2.up, 0.4f);
+			foreach (RaycastHit2D hit in raycastHits)
+			{
+				AddBodies(hit.collider);
+			}
+		}
+	}
 }
