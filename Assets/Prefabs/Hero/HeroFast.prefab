@@ -293,7 +293,7 @@ PlatformEffector2D:
   m_UseColliderMask: 1
   m_ColliderMask:
     serializedVersion: 2
-    m_Bits: 256
+    m_Bits: 7424
   m_UseOneWay: 1
   m_SurfaceArc: 20
   m_UseSideFriction: 0
@@ -332,6 +332,10 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: m_IsTrigger
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_ColliderMask.m_Bits
+      value: 7424
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

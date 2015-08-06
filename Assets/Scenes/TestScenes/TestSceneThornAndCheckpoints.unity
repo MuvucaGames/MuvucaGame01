@@ -654,6 +654,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   strongTransform: {fileID: 1106117320}
   fastTransform: {fileID: 1687241512}
+  cameraSpeed: .300000012
 --- !u!1001 &1256145154
 Prefab:
   m_ObjectHideFlags: 0
@@ -692,10 +693,6 @@ Prefab:
     - target: {fileID: 453014, guid: 513460c9793a2244f99b593170803ee6, type: 2}
       propertyPath: m_RootOrder
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 11457944, guid: 513460c9793a2244f99b593170803ee6, type: 2}
-      propertyPath: whatIsGround.m_Bits
-      value: 4294964424
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 513460c9793a2244f99b593170803ee6, type: 2}
