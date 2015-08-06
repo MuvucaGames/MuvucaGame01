@@ -13,7 +13,7 @@ GameObject:
   - 61: {fileID: 6144646}
   - 68: {fileID: 6884452}
   - 68: {fileID: 6896500}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: WeightButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -126,6 +126,10 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: m_LocalPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_Layer
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

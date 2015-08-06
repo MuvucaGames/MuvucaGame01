@@ -38,6 +38,8 @@ public abstract class Hero : MonoBehaviour {
 
 		//Force using Math instead of Mathf, to use double instead of float. (no big result changes)
 		jumpForce = ((double)rigidBody2D.mass) * ((double)Math.Sqrt ((double)(2D * ((double)JumpHeight) * ((double)rigidBody2D.gravityScale) * ((double)Math.Abs (Physics2D.gravity.y)))));
+		//Add a epsilon to componsate for an unknow error
+		jumpForce *= 1.05;
 	}
 
 	void FixedUpdate(){
