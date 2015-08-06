@@ -8,7 +8,7 @@ public class WeigthButton : MonoBehaviour {
 	private double weightAboveMe = 0;
 	private IList<Rigidbody2D> bodyList = new List<Rigidbody2D> ();
 
-	void Update()
+	void FixedUpdate()
 	{
 		CheckActivationStatus ();
 		bodyList.Clear ();
