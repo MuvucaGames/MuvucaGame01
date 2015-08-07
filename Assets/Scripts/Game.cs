@@ -1,6 +1,5 @@
 ﻿using System;
 using UnityEngine;
-using UnityEditor;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -28,7 +27,6 @@ public enum GameLevel
 // 
 // Data in this class is not cleared between level loads.
 
-[InitializeOnLoad]
 public static class Game {
     private static int levelLoadCounter_ = 1;
     private static GameLevel currentLevel_;
@@ -36,7 +34,7 @@ public static class Game {
 
     static Game()
     {
-        string[] names = ReadNames();
+        string[] names = GameLevels.Levels;
         foreach (string n in names)
         {
             Debug.Log("Scene: " + n);
@@ -87,23 +85,4 @@ public static class Game {
         get { return currentLevel_; }
     }
     #endregion
-
-
-    #region private methods
-    private static string[] ReadNames()
-    {
-        List<string> temp = new List<string>();
-        foreach (UnityEditor.EditorBuildSettingsScene S in UnityEditor.EditorBuildSettings.scenes)
-        {
-            if (S.enabled)
-            {
-                string name = S.path.Substring(S.path.LastIndexOf('/') + 1);
-                name = name.Substring(0, name.Length - 6);
-                temp.Add(name);
-            }
-        }
-        return temp.ToArray();
-    }
-    #endregion
-
 }

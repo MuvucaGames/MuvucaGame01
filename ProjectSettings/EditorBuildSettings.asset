@@ -17,3 +17,5 @@ EditorBuildSettings:
     path: Assets/Scenes/Menu/Options.unity
   - enabled: 1
     path: Assets/Scenes/Menu/SelectSlot.unity
+  - enabled: 1
+    path: Assets/Scenes/PrototypeScene.unity
