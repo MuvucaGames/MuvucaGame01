@@ -1,6 +1,5 @@
 ﻿using System;
 using UnityEngine;
-using UnityEditor;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -12,6 +11,7 @@ public enum GameLevel
     Options,
     SelectSlot,
     Credits,
+    PrototypeScene,
     //A0_Level_1,
     //A1_Level_1,
     //A2_Level_1,
@@ -28,15 +28,36 @@ public enum GameLevel
 // 
 // Data in this class is not cleared between level loads.
 
-[InitializeOnLoad]
 public static class Game {
+    private const int SAVED_GAMES_COUNT = 4;
     private static int levelLoadCounter_ = 1;
     private static GameLevel currentLevel_;
     private static Dictionary<GameLevel, int> Levels = new Dictionary<GameLevel, int>();
+    private static GameData[] savedGames_;
+
+    public static GameData[] savedGames
+    {
+        get
+        {
+            if(savedGames_ == null )
+            {
+                //TODO(vargas): carregar os jogos salvos
+                savedGames_ = new GameData[SAVED_GAMES_COUNT];
+                for (int i = 0; i < savedGames_.Length; ++i)
+                {
+                    savedGames_[i] = new GameData();
+                    savedGames_[i].Slot = i + 1;
+                    if (i == 2)//teste!
+                        savedGames_[i].Free = false;
+                }
+            }
+            return savedGames_;
+        }
+    }
 
     static Game()
     {
-        string[] names = ReadNames();
+        string[] names = GameLevels.Levels;
         foreach (string n in names)
         {
             Debug.Log("Scene: " + n);
@@ -52,7 +73,7 @@ public static class Game {
         }
     }
 
-    public static void Start()
+    public static void BootGame()
     {
         //Add code that should prepare the game here!
         LoadLevel(GameLevel.SplashScreen);
@@ -75,6 +96,12 @@ public static class Game {
         Application.Quit();
     }
 
+    public static void LoadSlot(int i)
+    {
+        //TODO
+        LoadLevel(savedGames[i].NextLevel);
+    }
+
 
     #region properties
     public static int levelLoadCount
@@ -87,23 +114,4 @@ public static class Game {
         get { return currentLevel_; }
     }
     #endregion
-
-
-    #region private methods
-    private static string[] ReadNames()
-    {
-        List<string> temp = new List<string>();
-        foreach (UnityEditor.EditorBuildSettingsScene S in UnityEditor.EditorBuildSettings.scenes)
-        {
-            if (S.enabled)
-            {
-                string name = S.path.Substring(S.path.LastIndexOf('/') + 1);
-                name = name.Substring(0, name.Length - 6);
-                temp.Add(name);
-            }
-        }
-        return temp.ToArray();
-    }
-    #endregion
-
 }

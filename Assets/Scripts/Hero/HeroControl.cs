@@ -25,7 +25,7 @@ public class HeroControl : MonoBehaviour {
 	void FixedUpdate () {
 
 		if(hero.IsActive)
-			hero.Move (Input.GetAxis("Horizontal"), Input.GetKey(KeyCode.DownArrow), m_Jump);
+			hero.Move (Input.GetAxis("Horizontal"), Input.GetKey(KeyCode.DownArrow) | Input.GetKey(KeyCode.S), m_Jump);
 
 		m_Jump = false;
 	}
