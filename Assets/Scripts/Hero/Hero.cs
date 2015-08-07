@@ -123,7 +123,14 @@ public abstract class Hero : MonoBehaviour {
 		}
 	}
 
-
+	public float WalkForce {
+		get {
+			return this.walkForce;
+		}
+		set {
+			walkForce = value;
+		}
+	}
 
 
 

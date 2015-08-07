@@ -1,11 +1,18 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class DesignTools : MonoBehaviour {
 
 	public Hero fastHero;
 	public Hero strongHero;
-	public CheckpointManager cm;
+	public CheckpointManager checkpointManager;
+
+	public Text sh_jumpHeight;
+	public Text fh_jumpHeight;
+
+	public Text sh_walkForce;
+	public Text fh_walkForce;
 
 	// Use this for initialization
 	void Start () {
@@ -24,7 +31,28 @@ public class DesignTools : MonoBehaviour {
 
 	public void ResetLevel(){
 		//TODO fix this mess
-		cm.ResetCheckpoins ();
+		checkpointManager.ResetCheckpoins ();
 		Application.LoadLevel(Application.loadedLevel);
 	}
+
+	public void SetFastHeroJumpHeight(float f){
+		fastHero.JumpHeight = f;
+		fh_jumpHeight.text = f.ToString ();
+	}
+
+	public void SetStrongHeroJumpHeight(float f){
+		strongHero.JumpHeight = f;
+		sh_jumpHeight.text = f.ToString ();
+	}
+
+	public void SetFastHeroWalkForce(float f){
+		fastHero.WalkForce = f;
+		fh_walkForce.text = f.ToString ();
+	}
+
+	public void SetStrongHeroWalkForce(float f){
+		strongHero.WalkForce = f;
+		sh_walkForce.text = f.ToString ();
+	}
+
 }
