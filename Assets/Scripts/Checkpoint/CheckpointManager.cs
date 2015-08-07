@@ -39,6 +39,11 @@ public class CheckpointManager : MonoBehaviour {
 		}
 	}
 
+	public void ResetCheckpoins()
+	{
+		lastCheckpoint = 0;
+	}
+
 	private void PlaceHeroes(Checkpoint checkpoint)
 	{
 		heroStrong.transform.position = checkpoint.heroStrongPosition;
