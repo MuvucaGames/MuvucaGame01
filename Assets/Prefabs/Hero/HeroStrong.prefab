@@ -242,9 +242,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 136f294596530fc48b3cd9525ee4ca94, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MaxWalkingSpeed: 5
-  WalkForce: 200
-  JumpHeight: 1
+  maxWalkingSpeed: 5
+  walkForce: 80
+  horizontalFlyingForce: 15
+  jumpHeight: 1
   whatIsGround:
     serializedVersion: 2
     m_Bits: 4096
@@ -340,6 +341,14 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: m_ColliderMask.m_Bits
       value: 7424
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: horizontalFlyingForce
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: walkForce
+      value: 80
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

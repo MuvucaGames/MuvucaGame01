@@ -6,6 +6,7 @@ public abstract class Hero : MonoBehaviour {
 
 	[SerializeField] private float maxWalkingSpeed = 5f;
 	[SerializeField] private float walkForce = 40f;
+	[SerializeField] private float horizontalFlyingForce = 10f;
 	[SerializeField] private float jumpHeight = 1f;
 	[SerializeField] private LayerMask whatIsGround;
 	[SerializeField] private LayerMask heroPlatformMask;
@@ -13,6 +14,7 @@ public abstract class Hero : MonoBehaviour {
 	[SerializeField] private Collider2D headCollider;
 	[SerializeField] private Collider2D heroPlatform;
 	[SerializeField] private Collider2D bodyCollider;
+
 
 	protected bool m_isActive = false;
 	public bool IsActive{
@@ -45,9 +47,15 @@ public abstract class Hero : MonoBehaviour {
 
 	public void Move(float horizontalMove, bool crouch, bool jump){
 
+		//TODO better method to check if grounded
+		bool grounded = Physics2D.OverlapCircle (transform.position, 0.2f, whatIsGround.value | heroPlatformMask.value | mapInteractiveObjectsMask.value);
+
 		//WALK HORIZONTALY
-		rigidBody2D.AddForce (new Vector2 (horizontalMove * walkForce, 0), ForceMode2D.Impulse);
-	
+		if(grounded)
+			rigidBody2D.AddForce (new Vector2 (horizontalMove * walkForce, 0), ForceMode2D.Impulse);
+		else
+			rigidBody2D.AddForce (new Vector2 (horizontalMove * horizontalFlyingForce, 0), ForceMode2D.Impulse);
+
 		//LIMIT WWALKING SPEED
 		if (Mathf.Abs (rigidBody2D.velocity.x) > maxWalkingSpeed) {
 			rigidBody2D.velocity = new Vector2 (Mathf.Sign (rigidBody2D.velocity.x) * maxWalkingSpeed, rigidBody2D.velocity.y);
@@ -69,13 +77,13 @@ public abstract class Hero : MonoBehaviour {
 		}
 
 		//JUMP, IF GROUDED OR ON OTHER HERO PLATFORM
-		if (jump && Physics2D.OverlapCircle (transform.position, 0.2f, whatIsGround.value | heroPlatformMask.value | mapInteractiveObjectsMask.value)) {
+		if (jump && grounded) {
 			//Impulse to Jump that height
 			//more info look at http://hyperphysics.phy-astr.gsu.edu/hbase/impulse.html and reverse http://hyperphysics.phy-astr.gsu.edu/hbase/flobj.html#c2
 			rigidBody2D.AddForce (new Vector2 (0f, (float)jumpForce), ForceMode2D.Impulse);
 		}
 
-		if (Physics2D.OverlapCircle (transform.position, 0.2f, whatIsGround.value | heroPlatformMask.value | mapInteractiveObjectsMask.value))
+		if (grounded)
 			m_onAir = false;
 		else
 			m_onAir = true;
