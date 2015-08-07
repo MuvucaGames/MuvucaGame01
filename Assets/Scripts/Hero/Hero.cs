@@ -4,9 +4,9 @@ using System;
 
 public abstract class Hero : MonoBehaviour {
 
-	[SerializeField] private float MaxWalkingSpeed = 5f;
-	[SerializeField] private float WalkForce = 40f;
-	[SerializeField] private float JumpHeight = 1f;
+	[SerializeField] private float maxWalkingSpeed = 5f;
+	[SerializeField] private float walkForce = 40f;
+	[SerializeField] private float jumpHeight = 1f;
 	[SerializeField] private LayerMask whatIsGround;
 	[SerializeField] private LayerMask heroPlatformMask;
 	[SerializeField] private LayerMask mapInteractiveObjectsMask;
@@ -36,10 +36,7 @@ public abstract class Hero : MonoBehaviour {
 		//get the animator
 		animator = GetComponentInChildren<Animator> ();
 
-		//Force using Math instead of Mathf, to use double instead of float. (no big result changes)
-		jumpForce = ((double)rigidBody2D.mass) * ((double)Math.Sqrt ((double)(2D * ((double)JumpHeight) * ((double)rigidBody2D.gravityScale) * ((double)Math.Abs (Physics2D.gravity.y)))));
-		//Add a epsilon to componsate for an unknow error
-		jumpForce *= 1.05;
+		calculateJumpForce ();
 	}
 
 	void FixedUpdate(){
@@ -49,11 +46,11 @@ public abstract class Hero : MonoBehaviour {
 	public void Move(float horizontalMove, bool crouch, bool jump){
 
 		//WALK HORIZONTALY
-		rigidBody2D.AddForce (new Vector2 (horizontalMove * WalkForce, 0), ForceMode2D.Impulse);
+		rigidBody2D.AddForce (new Vector2 (horizontalMove * walkForce, 0), ForceMode2D.Impulse);
 	
 		//LIMIT WWALKING SPEED
-		if (Mathf.Abs (rigidBody2D.velocity.x) > MaxWalkingSpeed) {
-			rigidBody2D.velocity = new Vector2 (Mathf.Sign (rigidBody2D.velocity.x) * MaxWalkingSpeed, rigidBody2D.velocity.y);
+		if (Mathf.Abs (rigidBody2D.velocity.x) > maxWalkingSpeed) {
+			rigidBody2D.velocity = new Vector2 (Mathf.Sign (rigidBody2D.velocity.x) * maxWalkingSpeed, rigidBody2D.velocity.y);
 		}
 
 		//SET WALKING ANIMATION
@@ -96,7 +93,30 @@ public abstract class Hero : MonoBehaviour {
 
 	}
 
+	private void calculateJumpForce(){
+		//Force using Math instead of Mathf, to use double instead of float. (no big result changes)
+		jumpForce = ((double)rigidBody2D.mass) * ((double)Math.Sqrt ((double)(2D * ((double)jumpHeight) * ((double)rigidBody2D.gravityScale) * ((double)Math.Abs (Physics2D.gravity.y)))));
+		//Add a epsilon to componsate for an unknow error
+		jumpForce *= 1.05;
+	}
+
 	public void ChangeHero(){
 		m_isActive = !m_isActive;
 	}
+
+
+	public float JumpHeight {
+		get {
+			return this.jumpHeight;
+		}
+		set {
+			jumpHeight = value;
+			calculateJumpForce ();
+		}
+	}
+
+
+
+
+
 }
