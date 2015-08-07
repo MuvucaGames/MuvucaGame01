@@ -5,44 +5,55 @@ using System.Collections;
 public class SelectSlot : MonoBehaviour {
 
 	//Placeholder to gameManager
-	bool[] savedGames;
+    public Sprite newFile;
+    public Sprite loadFile;
+
 	bool isNewGame;
 
 	// Use this for initialization
 	void Start () {
 		isNewGame = true;
+        
+        GameData[] used = Game.savedGames;
+		for (int i = 0; i < used.Length; i++) {
+            GameObject slot = GameObject.Find("Slot"+(used[i].Slot));
+            Image img = slot.transform.Find("Image").GetComponent<Image>();
+            //img.color = Color.blue;
+            if (used[i].Free)
+            {
+                img.sprite = newFile;
+            }
+            else
+            {
+                img.sprite = loadFile;
+            }
 
-		savedGames = new bool[4];
-		savedGames [2] = true;
-
-		for (int i = 0; i < savedGames.Length; i++) {
-			if (savedGames[i]){
-				GameObject.Find("Slot"+(i+1)).transform.Find("Image").GetComponent<Image>().color = Color.blue;
-			}
 		}
 	}
 
 	public void SlotButton(Button btn){
 		int id = (int)char.GetNumericValue(btn.name[btn.name.Length-1]);
-		Debug.Log (id);
+		Debug.Log ("Starting slot " + id);
 
-		if (isNewGame) {
-			if (savedGames [id-1]) {
-				Debug.Log("saved");
-				//toDo show overwite popup
-			} else {
-				Debug.Log("new");
-				//Application.LoadLevel ("Test");
-			}
-		} else {
-			if (savedGames [id-1]) {
-				Debug.Log("load");
-				//Application.LoadLevel ("Test");
-			}
-		}
+        Game.LoadSlot(id - 1);
+
+        //if (isNewGame) {
+        //    if (savedGames [id-1]) {
+        //        Debug.Log("saved");
+        //        //toDo show overwite popup
+        //    } else {
+        //        Debug.Log("new");
+        //        //Application.LoadLevel ("Test");
+        //    }
+        //} else {
+        //    if (savedGames [id-1]) {
+        //        Debug.Log("load");
+        //        //Application.LoadLevel ("Test");
+        //    }
+        //}
 	}
 
 	public void BackButton(){
-		Application.LoadLevel ("MainMenu");
+        Game.LoadLevel(GameLevel.MainMenu);
 	}
 }

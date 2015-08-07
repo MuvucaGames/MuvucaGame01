@@ -36,6 +36,6 @@ public class Options : MonoBehaviour {
 	}
 	
 	public void BackButton(){
-		Application.LoadLevel ("MainMenu");
+        Game.LoadLevel(GameLevel.MainMenu);
 	}
 }
