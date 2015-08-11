@@ -112,6 +112,9 @@ public abstract class Hero : MonoBehaviour {
 		m_isActive = !m_isActive;
 	}
 
+	public void StopWalk(){
+		animator.SetBool ("walk", false);
+	}
 
 	public float JumpHeight {
 		get {
