@@ -16,6 +16,7 @@ public class HelperActionableObjects : Editor {
                 string message = String.Format("Yo mama told you to link that door to that button. Never forget again, son", myTarget.name );
                 Debug.LogError(message);
                 Debug.Break();
+                return;
             }
             IActionableElement actionableElement = actionableObject.GetComponent<IActionableElement>();
             if (actionableElement == null)
@@ -23,6 +24,7 @@ public class HelperActionableObjects : Editor {
                 string message = String.Format("Yo mama told you the {0} is a invalid 'door'. Never forget again, son.", actionableObject.name);
                 Debug.LogError(message);
                 Debug.Break();
+                return;
             } 
             Handles.color = Color.green;
             Handles.DrawLine(myTarget.transform.position, actionableObject.transform.position);

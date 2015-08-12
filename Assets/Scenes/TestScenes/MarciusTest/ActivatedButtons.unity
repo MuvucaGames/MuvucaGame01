@@ -237,6 +237,64 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 74ad7e1d15576774e8cdd3754454c534, type: 2}
   m_IsPrefabParent: 0
+--- !u!1001 &257432615
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 300632533}
+    m_Modifications:
+    - target: {fileID: 11486900, guid: 74ad7e1d15576774e8cdd3754454c534, type: 2}
+      propertyPath: actionableObjects.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 410188, guid: 74ad7e1d15576774e8cdd3754454c534, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 410188, guid: 74ad7e1d15576774e8cdd3754454c534, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 410188, guid: 74ad7e1d15576774e8cdd3754454c534, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 410188, guid: 74ad7e1d15576774e8cdd3754454c534, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 410188, guid: 74ad7e1d15576774e8cdd3754454c534, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 410188, guid: 74ad7e1d15576774e8cdd3754454c534, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 410188, guid: 74ad7e1d15576774e8cdd3754454c534, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 410188, guid: 74ad7e1d15576774e8cdd3754454c534, type: 2}
+      propertyPath: m_RootOrder
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 11486900, guid: 74ad7e1d15576774e8cdd3754454c534, type: 2}
+      propertyPath: actionableObjects.Array.data[0]
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 105146, guid: 74ad7e1d15576774e8cdd3754454c534, type: 2}
+      propertyPath: m_Name
+      value: LightWeighttButton (1)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: 74ad7e1d15576774e8cdd3754454c534, type: 2}
+  m_IsPrefabParent: 0
+--- !u!4 &257432616 stripped
+Transform:
+  m_PrefabParentObject: {fileID: 410188, guid: 74ad7e1d15576774e8cdd3754454c534, type: 2}
+  m_PrefabInternal: {fileID: 257432615}
 --- !u!1 &300632532
 GameObject:
   m_ObjectHideFlags: 0
@@ -264,6 +322,7 @@ Transform:
   m_Children:
   - {fileID: 1528399319}
   - {fileID: 422262436}
+  - {fileID: 257432616}
   m_Father: {fileID: 0}
   m_RootOrder: 0
 --- !u!1 &414597127
