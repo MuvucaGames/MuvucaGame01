@@ -11,10 +11,16 @@ public class HelperActionableObjects : Editor {
         WeigthButton myTarget = (WeigthButton)target;
         foreach (GameObject actionableObject in myTarget.actionableObjects)
         {
+            if (actionableObject == null)
+            {
+                string message = String.Format("Yo mama told you to link that door to that button. Never forget again, son", myTarget.name );
+                Debug.LogError(message);
+                Debug.Break();
+            }
             IActionableElement actionableElement = actionableObject.GetComponent<IActionableElement>();
             if (actionableElement == null)
             {
-                string message = String.Format("O objeto {0} não implementa a interface IActionableElement.", actionableObject.name);
+                string message = String.Format("Yo mama told you the {0} is a invalid 'door'. Never forget again, son.", actionableObject.name);
                 Debug.LogError(message);
                 Debug.Break();
             } 

@@ -49,8 +49,9 @@ public class WeigthButton : MonoBehaviour {
 		SumWeightFromBodies ();
         foreach (GameObject actionableObject in actionableObjects)
         {
+            if (actionableObject == null) return;
             IActionableElement actionableElement = actionableObject.GetComponent<IActionableElement>();
-            
+            if (actionableElement == null) return;
             if (weightAboveMe >= activationWeight)
             {
                 actionableElement.Activate();
