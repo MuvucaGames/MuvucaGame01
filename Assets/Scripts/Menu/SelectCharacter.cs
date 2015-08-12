@@ -113,56 +113,40 @@ public class SelectCharacter : MonoBehaviour
         {
             if (mainTypeIsStrong)
             {
-                btnFast.transform.localScale = Vector3.one;
-                btnStrong.transform.localScale = growing ? new Vector3(scaleFactor, scaleFactor, 1.0f) :
-                                                                   Vector3.one;
+                AnimateSelectedButton(btnFast, btnStrong);
             }
             else
             {
-                btnStrong.transform.localScale = Vector3.one;
-                btnFast.transform.localScale = growing ? new Vector3(scaleFactor, scaleFactor, 1.0f) :
-                                                                  Vector3.one;
+                AnimateSelectedButton(btnStrong, btnFast);
             }
 
             if (mainGenderIsMale)
             {
-                btnMainFemaleSign.transform.localScale = Vector3.one;
-                btnMainMaleSign.transform.localScale = growing ? new Vector3(scaleFactor, scaleFactor, 1.0f) :
-                                                                   Vector3.one;
+                AnimateSelectedButton(btnMainFemaleSign, btnMainMaleSign);
             }
             else
             {
-                btnMainMaleSign.transform.localScale = Vector3.one;
-                btnMainFemaleSign.transform.localScale = growing ? new Vector3(scaleFactor, scaleFactor, 1.0f) :
-                                                                   Vector3.one;
+                AnimateSelectedButton(btnMainMaleSign, btnMainFemaleSign);
             }
 
             if (mateGenderIsMale)
             {
-                btnMateFemaleSign.transform.localScale = Vector3.one;
-                btnMateMaleSign.transform.localScale = growing ? new Vector3(scaleFactor, scaleFactor, 1.0f) :
-                                                                   Vector3.one;
+                AnimateSelectedButton(btnMateFemaleSign, btnMateMaleSign);
             }
             else
             {
-                btnMateMaleSign.transform.localScale = Vector3.one;
-                btnMateFemaleSign.transform.localScale = growing ? new Vector3(scaleFactor, scaleFactor, 1.0f) :
-                                                                   Vector3.one;
+                AnimateSelectedButton(btnMateMaleSign, btnMateFemaleSign);
             }
 
-            GetActiveSprites();
+            SetActiveSprites();
 
             switch (mainOptSprite)
             {
                 case 1:
-                    btnMainSprite2.transform.localScale = Vector3.one;
-                    btnMainSprite1.transform.localScale = growing ? new Vector3(scaleFactor, scaleFactor, 1.0f) :
-                                                                   Vector3.one;
+                    AnimateSelectedButton(btnMainSprite2, btnMainSprite1);
                     break;
                 case 2:
-                    btnMainSprite1.transform.localScale = Vector3.one;
-                    btnMainSprite2.transform.localScale = growing ? new Vector3(scaleFactor, scaleFactor, 1.0f) :
-                                                                   Vector3.one;
+                    AnimateSelectedButton(btnMainSprite1, btnMainSprite2);
                     break;
                 default:
                     break;
@@ -171,32 +155,39 @@ public class SelectCharacter : MonoBehaviour
             switch (mateOptSprite)
             {
                 case 1:
-                    btnMateSprite2.transform.localScale = Vector3.one;
-                    btnMateSprite1.transform.localScale = growing ? new Vector3(scaleFactor, scaleFactor, 1.0f) :
-                                                                   Vector3.one;
+                    AnimateSelectedButton(btnMateSprite2, btnMateSprite1);
                     break;
                 case 2:
-                    btnMateSprite1.transform.localScale = Vector3.one;
-                    btnMateSprite2.transform.localScale = growing ? new Vector3(scaleFactor, scaleFactor, 1.0f) :
-                                                                   Vector3.one;
+                    AnimateSelectedButton(btnMateSprite1, btnMateSprite2);
                     break;
                 default:
                     break;
             }
-
 
             growing = !growing;
             timer = delay;
         }
     }
 
-    //Get the active sprite for each button
-    private void GetActiveSprites()
+    private void AnimateSelectedButton(Image btnStatic, Image btnAnimated)
     {
-        btnMainSprite1 = GameObject.Find("MainSprite1").GetComponentInChildren<Image>();
-        btnMainSprite2 = GameObject.Find("MainSprite2").GetComponentInChildren<Image>();
+        btnStatic.transform.localScale = Vector3.one;
+        btnAnimated.transform.localScale = growing ? new Vector3(scaleFactor, scaleFactor, 1.0f) :
+                                                                   Vector3.one;
+    }
 
-        btnMateSprite1 = GameObject.Find("MateSprite1").GetComponentInChildren<Image>();
-        btnMateSprite2 = GameObject.Find("MateSprite2").GetComponentInChildren<Image>();
+    //Get the active sprite for each button
+    private void SetActiveSprites()
+    {
+        btnMainSprite1 = GetActiveImage("MainSprite1");
+        btnMainSprite2 = GetActiveImage("MainSprite2");
+
+        btnMateSprite1 = GetActiveImage("MateSprite1");
+        btnMateSprite2 = GetActiveImage("MateSprite2");
+    }
+
+    private Image GetActiveImage(string name)
+    {
+        return GameObject.Find(name).GetComponentInChildren<Image>();
     }
 }
