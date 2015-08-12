@@ -84,7 +84,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2087794587d35d14aa8bde46f4aebe84, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  actionableObjects: []
+  actionableObjects:
+  - {fileID: 0}
   activationWeight: 100
 --- !u!212 &21268970
 SpriteRenderer:

@@ -50,6 +50,7 @@ public class WeigthButton : MonoBehaviour {
         foreach (GameObject actionableObject in actionableObjects)
         {
             IActionableElement actionableElement = actionableObject.GetComponent<IActionableElement>();
+            
             if (weightAboveMe >= activationWeight)
             {
                 actionableElement.Activate();
