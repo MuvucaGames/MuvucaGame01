@@ -564,18 +564,14 @@ Prefab:
       propertyPath: m_Pivot.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 11405922, guid: 00a8a2fb693b40243bc3f47b8efebba6, type: 2}
-      propertyPath: fastHero
+    - target: {fileID: 11443406, guid: 00a8a2fb693b40243bc3f47b8efebba6, type: 2}
+      propertyPath: hero
       value: 
       objectReference: {fileID: 152537252}
-    - target: {fileID: 11405922, guid: 00a8a2fb693b40243bc3f47b8efebba6, type: 2}
-      propertyPath: strongHero
+    - target: {fileID: 11404822, guid: 00a8a2fb693b40243bc3f47b8efebba6, type: 2}
+      propertyPath: hero
       value: 
       objectReference: {fileID: 702192519}
-    - target: {fileID: 11405922, guid: 00a8a2fb693b40243bc3f47b8efebba6, type: 2}
-      propertyPath: checkpointManager
-      value: 
-      objectReference: {fileID: 577076891}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 00a8a2fb693b40243bc3f47b8efebba6, type: 2}
   m_IsPrefabParent: 0
@@ -807,12 +803,6 @@ GameObject:
 Transform:
   m_PrefabParentObject: {fileID: 453168, guid: 42907d264afdef6489006b1aaf516d23, type: 2}
   m_PrefabInternal: {fileID: 1594370293}
---- !u!114 &577076891 stripped
-MonoBehaviour:
-  m_PrefabParentObject: {fileID: 11450520, guid: 42907d264afdef6489006b1aaf516d23,
-    type: 2}
-  m_PrefabInternal: {fileID: 1594370293}
-  m_Script: {fileID: 11500000, guid: 1debedd110857eb43a602d744f628be9, type: 3}
 --- !u!4 &597524960 stripped
 Transform:
   m_PrefabParentObject: {fileID: 400742, guid: 6b3ca4f91b6edf14492d27a30fd10d97, type: 2}
