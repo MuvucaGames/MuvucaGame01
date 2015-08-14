@@ -296,9 +296,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1ea095a568ef6264a8fece1621c7a2ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  strongTransform: {fileID: 702192517}
-  fastTransform: {fileID: 152537250}
   cameraSpeed: .300000012
+  heroStrong: {fileID: 702192519}
+  heroFast: {fileID: 152537252}
 --- !u!81 &245458092
 AudioListener:
   m_ObjectHideFlags: 0
@@ -1519,10 +1519,6 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 453238, guid: da6c3f2b32057634086650730829966f, type: 2}
       propertyPath: m_RootOrder
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6134288, guid: da6c3f2b32057634086650730829966f, type: 2}
-      propertyPath: m_UsedByEffector
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
