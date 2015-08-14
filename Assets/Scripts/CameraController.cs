@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Camera : MonoBehaviour {
+public class CameraController : MonoBehaviour {
 
 
 	[SerializeField] private float cameraSpeed = 0.3f;
