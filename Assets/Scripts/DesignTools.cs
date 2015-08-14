@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
 
@@ -46,12 +46,12 @@ public class DesignTools : MonoBehaviour {
 	}
 
 	public void SetFastHeroWalkForce(float f){
-		fastHero.WalkForce = f;
+		fastHero.WalkMotorTorque = f;
 		fh_walkForce.text = f.ToString ();
 	}
 
 	public void SetStrongHeroWalkForce(float f){
-		strongHero.WalkForce = f;
+		strongHero.WalkMotorTorque = f;
 		sh_walkForce.text = f.ToString ();
 	}
 
