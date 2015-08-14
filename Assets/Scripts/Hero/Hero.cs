@@ -186,6 +186,20 @@ public abstract class Hero : MonoBehaviour {
 		}
 	}
 
+	public float GravityScale{
+		get {
+			return rigidBody2D.gravityScale;
+		}
+
+		set {
+			foreach (Rigidbody2D rg2d in transform.GetComponentsInChildren<Rigidbody2D>())
+				rg2d.gravityScale = value;
+
+			CalculateJumpForce();
+		}
+
+	}
+
 
 
 
