@@ -1,0 +1,187 @@
+fileFormatVersion: 2
+guid: b29ebbbadccb3de47bb17f4b03b6190d
+timeCreated: 1439583574
+licenseType: Free
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: SpriteSheetAnimacaoCarregarAgachadoPersonagemForte_0
+    21300002: SpriteSheetAnimacaoCarregarAgachadoPersonagemForte_1
+    21300004: SpriteSheetAnimacaoCarregarAgachadoPersonagemForte_2
+    21300006: SpriteSheetAnimacaoCarregarAgachadoPersonagemForte_3
+    21300008: SpriteSheetAnimacaoCarregarAgachadoPersonagemForte_4
+    21300010: SpriteSheetAnimacaoCarregarAgachadoPersonagemForte_5
+    21300012: SpriteSheetAnimacaoCarregarAgachadoPersonagemForte_6
+    21300014: SpriteSheetAnimacaoCarregarAgachadoPersonagemForte_7
+    21300016: SpriteSheetAnimacaoCarregarAgachadoPersonagemForte_8
+    21300018: SpriteSheetAnimacaoCarregarAgachadoPersonagemForte_9
+    21300020: SpriteSheetAnimacaoCarregarAgachadoPersonagemForte_10
+    21300022: SpriteSheetAnimacaoCarregarAgachadoPersonagemForte_11
+  serializedVersion: 2
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 1
+    linearTexture: 0
+    correctGamma: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: .25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 0
+  cubemapConvolution: 0
+  cubemapConvolutionSteps: 8
+  cubemapConvolutionExponent: 1.5
+  seamlessCubemap: 0
+  textureFormat: -1
+  maxTextureSize: 2048
+  textureSettings:
+    filterMode: 0
+    aniso: 16
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  rGBM: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: .5, y: .5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 10
+  alphaIsTransparency: 1
+  textureType: 8
+  buildTargetSettings: []
+  spriteSheet:
+    sprites:
+    - name: SpriteSheetAnimacaoCarregarAgachadoPersonagemForte_0
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 1
+        width: 13
+        height: 18
+      alignment: 7
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: SpriteSheetAnimacaoCarregarAgachadoPersonagemForte_1
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 1
+        width: 13
+        height: 18
+      alignment: 7
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: SpriteSheetAnimacaoCarregarAgachadoPersonagemForte_2
+      rect:
+        serializedVersion: 2
+        x: 31
+        y: 1
+        width: 13
+        height: 18
+      alignment: 7
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: SpriteSheetAnimacaoCarregarAgachadoPersonagemForte_3
+      rect:
+        serializedVersion: 2
+        x: 46
+        y: 1
+        width: 13
+        height: 18
+      alignment: 7
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: SpriteSheetAnimacaoCarregarAgachadoPersonagemForte_4
+      rect:
+        serializedVersion: 2
+        x: 61
+        y: 1
+        width: 13
+        height: 18
+      alignment: 7
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: SpriteSheetAnimacaoCarregarAgachadoPersonagemForte_5
+      rect:
+        serializedVersion: 2
+        x: 76
+        y: 1
+        width: 13
+        height: 18
+      alignment: 7
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: SpriteSheetAnimacaoCarregarAgachadoPersonagemForte_6
+      rect:
+        serializedVersion: 2
+        x: 91
+        y: 1
+        width: 13
+        height: 18
+      alignment: 7
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: SpriteSheetAnimacaoCarregarAgachadoPersonagemForte_7
+      rect:
+        serializedVersion: 2
+        x: 106
+        y: 1
+        width: 13
+        height: 18
+      alignment: 7
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: SpriteSheetAnimacaoCarregarAgachadoPersonagemForte_8
+      rect:
+        serializedVersion: 2
+        x: 121
+        y: 1
+        width: 13
+        height: 18
+      alignment: 7
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: SpriteSheetAnimacaoCarregarAgachadoPersonagemForte_9
+      rect:
+        serializedVersion: 2
+        x: 136
+        y: 1
+        width: 13
+        height: 18
+      alignment: 7
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: SpriteSheetAnimacaoCarregarAgachadoPersonagemForte_10
+      rect:
+        serializedVersion: 2
+        x: 151
+        y: 1
+        width: 13
+        height: 18
+      alignment: 7
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: SpriteSheetAnimacaoCarregarAgachadoPersonagemForte_11
+      rect:
+        serializedVersion: 2
+        x: 166
+        y: 1
+        width: 13
+        height: 18
+      alignment: 7
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+  spritePackingTag: 
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
