@@ -86,7 +86,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   actionableObjects:
   - {fileID: 0}
-  activationWeight: 100
+  activationWeight: 2
 --- !u!212 &21268970
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -134,7 +134,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: activationWeight
-      value: 100
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
