@@ -18,11 +18,12 @@ public class Intro : MonoBehaviour
     {
         GetComponent<RawImage>().texture = movie as MovieTexture;
         m_audio = GetComponent<AudioSource>();
-        m_audio.clip = movie.audioClip;
-        movie.Play();
-        m_audio.Play();
-
-
+        if (movie){
+            m_audio.clip = movie.audioClip;
+            movie.Play();
+            m_audio.Play();
+        }
+        
         m_alphaValue = 0f;
         m_pressStartText = GameObject.Find("PressStart").GetComponent<Text>();
         m_pressStartText.color = new Color(m_pressStartText.color.r, m_pressStartText.color.g,
@@ -32,7 +33,7 @@ public class Intro : MonoBehaviour
 
     void Update()
     {
-        if (!movie.isPlaying)
+        if ((movie && !movie.isPlaying) || !movie)
         {
             StartCoroutine(ShowText());
             if (Input.GetButtonDown("Submit"))

@@ -2,8 +2,9 @@
 using System.Collections;
 using System.Collections.Generic;
 
+
 public class WeigthButton : MonoBehaviour {
-	public GameObject actionableObject;
+    public GameObject[] actionableObjects;
 	public double activationWeight;
 	private double weightAboveMe = 0;
 	private IList<Rigidbody2D> bodyList = new List<Rigidbody2D> ();
@@ -46,15 +47,21 @@ public class WeigthButton : MonoBehaviour {
 	private void CheckActivationStatus()
 	{
 		SumWeightFromBodies ();
-		IActionableElement actionableElement = actionableObject.GetComponent<IActionableElement> ();
-		if (weightAboveMe >= activationWeight) 
-		{
-			actionableElement.Activate ();
-		} 
-		else 
-		{
-			actionableElement.Deactivate ();
-		}
+        foreach (GameObject actionableObject in actionableObjects)
+        {
+            if (actionableObject == null) return;
+            IActionableElement actionableElement = actionableObject.GetComponent<IActionableElement>();
+            if (actionableElement == null) return;
+            if (weightAboveMe >= activationWeight)
+            {
+                actionableElement.Activate();
+            }
+            else
+            {
+                actionableElement.Deactivate();
+            }
+        }
+		
 	}
 
 	private Rigidbody2D ExtractRigidbody(Collider2D collider)
