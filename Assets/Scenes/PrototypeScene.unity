@@ -344,17 +344,15 @@ Prefab:
       propertyPath: m_RootOrder
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 5029314, guid: 942199a46afd821428959c4f49d06292, type: 2}
-      propertyPath: m_Constraints
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 5029314, guid: 942199a46afd821428959c4f49d06292, type: 2}
-      propertyPath: m_Mass
-      value: 100
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 942199a46afd821428959c4f49d06292, type: 2}
   m_IsPrefabParent: 0
+--- !u!114 &219438341 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 11427148, guid: 942199a46afd821428959c4f49d06292,
+    type: 2}
+  m_PrefabInternal: {fileID: 219438340}
+  m_Script: {fileID: 11500000, guid: f9f3efb4053ae0241a02e0e395174350, type: 3}
 --- !u!4 &238213365 stripped
 Transform:
   m_PrefabParentObject: {fileID: 426970, guid: d7055c6ebbf28c74dbcf90aeed6da11f, type: 2}
@@ -1473,6 +1471,10 @@ Prefab:
       propertyPath: actionableObject
       value: 
       objectReference: {fileID: 979836837}
+    - target: {fileID: 11431472, guid: 97cafc7300d6f604f9db8706ad659b46, type: 2}
+      propertyPath: actionableObjects.Array.data[0]
+      value: 
+      objectReference: {fileID: 219438341}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 97cafc7300d6f604f9db8706ad659b46, type: 2}
   m_IsPrefabParent: 0
