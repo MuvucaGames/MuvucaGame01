@@ -20,6 +20,11 @@ public class HeroControl : MonoBehaviour {
 
 		if (Input.GetKeyDown (KeyCode.Tab))
 			hero.ChangeHero ();
+
+        if (Input.GetButtonDown("Action") && hero.IsActive)
+        {
+            hero.SendMessage("DoAction");
+        }
 	}
 	
 	void FixedUpdate () {
