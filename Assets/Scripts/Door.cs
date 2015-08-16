@@ -1,7 +1,7 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
-public class Door : MonoBehaviour, IActionableElement {
+public class Door : ActionableElement {
 	private Vector3 closedPosition;
 	private Vector3 openedPosition;
 	void Awake()
@@ -10,13 +10,13 @@ public class Door : MonoBehaviour, IActionableElement {
 		openedPosition = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y + 4, gameObject.transform.position.z);
 	}
 
-	public void Activate()
+	public override void Activate()
 	{
 		gameObject.transform.position = openedPosition;
 		gameObject.GetComponent<Rigidbody2D> ().constraints = RigidbodyConstraints2D.FreezeAll;
 	}
 
-	public void Deactivate()
+	public override void Deactivate()
 	{
 		gameObject.GetComponent<Rigidbody2D> ().constraints = RigidbodyConstraints2D.FreezeRotation | RigidbodyConstraints2D.FreezePositionX;
 	}

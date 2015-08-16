@@ -84,6 +84,24 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &166344
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 428936}
+  - 50: {fileID: 5094802}
+  - 58: {fileID: 5888030}
+  - 233: {fileID: 23335832}
+  m_Layer: 8
+  m_Name: FootColliderAndMotor
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!4 &422442
 Transform:
   m_ObjectHideFlags: 1
@@ -96,6 +114,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 453238}
   m_RootOrder: 1
+--- !u!4 &428936
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 166344}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 453238}
+  m_RootOrder: 4
 --- !u!4 &438748
 Transform:
   m_ObjectHideFlags: 1
@@ -122,6 +152,7 @@ Transform:
   - {fileID: 422442}
   - {fileID: 466330}
   - {fileID: 438748}
+  - {fileID: 428936}
   m_Father: {fileID: 0}
   m_RootOrder: 0
 --- !u!4 &466330
@@ -155,7 +186,7 @@ Rigidbody2D:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 127062}
-  m_Mass: 50
+  m_Mass: .5
   m_LinearDrag: 0
   m_AngularDrag: .0500000007
   m_GravityScale: 1
@@ -164,6 +195,35 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!50 &5094802
+Rigidbody2D:
+  serializedVersion: 2
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 166344}
+  m_Mass: .5
+  m_LinearDrag: 0
+  m_AngularDrag: .0500000007
+  m_GravityScale: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
+--- !u!58 &5888030
+CircleCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 166344}
+  m_Enabled: 1
+  m_Material: {fileID: 6200000, guid: 825096138afbdb94c91ef8421519409a, type: 2}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_Offset: {x: 0, y: .25}
+  serializedVersion: 2
+  m_Radius: .25
 --- !u!61 &6127904
 BoxCollider2D:
   m_ObjectHideFlags: 1
@@ -187,9 +247,9 @@ BoxCollider2D:
   m_Material: {fileID: 6200000, guid: 825096138afbdb94c91ef8421519409a, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
-  m_Offset: {x: 0, y: .5}
+  m_Offset: {x: 0, y: .625}
   serializedVersion: 2
-  m_Size: {x: .5, y: 1}
+  m_Size: {x: .5, y: .75}
 --- !u!61 &6159608
 BoxCollider2D:
   m_ObjectHideFlags: 1
@@ -232,8 +292,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxWalkingSpeed: 5
-  walkForce: 40
-  horizontalFlyingForce: 15
+  walkMotorTorque: 40
+  horizontalFlyingForce: .25
   jumpHeight: 2
   whatIsGround:
     serializedVersion: 2
@@ -247,6 +307,7 @@ MonoBehaviour:
   headCollider: {fileID: 6127904}
   heroPlatform: {fileID: 6159608}
   bodyCollider: {fileID: 6134288}
+  walkMotor: {fileID: 23335832}
 --- !u!114 &11476276
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -284,6 +345,26 @@ SpriteRenderer:
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 45d1d33def9a1cf45817b36e18a3bc69, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
+--- !u!233 &23335832
+HingeJoint2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 166344}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_EnableCollision: 0
+  m_ConnectedRigidBody: {fileID: 5091290}
+  m_Anchor: {x: 0, y: .25}
+  m_ConnectedAnchor: {x: 0, y: .25}
+  m_UseMotor: 1
+  m_Motor:
+    m_MotorSpeed: 0
+    m_MaximumMotorForce: 10000
+  m_UseLimits: 0
+  m_AngleLimits:
+    m_LowerAngle: 0
+    m_UpperAngle: 359
 --- !u!251 &25121564
 PlatformEffector2D:
   m_ObjectHideFlags: 1
@@ -349,6 +430,10 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: jumpHeight
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_Name
+      value: FootColliderAndMotor
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

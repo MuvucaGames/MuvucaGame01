@@ -34,6 +34,24 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &146268
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 416782}
+  - 50: {fileID: 5059988}
+  - 58: {fileID: 5814716}
+  - 233: {fileID: 23342416}
+  m_Layer: 8
+  m_Name: FootColliderAndMotor
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &166710
 GameObject:
   m_ObjectHideFlags: 0
@@ -108,6 +126,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 453014}
   m_RootOrder: 2
+--- !u!4 &416782
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 146268}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: .349999994, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 453014}
+  m_RootOrder: 4
 --- !u!4 &421968
 Transform:
   m_ObjectHideFlags: 1
@@ -146,8 +176,25 @@ Transform:
   - {fileID: 442330}
   - {fileID: 405472}
   - {fileID: 421968}
+  - {fileID: 416782}
   m_Father: {fileID: 0}
   m_RootOrder: 0
+--- !u!50 &5059988
+Rigidbody2D:
+  serializedVersion: 2
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 146268}
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: .0500000007
+  m_GravityScale: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!50 &5066174
 Rigidbody2D:
   serializedVersion: 2
@@ -155,7 +202,7 @@ Rigidbody2D:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 122942}
-  m_Mass: 100
+  m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: .0500000007
   m_GravityScale: 1
@@ -164,6 +211,19 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!58 &5814716
+CircleCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 146268}
+  m_Enabled: 1
+  m_Material: {fileID: 6200000, guid: 825096138afbdb94c91ef8421519409a, type: 2}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: .349999994
 --- !u!61 &6120284
 BoxCollider2D:
   m_ObjectHideFlags: 1
@@ -174,9 +234,9 @@ BoxCollider2D:
   m_Material: {fileID: 6200000, guid: 825096138afbdb94c91ef8421519409a, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
-  m_Offset: {x: 0, y: .75}
+  m_Offset: {x: 0, y: .925000012}
   serializedVersion: 2
-  m_Size: {x: .699999988, y: 1.5}
+  m_Size: {x: .699999988, y: 1.14999998}
 --- !u!61 &6154428
 BoxCollider2D:
   m_ObjectHideFlags: 1
@@ -242,9 +302,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 136f294596530fc48b3cd9525ee4ca94, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxWalkingSpeed: 5
-  walkForce: 80
-  horizontalFlyingForce: 15
+  maxWalkingSpeed: 4
+  walkMotorTorque: 80
+  horizontalFlyingForce: .5
   jumpHeight: 1
   whatIsGround:
     serializedVersion: 2
@@ -258,6 +318,7 @@ MonoBehaviour:
   headCollider: {fileID: 6198980}
   heroPlatform: {fileID: 6154428}
   bodyCollider: {fileID: 6120284}
+  walkMotor: {fileID: 23342416}
 --- !u!212 &21212648
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -284,6 +345,26 @@ SpriteRenderer:
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 4e3f7ffaad4d3c943bd90d61fb6f30ef, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
+--- !u!233 &23342416
+HingeJoint2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 146268}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_EnableCollision: 0
+  m_ConnectedRigidBody: {fileID: 5066174}
+  m_Anchor: {x: 0, y: 0}
+  m_ConnectedAnchor: {x: 0, y: .349999994}
+  m_UseMotor: 1
+  m_Motor:
+    m_MotorSpeed: 0
+    m_MaximumMotorForce: 10000
+  m_UseLimits: 0
+  m_AngleLimits:
+    m_LowerAngle: 0
+    m_UpperAngle: 359
 --- !u!251 &25108664
 PlatformEffector2D:
   m_ObjectHideFlags: 1
@@ -349,6 +430,10 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: walkForce
       value: 80
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: maxWalkingSpeed
+      value: 4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

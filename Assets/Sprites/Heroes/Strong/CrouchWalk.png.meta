@@ -1,0 +1,187 @@
+fileFormatVersion: 2
+guid: eff590a43b1047d4c89e6fbf74d2913c
+timeCreated: 1439582807
+licenseType: Free
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: CrouchWalk_0
+    21300002: CrouchWalk_1
+    21300004: CrouchWalk_2
+    21300006: CrouchWalk_3
+    21300008: CrouchWalk_4
+    21300010: CrouchWalk_5
+    21300012: CrouchWalk_6
+    21300014: CrouchWalk_7
+    21300016: CrouchWalk_8
+    21300018: CrouchWalk_9
+    21300020: CrouchWalk_10
+    21300022: CrouchWalk_11
+  serializedVersion: 2
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 1
+    linearTexture: 0
+    correctGamma: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: .25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 0
+  cubemapConvolution: 0
+  cubemapConvolutionSteps: 8
+  cubemapConvolutionExponent: 1.5
+  seamlessCubemap: 0
+  textureFormat: -1
+  maxTextureSize: 2048
+  textureSettings:
+    filterMode: 0
+    aniso: 16
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  rGBM: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: .5, y: .5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 10
+  alphaIsTransparency: 1
+  textureType: 8
+  buildTargetSettings: []
+  spriteSheet:
+    sprites:
+    - name: CrouchWalk_0
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 1
+        width: 11
+        height: 18
+      alignment: 7
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: CrouchWalk_1
+      rect:
+        serializedVersion: 2
+        x: 14
+        y: 1
+        width: 11
+        height: 18
+      alignment: 7
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: CrouchWalk_2
+      rect:
+        serializedVersion: 2
+        x: 27
+        y: 1
+        width: 11
+        height: 18
+      alignment: 7
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: CrouchWalk_3
+      rect:
+        serializedVersion: 2
+        x: 40
+        y: 1
+        width: 11
+        height: 18
+      alignment: 7
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: CrouchWalk_4
+      rect:
+        serializedVersion: 2
+        x: 53
+        y: 1
+        width: 11
+        height: 18
+      alignment: 7
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: CrouchWalk_5
+      rect:
+        serializedVersion: 2
+        x: 66
+        y: 1
+        width: 11
+        height: 18
+      alignment: 7
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: CrouchWalk_6
+      rect:
+        serializedVersion: 2
+        x: 79
+        y: 1
+        width: 11
+        height: 18
+      alignment: 7
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: CrouchWalk_7
+      rect:
+        serializedVersion: 2
+        x: 92
+        y: 1
+        width: 11
+        height: 18
+      alignment: 7
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: CrouchWalk_8
+      rect:
+        serializedVersion: 2
+        x: 105
+        y: 1
+        width: 11
+        height: 18
+      alignment: 7
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: CrouchWalk_9
+      rect:
+        serializedVersion: 2
+        x: 118
+        y: 1
+        width: 11
+        height: 18
+      alignment: 7
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: CrouchWalk_10
+      rect:
+        serializedVersion: 2
+        x: 131
+        y: 1
+        width: 11
+        height: 18
+      alignment: 7
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: CrouchWalk_11
+      rect:
+        serializedVersion: 2
+        x: 144
+        y: 1
+        width: 11
+        height: 18
+      alignment: 7
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+  spritePackingTag: 
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

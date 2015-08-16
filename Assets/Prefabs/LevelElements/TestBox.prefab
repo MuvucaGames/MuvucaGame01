@@ -27,6 +27,11 @@ GameObject:
   - 4: {fileID: 406866}
   - 50: {fileID: 5023602}
   - 61: {fileID: 6157224}
+  - 61: {fileID: 6174248}
+  - 58: {fileID: 5896064}
+  - 58: {fileID: 5817422}
+  - 58: {fileID: 5835780}
+  - 58: {fileID: 5893104}
   m_Layer: 10
   m_Name: TestBox
   m_TagString: Untagged
@@ -97,7 +102,7 @@ Rigidbody2D:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 165900}
-  m_Mass: 50
+  m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: .0500000007
   m_GravityScale: 1
@@ -106,6 +111,58 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!58 &5817422
+CircleCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 165900}
+  m_Enabled: 1
+  m_Material: {fileID: 6200000, guid: e2af347c8a4f3a048b7c411822f124e7, type: 2}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_Offset: {x: -.400000006, y: .400000006}
+  serializedVersion: 2
+  m_Radius: .100000001
+--- !u!58 &5835780
+CircleCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 165900}
+  m_Enabled: 1
+  m_Material: {fileID: 6200000, guid: e2af347c8a4f3a048b7c411822f124e7, type: 2}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_Offset: {x: .400000006, y: -.400000006}
+  serializedVersion: 2
+  m_Radius: .100000001
+--- !u!58 &5893104
+CircleCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 165900}
+  m_Enabled: 1
+  m_Material: {fileID: 6200000, guid: e2af347c8a4f3a048b7c411822f124e7, type: 2}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_Offset: {x: .400000006, y: .400000006}
+  serializedVersion: 2
+  m_Radius: .100000001
+--- !u!58 &5896064
+CircleCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 165900}
+  m_Enabled: 1
+  m_Material: {fileID: 6200000, guid: e2af347c8a4f3a048b7c411822f124e7, type: 2}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_Offset: {x: -.400000006, y: -.400000006}
+  serializedVersion: 2
+  m_Radius: .100000001
 --- !u!61 &6157224
 BoxCollider2D:
   m_ObjectHideFlags: 1
@@ -113,12 +170,25 @@ BoxCollider2D:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 165900}
   m_Enabled: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: e2af347c8a4f3a048b7c411822f124e7, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 1, y: .800000012}
+--- !u!61 &6174248
+BoxCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 165900}
+  m_Enabled: 1
+  m_Material: {fileID: 6200000, guid: e2af347c8a4f3a048b7c411822f124e7, type: 2}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Size: {x: .800000012, y: 1}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
@@ -128,7 +198,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 0}
       propertyPath: m_Mass
-      value: 50
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

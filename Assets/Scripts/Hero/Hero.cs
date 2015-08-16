@@ -5,15 +5,23 @@ using System;
 public abstract class Hero : MonoBehaviour {
 
 	[SerializeField] private float maxWalkingSpeed = 5f;
-	[SerializeField] private float walkForce = 40f;
-	[SerializeField] private float horizontalFlyingForce = 10f;
+	[SerializeField] private float walkMotorTorque = 40f;
+	[SerializeField] private float horizontalFlyingForce = 0.5f;
 	[SerializeField] private float jumpHeight = 1f;
 	[SerializeField] private LayerMask whatIsGround;
 	[SerializeField] private LayerMask heroPlatformMask;
 	[SerializeField] private LayerMask mapInteractiveObjectsMask;
-	[SerializeField] private Collider2D headCollider;
-	[SerializeField] private Collider2D heroPlatform;
-	[SerializeField] private Collider2D bodyCollider;
+	[SerializeField] private Collider2D headCollider = null;
+	[SerializeField] private Collider2D heroPlatform = null;
+	[SerializeField] private Collider2D bodyCollider = null;
+	[SerializeField] private HingeJoint2D walkMotor = null;
+
+
+	private float motorMaxAngularSpeed = 0f;
+	private bool m_FacingRight = true;
+	private Rigidbody2D rigidBody2D;
+	private double jumpForce;
+	private Animator animator;
 
 
 	protected bool m_isActive = false;
@@ -21,16 +29,12 @@ public abstract class Hero : MonoBehaviour {
 		get { return m_isActive; }
 		protected set { m_isActive = value; }
 	}
+
 	private bool m_onAir = false;
 	public bool OnAir{
 		get { return m_onAir; }
 	}
 
-	private bool m_FacingRight = true;
-	private Rigidbody2D rigidBody2D;
-
-	private double jumpForce;
-	private Animator animator;
 
 	protected virtual void Awake(){
 		rigidBody2D = GetComponent<Rigidbody2D> ();
@@ -38,7 +42,8 @@ public abstract class Hero : MonoBehaviour {
 		//get the animator
 		animator = GetComponentInChildren<Animator> ();
 
-		calculateJumpForce ();
+		CalculateJumpForce ();
+		CalculateWalkingMotorAngularSpeed ();
 	}
 
 	void FixedUpdate(){
@@ -51,18 +56,21 @@ public abstract class Hero : MonoBehaviour {
 		bool grounded = Physics2D.OverlapCircle (transform.position, 0.2f, whatIsGround.value | heroPlatformMask.value | mapInteractiveObjectsMask.value);
 
 		//WALK HORIZONTALY
-		if(grounded)
-			rigidBody2D.AddForce (new Vector2 (horizontalMove * walkForce, 0), ForceMode2D.Impulse);
-		else
-			rigidBody2D.AddForce (new Vector2 (horizontalMove * horizontalFlyingForce, 0), ForceMode2D.Impulse);
+		if (grounded) {
+			ChangeMotorSpeed(motorMaxAngularSpeed * horizontalMove);
 
-		//LIMIT WWALKING SPEED
-		if (Mathf.Abs (rigidBody2D.velocity.x) > maxWalkingSpeed) {
-			rigidBody2D.velocity = new Vector2 (Mathf.Sign (rigidBody2D.velocity.x) * maxWalkingSpeed, rigidBody2D.velocity.y);
+		} else {
+			if (rigidBody2D.velocity.x * Mathf.Sign(horizontalMove) < maxWalkingSpeed)
+				rigidBody2D.AddForce (new Vector2 (horizontalMove * horizontalFlyingForce, 0), ForceMode2D.Impulse);
 		}
+
 
 		//SET WALKING ANIMATION
 		animator.SetBool ("walk", Mathf.Abs (horizontalMove) > 0);
+		if (horizontalMove != 0)
+			animator.speed = Mathf.Abs (horizontalMove);
+		else
+			animator.speed = 1;
 
 		//CROUCH
 		if (crouch) {
@@ -78,8 +86,8 @@ public abstract class Hero : MonoBehaviour {
 
 		//JUMP, IF GROUDED OR ON OTHER HERO PLATFORM
 		if (jump && grounded) {
-			//Impulse to Jump that height
-			//more info look at http://hyperphysics.phy-astr.gsu.edu/hbase/impulse.html and reverse http://hyperphysics.phy-astr.gsu.edu/hbase/flobj.html#c2
+			foreach (Rigidbody2D rg2d in transform.GetComponentsInChildren<Rigidbody2D>())
+				rg2d.velocity = new Vector2(rigidBody2D.velocity.x, 0);
 			rigidBody2D.AddForce (new Vector2 (0f, (float)jumpForce), ForceMode2D.Impulse);
 		}
 
@@ -94,24 +102,50 @@ public abstract class Hero : MonoBehaviour {
 			m_FacingRight = !m_FacingRight;
 		
 			// Multiply the player's x local scale by -1.
-			Vector3 theScale = transform.localScale;
+			Transform rendererTransform = GetComponentInChildren<SpriteRenderer>().transform;
+			Vector3 theScale = rendererTransform.localScale;
 			theScale.x *= -1;
-			transform.localScale = theScale;
+			rendererTransform.localScale = theScale;
 		}
 
 	}
 
-	private void calculateJumpForce(){
+	private void CalculateJumpForce(){
+		//Impulse to Jump that height
+		//more info look at http://hyperphysics.phy-astr.gsu.edu/hbase/impulse.html and reverse http://hyperphysics.phy-astr.gsu.edu/hbase/flobj.html#c2
+		double totalMass = 0;
+		//get the total mass from the hero
+		foreach (Rigidbody2D rg2d in transform.GetComponentsInChildren<Rigidbody2D>())
+			totalMass += rg2d.mass;
+
 		//Force using Math instead of Mathf, to use double instead of float. (no big result changes)
-		jumpForce = ((double)rigidBody2D.mass) * ((double)Math.Sqrt ((double)(2D * ((double)jumpHeight) * ((double)rigidBody2D.gravityScale) * ((double)Math.Abs (Physics2D.gravity.y)))));
-		//Add a epsilon to componsate for an unknow error
-		jumpForce *= 1.05;
+		jumpForce = ((double)totalMass) * ((double)Math.Sqrt ((double)(2D * ((double)jumpHeight) * ((double)rigidBody2D.gravityScale) * ((double)Math.Abs (Physics2D.gravity.y)))));
+		//Add a epsilon to compensate for an unknown error
+		jumpForce *= 1.03;
+	}
+
+	private void CalculateWalkingMotorAngularSpeed(){
+		float footRadius = walkMotor.GetComponent<CircleCollider2D>().radius;
+
+		motorMaxAngularSpeed = Mathf.Rad2Deg * maxWalkingSpeed/footRadius;
+
 	}
 
 	public void ChangeHero(){
 		m_isActive = !m_isActive;
 	}
 
+	public void StopWalk(){
+		animator.SetBool ("walk", false);
+		ChangeMotorSpeed (0f);
+	}
+
+	private void ChangeMotorSpeed(float speed){
+		JointMotor2D tMotor = walkMotor.motor; 
+		tMotor.motorSpeed = speed;
+		tMotor.maxMotorTorque = walkMotorTorque;
+		walkMotor.motor = tMotor;
+	}
 
 	public float JumpHeight {
 		get {
@@ -119,18 +153,53 @@ public abstract class Hero : MonoBehaviour {
 		}
 		set {
 			jumpHeight = value;
-			calculateJumpForce ();
+			CalculateJumpForce ();
 		}
 	}
 
-	public float WalkForce {
+	public float WalkMotorTorque {
 		get {
-			return this.walkForce;
+			return this.walkMotorTorque;
 		}
 		set {
-			walkForce = value;
+			walkMotorTorque = value;
+			CalculateWalkingMotorAngularSpeed();
 		}
 	}
+
+	public float MaxWalkingSpeed {
+		get {
+			return this.maxWalkingSpeed;
+		}
+		set {
+			maxWalkingSpeed = value;
+			CalculateWalkingMotorAngularSpeed();
+		}
+	}
+
+	public float HorizontalFlyingForce {
+		get {
+			return this.horizontalFlyingForce;
+		}
+		set {
+			horizontalFlyingForce = value;
+		}
+	}
+
+	public float GravityScale{
+		get {
+			return rigidBody2D.gravityScale;
+		}
+
+		set {
+			foreach (Rigidbody2D rg2d in transform.GetComponentsInChildren<Rigidbody2D>())
+				rg2d.gravityScale = value;
+
+			CalculateJumpForce();
+		}
+
+	}
+
 
 
 
