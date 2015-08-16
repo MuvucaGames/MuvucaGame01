@@ -1004,7 +1004,7 @@ Prefab:
     - target: {fileID: 11481576, guid: a4f7644ebad17174699f5597f7bf8471, type: 2}
       propertyPath: actionableObject
       value: 
-      objectReference: {fileID: 2124009009}
+      objectReference: {fileID: 1826072882}
     - target: {fileID: 155786, guid: a4f7644ebad17174699f5597f7bf8471, type: 2}
       propertyPath: m_Name
       value: LeverTimer
@@ -1017,6 +1017,14 @@ Prefab:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: a9d176fceea79e3429fa3d34b42bccca, type: 2}
+    - target: {fileID: 11481576, guid: a4f7644ebad17174699f5597f7bf8471, type: 2}
+      propertyPath: isTimeBased
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11481576, guid: a4f7644ebad17174699f5597f7bf8471, type: 2}
+      propertyPath: leverDelay
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: a4f7644ebad17174699f5597f7bf8471, type: 2}
   m_IsPrefabParent: 0
@@ -1308,7 +1316,7 @@ Prefab:
     - target: {fileID: 11481576, guid: a4f7644ebad17174699f5597f7bf8471, type: 2}
       propertyPath: actionableObject
       value: 
-      objectReference: {fileID: 2124009009}
+      objectReference: {fileID: 1826072882}
     - target: {fileID: 155786, guid: a4f7644ebad17174699f5597f7bf8471, type: 2}
       propertyPath: m_Name
       value: LeverTimer
@@ -1321,6 +1329,14 @@ Prefab:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: a9d176fceea79e3429fa3d34b42bccca, type: 2}
+    - target: {fileID: 11481576, guid: a4f7644ebad17174699f5597f7bf8471, type: 2}
+      propertyPath: isTimeBased
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11481576, guid: a4f7644ebad17174699f5597f7bf8471, type: 2}
+      propertyPath: leverDelay
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: a4f7644ebad17174699f5597f7bf8471, type: 2}
   m_IsPrefabParent: 0
@@ -2202,8 +2218,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 633559040}
-  - {fileID: 2040673052}
   - {fileID: 1811154372}
+  - {fileID: 2040673052}
   - {fileID: 1153359470}
   - {fileID: 1178725664}
   m_Father: {fileID: 0}
@@ -2454,7 +2470,7 @@ Transform:
   - {fileID: 1708767814}
   - {fileID: 320971079}
   m_Father: {fileID: 1688319547}
-  m_RootOrder: 2
+  m_RootOrder: 1
 --- !u!1001 &1826072881
 Prefab:
   m_ObjectHideFlags: 0
@@ -2513,6 +2529,10 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 942199a46afd821428959c4f49d06292, type: 2}
   m_IsPrefabParent: 0
+--- !u!1 &1826072882 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 196534, guid: 942199a46afd821428959c4f49d06292, type: 2}
+  m_PrefabInternal: {fileID: 1826072881}
 --- !u!1001 &1840976195
 Prefab:
   m_ObjectHideFlags: 0
