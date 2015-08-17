@@ -7,8 +7,8 @@ public class PolygonCollider2DEditor : Editor
 	public override void OnInspectorGUI()
 	{
 		base.OnInspectorGUI();
-		var collider = (PolygonCollider2D)target;
-		var points = collider.points;
+		PolygonCollider2D collider = (PolygonCollider2D)target;
+		Vector2[] points = collider.points;
 		for (int i = 0; i < points.Length; i++)
 		{
 			points[i] = EditorGUILayout.Vector2Field(i.ToString(), points[i]);
