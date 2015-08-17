@@ -4,7 +4,7 @@ using System.Collections;
 public class Lever : MonoBehaviour
 {
     [SerializeField]
-    private GameObject actionableObject;
+    private ActionableElement actionableObject;
     [SerializeField]
     private bool isTimeBased;
     [SerializeField]

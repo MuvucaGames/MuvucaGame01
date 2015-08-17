@@ -1693,6 +1693,10 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 1688319547}
     m_Modifications:
+    - target: {fileID: 11431472, guid: 97cafc7300d6f604f9db8706ad659b46, type: 2}
+      propertyPath: actionableObjects.Array.size
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 444548, guid: 97cafc7300d6f604f9db8706ad659b46, type: 2}
       propertyPath: m_LocalPosition.x
       value: 3
