@@ -5,6 +5,6 @@ PhysicsMaterial2D:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: BoxMaterial
-  friction: .100000001
-  bounciness: .300000012
+  m_Name: DoorMaterial
+  friction: .200000003
+  bounciness: .800000012
