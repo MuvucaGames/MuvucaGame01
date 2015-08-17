@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class ForceField : MonoBehaviour, IActionableElement
+public class ForceField : ActionableElement
 {
     void OnCollisionEnter2D(Collision2D coll)
     {
@@ -11,13 +11,13 @@ public class ForceField : MonoBehaviour, IActionableElement
         }
     }
 
-    public void Activate()
+    public override void Activate()
     {
         GetComponent<Renderer>().enabled = false;
         GetComponent<BoxCollider2D>().enabled = false;
     }
 
-    public void Deactivate()
+    public override void Deactivate()
     {
         GetComponent<Renderer>().enabled = true;
         GetComponent<BoxCollider2D>().enabled = true;
