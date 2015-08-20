@@ -9,6 +9,8 @@ public class WeigthButton : MonoBehaviour {
 	private double weightAboveMe = 0;
 	private IList<Rigidbody2D> bodyList = new List<Rigidbody2D> ();
 
+    private bool activated;
+
 	void FixedUpdate()
 	{
 		CheckActivationStatus ();
@@ -50,13 +52,15 @@ public class WeigthButton : MonoBehaviour {
         foreach (ActionableElement actionableElement in actionableObjects)
         {
             if (actionableElement == null) return;
-            if (weightAboveMe >= activationWeight)
+            if (weightAboveMe >= activationWeight && !activated)
             {
                 actionableElement.Activate();
+                activated = true;
             }
-            else
+            else if (weightAboveMe < activationWeight && activated)
             {
                 actionableElement.Deactivate();
+                activated = false;
             }
         }
 		
