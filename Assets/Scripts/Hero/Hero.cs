@@ -89,6 +89,7 @@ public abstract class Hero : MonoBehaviour {
 			foreach (Rigidbody2D rg2d in transform.GetComponentsInChildren<Rigidbody2D>())
 				rg2d.velocity = new Vector2(rigidBody2D.velocity.x, 0);
 			rigidBody2D.AddForce (new Vector2 (0f, (float)jumpForce), ForceMode2D.Impulse);
+            SoundManager.Instance.SendMessage("PlaySFXJump");
 		}
 
 		if (grounded)

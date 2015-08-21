@@ -14,11 +14,13 @@ public class Door : ActionableElement {
 	{
 		gameObject.transform.position = openedPosition;
 		gameObject.GetComponent<Rigidbody2D> ().constraints = RigidbodyConstraints2D.FreezeAll;
+        SoundManager.Instance.SendMessage("PlaySFXOpenGate");
 	}
 
 	public override void Deactivate()
 	{
 		gameObject.GetComponent<Rigidbody2D> ().constraints = RigidbodyConstraints2D.FreezeRotation | RigidbodyConstraints2D.FreezePositionX;
+        SoundManager.Instance.SendMessage("PlaySFXCloseGate");
 	}
 
 }
