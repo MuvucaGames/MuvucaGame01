@@ -15,7 +15,7 @@ public abstract class Hero : MonoBehaviour {
 	[SerializeField] private Collider2D heroPlatform = null;
 	[SerializeField] private Collider2D bodyCollider = null;
 	[SerializeField] private HingeJoint2D walkMotor = null;
-
+	[SerializeField] private Collider2D footCollider = null;
 
 	private float motorMaxAngularSpeed = 0f;
 	private bool m_FacingRight = true;
@@ -53,7 +53,10 @@ public abstract class Hero : MonoBehaviour {
 	public void Move(float horizontalMove, bool crouch, bool jump){
 
 		//TODO better method to check if grounded
-		bool grounded = Physics2D.OverlapCircle (transform.position, 0.2f, whatIsGround.value | heroPlatformMask.value | mapInteractiveObjectsMask.value);
+		//old way:
+		//bool grounded = Physics2D.OverlapCircle (transform.position, 0.2f, whatIsGround.value | heroPlatformMask.value | mapInteractiveObjectsMask.value);
+		//new way:
+		bool grounded = footCollider.IsTouchingLayers (whatIsGround.value | heroPlatformMask.value | mapInteractiveObjectsMask.value);
 
 		//WALK HORIZONTALY
 		if (grounded) {
@@ -74,12 +77,11 @@ public abstract class Hero : MonoBehaviour {
 
 		//CROUCH
 		if (crouch) {
-			//headCollider.isTrigger = crouch;
-			heroPlatform.offset = bodyCollider.offset +  new Vector2(0, bodyCollider.bounds.extents.y - heroPlatform.bounds.extents.y);
+			heroPlatform.offset = headCollider.offset -  new Vector2(0, heroPlatform.bounds.size.y);
 			//Crouch Animation
 			animator.SetBool ("crouch", true);
 		} else if (!crouch && !Physics2D.OverlapArea (headCollider.bounds.min, headCollider.bounds.max, whatIsGround.value)) {
-			heroPlatform.offset = bodyCollider.offset +  new Vector2(0, bodyCollider.bounds.extents.y + heroPlatform.bounds.extents.y);
+			heroPlatform.offset = headCollider.offset;
 			//Crouch Animatio
 			animator.SetBool ("crouch", false);
 		}
@@ -97,13 +99,14 @@ public abstract class Hero : MonoBehaviour {
 		else
 			m_onAir = true;
 
+		//Flip the animation
 		if ((horizontalMove > 0 && !m_FacingRight) || (horizontalMove < 0 && m_FacingRight)) {
-			//Flip the animation
+
 			// Switch the way the player is labelled as facing.
 			m_FacingRight = !m_FacingRight;
 		
 			// Multiply the player's x local scale by -1.
-			Transform rendererTransform = GetComponentInChildren<SpriteRenderer>().transform;
+			Transform rendererTransform = transform.Find("Renderer").transform;
 			Vector3 theScale = rendererTransform.localScale;
 			theScale.x *= -1;
 			rendererTransform.localScale = theScale;
