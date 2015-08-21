@@ -89,6 +89,7 @@ public abstract class Hero : MonoBehaviour {
 			foreach (Rigidbody2D rg2d in transform.GetComponentsInChildren<Rigidbody2D>())
 				rg2d.velocity = new Vector2(rigidBody2D.velocity.x, 0);
 			rigidBody2D.AddForce (new Vector2 (0f, (float)jumpForce), ForceMode2D.Impulse);
+            SoundManager.Instance.SendMessage("PlaySFXJump");
 		}
 
 		if (grounded)
@@ -147,6 +148,45 @@ public abstract class Hero : MonoBehaviour {
 		walkMotor.motor = tMotor;
 	}
 
+    private void DoAction()
+    {
+        Renderer r = GetComponentInChildren<Renderer>();
+        Vector2 a = new Vector2(transform.position.x - r.bounds.extents.x, transform.position.y - r.bounds.extents.x);
+        Vector2 b = new Vector2(transform.position.x + r.bounds.extents.x, transform.position.y + r.bounds.extents.x);
+        Collider2D coll = Physics2D.OverlapArea(a, b, 1 << 11);
+
+        if (coll != null)
+        {
+            switch (coll.tag)
+            {
+                case "Lever":
+                    {
+
+                        coll.SendMessage("ChangeState");
+                        break;
+                    }
+                default:
+                    {
+                        break;
+                    }
+            }
+        }
+    }
+
+    private void TouchedForceField()
+    {
+        float speed = 2;
+
+        if (m_FacingRight)
+        {
+            rigidBody2D.AddForce(new Vector2(maxWalkingSpeed * -speed, 0), ForceMode2D.Impulse);
+        }
+        else
+        {
+            rigidBody2D.AddForce(new Vector2(maxWalkingSpeed * speed, 0), ForceMode2D.Impulse);
+        }
+    }
+
 	public float JumpHeight {
 		get {
 			return this.jumpHeight;
@@ -199,8 +239,6 @@ public abstract class Hero : MonoBehaviour {
 		}
 
 	}
-
-
 
 
 }

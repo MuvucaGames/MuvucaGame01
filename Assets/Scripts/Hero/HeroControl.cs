@@ -18,8 +18,16 @@ public class HeroControl : MonoBehaviour {
 			m_Jump = Input.GetKeyDown(KeyCode.Space);
 		}
 
-		if (Input.GetKeyDown (KeyCode.Tab))
-			hero.ChangeHero ();
+        if (Input.GetKeyDown(KeyCode.Tab))
+        {
+            hero.ChangeHero();
+            SoundManager.Instance.SendMessage("PlaySFXSwap");
+        }
+
+        if (Input.GetButtonDown("Action") && hero.IsActive)
+        {
+            hero.SendMessage("DoAction");
+        }
 	}
 	
 	void FixedUpdate () {
