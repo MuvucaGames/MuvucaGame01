@@ -1,12 +1,15 @@
 ﻿using UnityEngine;
 using UnityEditor;
 
-[CustomEditor(typeof(PolygonCollider2D))]
+//To precisly place the edges of the polygon, uncoment the line below. Note that the Defaut Edit Collider button hides for some reason
+//[CustomEditor(typeof(PolygonCollider2D))]
 public class PolygonCollider2DEditor : Editor
 {
+
 	public override void OnInspectorGUI()
 	{
-		base.OnInspectorGUI();
+		//base.OnInspectorGUI();
+		DrawDefaultInspector ();
 		PolygonCollider2D collider = (PolygonCollider2D)target;
 		Vector2[] points = collider.points;
 		for (int i = 0; i < points.Length; i++)
