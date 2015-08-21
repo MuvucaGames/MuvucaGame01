@@ -99,13 +99,14 @@ public abstract class Hero : MonoBehaviour {
 		else
 			m_onAir = true;
 
+		//Flip the animation
 		if ((horizontalMove > 0 && !m_FacingRight) || (horizontalMove < 0 && m_FacingRight)) {
-			//Flip the animation
+
 			// Switch the way the player is labelled as facing.
 			m_FacingRight = !m_FacingRight;
 		
 			// Multiply the player's x local scale by -1.
-			Transform rendererTransform = GetComponentInChildren<SpriteRenderer>().transform;
+			Transform rendererTransform = transform.Find("Renderer").transform;
 			Vector3 theScale = rendererTransform.localScale;
 			theScale.x *= -1;
 			rendererTransform.localScale = theScale;
