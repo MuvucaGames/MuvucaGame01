@@ -8,7 +8,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 466330}
-  - 61: {fileID: 6134288}
+  - 60: {fileID: 6087990}
   m_Layer: 8
   m_Name: BodyCollider
   m_TagString: Untagged
@@ -224,6 +224,26 @@ CircleCollider2D:
   m_Offset: {x: 0, y: .25}
   serializedVersion: 2
   m_Radius: .25
+--- !u!60 &6087990
+PolygonCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 104586}
+  m_Enabled: 1
+  m_Material: {fileID: 6200000, guid: 825096138afbdb94c91ef8421519409a, type: 2}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_Offset: {x: 0, y: 0}
+  m_Points:
+    m_Paths:
+    - - {x: -.150000006, y: .100000001}
+      - {x: -.25, y: .25}
+      - {x: -.25, y: 1}
+      - {x: .25, y: 1}
+      - {x: .25, y: .25}
+      - {x: .150000006, y: .100000001}
+      - {x: 0, y: .0500000007}
 --- !u!61 &6127904
 BoxCollider2D:
   m_ObjectHideFlags: 1
@@ -237,19 +257,6 @@ BoxCollider2D:
   m_Offset: {x: 0, y: 1.25}
   serializedVersion: 2
   m_Size: {x: .5, y: .5}
---- !u!61 &6134288
-BoxCollider2D:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 104586}
-  m_Enabled: 1
-  m_Material: {fileID: 6200000, guid: 825096138afbdb94c91ef8421519409a, type: 2}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_Offset: {x: 0, y: .625}
-  serializedVersion: 2
-  m_Size: {x: .5, y: .75}
 --- !u!61 &6159608
 BoxCollider2D:
   m_ObjectHideFlags: 1
@@ -306,8 +313,9 @@ MonoBehaviour:
     m_Bits: 5120
   headCollider: {fileID: 6127904}
   heroPlatform: {fileID: 6159608}
-  bodyCollider: {fileID: 6134288}
+  bodyCollider: {fileID: 6087990}
   walkMotor: {fileID: 23335832}
+  footCollider: {fileID: 5888030}
 --- !u!114 &11476276
 MonoBehaviour:
   m_ObjectHideFlags: 1

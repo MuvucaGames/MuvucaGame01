@@ -60,7 +60,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 405472}
-  - 61: {fileID: 6120284}
+  - 60: {fileID: 6003864}
   m_Layer: 8
   m_Name: BodyCollider
   m_TagString: Untagged
@@ -224,8 +224,8 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: .349999994
---- !u!61 &6120284
-BoxCollider2D:
+--- !u!60 &6003864
+PolygonCollider2D:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
@@ -234,9 +234,16 @@ BoxCollider2D:
   m_Material: {fileID: 6200000, guid: 825096138afbdb94c91ef8421519409a, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
-  m_Offset: {x: 0, y: .925000012}
-  serializedVersion: 2
-  m_Size: {x: .699999988, y: 1.14999998}
+  m_Offset: {x: 0, y: 0}
+  m_Points:
+    m_Paths:
+    - - {x: -.349999994, y: .349999994}
+      - {x: -.349999994, y: 1.5}
+      - {x: .349999994, y: 1.5}
+      - {x: .349999994, y: .349999994}
+      - {x: .200000003, y: .150000006}
+      - {x: 0, y: .0799999982}
+      - {x: -.200000003, y: .150000006}
 --- !u!61 &6154428
 BoxCollider2D:
   m_ObjectHideFlags: 1
@@ -317,8 +324,9 @@ MonoBehaviour:
     m_Bits: 1024
   headCollider: {fileID: 6198980}
   heroPlatform: {fileID: 6154428}
-  bodyCollider: {fileID: 6120284}
+  bodyCollider: {fileID: 6003864}
   walkMotor: {fileID: 23342416}
+  footCollider: {fileID: 5814716}
 --- !u!212 &21212648
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -414,7 +422,7 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: bodyCollider
       value: 
-      objectReference: {fileID: 6120284}
+      objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: m_IsTrigger
       value: 1
