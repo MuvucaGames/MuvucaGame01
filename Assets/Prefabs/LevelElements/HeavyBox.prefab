@@ -33,7 +33,7 @@ GameObject:
   - 58: {fileID: 5835780}
   - 58: {fileID: 5893104}
   m_Layer: 10
-  m_Name: TestBox
+  m_Name: HeavyBox
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -47,7 +47,7 @@ Transform:
   m_GameObject: {fileID: 140532}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1}
   m_Children: []
   m_Father: {fileID: 406866}
   m_RootOrder: 0
@@ -102,7 +102,7 @@ Rigidbody2D:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 165900}
-  m_Mass: 1
+  m_Mass: 2
   m_LinearDrag: 0
   m_AngularDrag: .0500000007
   m_GravityScale: 1
@@ -121,9 +121,9 @@ CircleCollider2D:
   m_Material: {fileID: 6200000, guid: e2af347c8a4f3a048b7c411822f124e7, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
-  m_Offset: {x: -.400000006, y: .400000006}
+  m_Offset: {x: -.600000024, y: .600000024}
   serializedVersion: 2
-  m_Radius: .100000001
+  m_Radius: .150000006
 --- !u!58 &5835780
 CircleCollider2D:
   m_ObjectHideFlags: 1
@@ -134,9 +134,9 @@ CircleCollider2D:
   m_Material: {fileID: 6200000, guid: e2af347c8a4f3a048b7c411822f124e7, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
-  m_Offset: {x: .400000006, y: -.400000006}
+  m_Offset: {x: .600000024, y: -.600000024}
   serializedVersion: 2
-  m_Radius: .100000001
+  m_Radius: .150000006
 --- !u!58 &5893104
 CircleCollider2D:
   m_ObjectHideFlags: 1
@@ -147,9 +147,9 @@ CircleCollider2D:
   m_Material: {fileID: 6200000, guid: e2af347c8a4f3a048b7c411822f124e7, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
-  m_Offset: {x: .400000006, y: .400000006}
+  m_Offset: {x: .600000024, y: .600000024}
   serializedVersion: 2
-  m_Radius: .100000001
+  m_Radius: .150000006
 --- !u!58 &5896064
 CircleCollider2D:
   m_ObjectHideFlags: 1
@@ -160,9 +160,9 @@ CircleCollider2D:
   m_Material: {fileID: 6200000, guid: e2af347c8a4f3a048b7c411822f124e7, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
-  m_Offset: {x: -.400000006, y: -.400000006}
+  m_Offset: {x: -.600000024, y: -.600000024}
   serializedVersion: 2
-  m_Radius: .100000001
+  m_Radius: .150000006
 --- !u!61 &6157224
 BoxCollider2D:
   m_ObjectHideFlags: 1
@@ -175,7 +175,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Size: {x: 1, y: .800000012}
+  m_Size: {x: 1.5, y: 1.20000005}
 --- !u!61 &6174248
 BoxCollider2D:
   m_ObjectHideFlags: 1
@@ -188,7 +188,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Size: {x: .800000012, y: 1}
+  m_Size: {x: 1.20000005, y: 1.5}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
