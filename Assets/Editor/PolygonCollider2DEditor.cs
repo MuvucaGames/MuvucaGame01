@@ -2,7 +2,7 @@
 using UnityEditor;
 
 //To precisly place the edges of the polygon, uncoment the line below. Note that the Defaut Edit Collider button hides for some reason
-//[CustomEditor(typeof(PolygonCollider2D))]
+[CustomEditor(typeof(PolygonCollider2D))]
 public class PolygonCollider2DEditor : Editor
 {
 

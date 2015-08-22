@@ -6,5 +6,5 @@ PhysicsMaterial2D:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: ButtonMaterial
-  friction: .300000012
-  bounciness: .5
+  friction: .600000024
+  bounciness: 0
