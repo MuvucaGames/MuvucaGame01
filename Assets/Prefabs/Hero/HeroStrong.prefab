@@ -29,7 +29,7 @@ GameObject:
   - 114: {fileID: 11422286}
   m_Layer: 8
   m_Name: HeroStrong
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -470,6 +470,10 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: maxWalkingSpeed
       value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_TagString
+      value: Player
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
