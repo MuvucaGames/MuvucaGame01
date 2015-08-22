@@ -7,4 +7,4 @@ PhysicsMaterial2D:
   m_PrefabInternal: {fileID: 0}
   m_Name: BoxMaterial
   friction: .100000001
-  bounciness: .300000012
+  bounciness: .00999999978
