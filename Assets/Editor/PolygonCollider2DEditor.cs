@@ -8,8 +8,9 @@ public class PolygonCollider2DEditor : Editor
 
 	public override void OnInspectorGUI()
 	{
-		//base.OnInspectorGUI();
-		DrawDefaultInspector ();
+		base.OnInspectorGUI ();
+
+
 		PolygonCollider2D collider = (PolygonCollider2D)target;
 		Vector2[] points = collider.points;
 		for (int i = 0; i < points.Length; i++)
@@ -18,5 +19,7 @@ public class PolygonCollider2DEditor : Editor
 		}
 		collider.points = points;
 		EditorUtility.SetDirty(target);
+
+
 	}
 }
