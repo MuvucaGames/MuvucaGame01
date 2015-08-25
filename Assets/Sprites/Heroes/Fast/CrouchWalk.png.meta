@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: 2229744b482c2e8479a15f12292beb1e
-timeCreated: 1438679554
+guid: 3d5cc0c2c649e2d4b9e7ac6492ea37a2
+timeCreated: 1440380041
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -12,6 +12,9 @@ TextureImporter:
     21300010: CrouchWalk_5
     21300012: CrouchWalk_6
     21300014: CrouchWalk_7
+    21300016: CrouchWalk_8
+    21300018: CrouchWalk_9
+    21300020: CrouchWalk_10
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -48,7 +51,7 @@ TextureImporter:
   spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
-  alignment: 7
+  alignment: 0
   spritePivot: {x: .5, y: .5}
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spritePixelsToUnits: 10
@@ -65,7 +68,7 @@ TextureImporter:
         width: 10
         height: 14
       alignment: 7
-      pivot: {x: 0, y: 0}
+      pivot: {x: .5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: CrouchWalk_1
       rect:
@@ -75,7 +78,7 @@ TextureImporter:
         width: 10
         height: 14
       alignment: 7
-      pivot: {x: 0, y: 0}
+      pivot: {x: .5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: CrouchWalk_2
       rect:
@@ -131,6 +134,36 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 85
+        y: 1
+        width: 10
+        height: 14
+      alignment: 7
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: CrouchWalk_8
+      rect:
+        serializedVersion: 2
+        x: 97
+        y: 1
+        width: 10
+        height: 14
+      alignment: 7
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: CrouchWalk_9
+      rect:
+        serializedVersion: 2
+        x: 109
+        y: 1
+        width: 10
+        height: 14
+      alignment: 7
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: CrouchWalk_10
+      rect:
+        serializedVersion: 2
+        x: 121
         y: 1
         width: 10
         height: 14
