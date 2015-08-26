@@ -30,11 +30,11 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 443458}
-  - 212: {fileID: 21259686}
-  - 60: {fileID: 6032668}
-  - 50: {fileID: 5011182}
-  - 251: {fileID: 25153046}
   - 114: {fileID: 11496618}
+  - 212: {fileID: 21259686}
+  - 50: {fileID: 5011182}
+  - 60: {fileID: 6032668}
+  - 251: {fileID: 25153046}
   m_Layer: 10
   m_Name: WeightButtonOnPhysics
   m_TagString: Untagged
