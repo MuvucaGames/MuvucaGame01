@@ -12,6 +12,10 @@ public class Lever : MonoBehaviour
     private float timer;
     private bool isActive;
 
+	[SerializeField]private SpriteRenderer deactiveRenderer = null;
+	[SerializeField]private SpriteRenderer activeRenderer = null;
+
+
     public bool IsActive
     {
         get
@@ -48,8 +52,8 @@ public class Lever : MonoBehaviour
 
     private void Swap()
     {
-        Vector3 flip = transform.localScale;
-        flip.x *= -1f;
-        transform.localScale = flip;
+		activeRenderer.gameObject.SetActive (isActive);
+		deactiveRenderer.gameObject.SetActive (!isActive);
+
     }
 }

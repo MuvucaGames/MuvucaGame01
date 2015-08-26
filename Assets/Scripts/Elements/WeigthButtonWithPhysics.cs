@@ -16,8 +16,6 @@ public class WeigthButtonWithPhysics : MonoBehaviour {
 	void FixedUpdate(){
 		CalculateMeanWeight ();
 
-		print (meanWeight);
-
 		if (meanWeight >= activationWeight && !wasActivated) {
 			wasActivated = true;
 			foreach (ActionableElement actEle in actionableElements)
@@ -30,7 +28,7 @@ public class WeigthButtonWithPhysics : MonoBehaviour {
 	}
 
 	private void CalculateMeanWeight(){
-		while (lastMeasures.Count>30) {
+		while (lastMeasures.Count>5) {
 			lastMeasures.RemoveAt(0);
 		}
 		float reactionForce = springJoint2D.GetReactionForce (Time.deltaTime).y;
