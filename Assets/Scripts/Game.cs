@@ -12,6 +12,7 @@ public enum GameLevel
     SelectSlot,
     Credits,
     PrototypeScene,
+	PrototypeScenev2
     //A0_Level_1,
     //A1_Level_1,
     //A2_Level_1,
@@ -71,6 +72,8 @@ public static class Game {
                 throw new System.ArgumentException("Invalid scene name in Game Controller: " + l.ToString() );
             Levels.Add(l, idx);
         }
+
+
     }
 
     public static void BootGame()
