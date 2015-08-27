@@ -46,8 +46,8 @@ public class CheckpointManager : MonoBehaviour {
 
 	private void PlaceHeroes(Checkpoint checkpoint)
 	{
-		heroStrong.transform.position = checkpoint.heroStrongPosition;
-		heroFast.transform.position = checkpoint.heroFastPosition;
+		heroStrong.transform.position = checkpoint.HeroStrongTransform.position;
+		heroFast.transform.position = checkpoint.HeroFastTransform.position;
 	}
 
 	private bool PlayerChangedLevel()
