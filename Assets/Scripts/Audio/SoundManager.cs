@@ -52,7 +52,7 @@ public class SoundManager : MonoBehaviour {
         source = GetComponent<AudioSource>();
         
         musicVolume = 0.8f;
-        sfxVolume = 0.9f;
+        sfxVolume = 0.4f;
 
         ChangeMusic();
         if (isMusicEnabled)

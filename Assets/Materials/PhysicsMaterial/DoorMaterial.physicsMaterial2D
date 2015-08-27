@@ -7,4 +7,4 @@ PhysicsMaterial2D:
   m_PrefabInternal: {fileID: 0}
   m_Name: DoorMaterial
   friction: .200000003
-  bounciness: .800000012
+  bounciness: .100000001
