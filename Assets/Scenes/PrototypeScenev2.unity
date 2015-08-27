@@ -2013,11 +2013,11 @@ Prefab:
     m_Modifications:
     - target: {fileID: 476060, guid: 1f6a6b6ab88310e4cb4bd1c99fcb88d7, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 11.5799999
+      value: 21.9200001
       objectReference: {fileID: 0}
     - target: {fileID: 476060, guid: 1f6a6b6ab88310e4cb4bd1c99fcb88d7, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 2.67000008
+      value: 2.75999999
       objectReference: {fileID: 0}
     - target: {fileID: 476060, guid: 1f6a6b6ab88310e4cb4bd1c99fcb88d7, type: 2}
       propertyPath: m_LocalPosition.z
@@ -2057,23 +2057,23 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11489900, guid: 1f6a6b6ab88310e4cb4bd1c99fcb88d7, type: 2}
       propertyPath: heroStrongPosition.x
-      value: 12
+      value: 22
       objectReference: {fileID: 0}
     - target: {fileID: 11489900, guid: 1f6a6b6ab88310e4cb4bd1c99fcb88d7, type: 2}
       propertyPath: heroFastPosition.x
-      value: 13
+      value: 98
       objectReference: {fileID: 0}
     - target: {fileID: 11489900, guid: 1f6a6b6ab88310e4cb4bd1c99fcb88d7, type: 2}
       propertyPath: requiresBothHeroes
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 11489900, guid: 1f6a6b6ab88310e4cb4bd1c99fcb88d7, type: 2}
       propertyPath: heroStrongPosition.y
-      value: 3
+      value: .600000024
       objectReference: {fileID: 0}
     - target: {fileID: 11489900, guid: 1f6a6b6ab88310e4cb4bd1c99fcb88d7, type: 2}
       propertyPath: heroFastPosition.y
-      value: 3
+      value: .600000024
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 1f6a6b6ab88310e4cb4bd1c99fcb88d7, type: 2}
