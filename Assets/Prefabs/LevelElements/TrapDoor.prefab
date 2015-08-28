@@ -94,7 +94,7 @@ BoxCollider2D:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 151968}
   m_Enabled: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 1a385ca217caaab49874ed9ea9ea6c11, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_Offset: {x: 0, y: 0}
@@ -128,7 +128,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16793ee63c1ed124487f7f30e3e7611b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotateAxis: {fileID: 402256}
 --- !u!212 &21269762
 SpriteRenderer:
   m_ObjectHideFlags: 1
