@@ -1,20 +1,26 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class TrapDoor : ActionableElement {
-
-
-	public Transform rotateAxis;
+public class TrapDoor : ActionableElement
+{
 
 	private bool done = false;
+
+	private Animator animator;
+
+	void Awake ()
+	{
+		animator = this.GetComponentInChildren<Animator> ();
+		animator.SetBool ("opened", false);
+	}
 
 	public override void Activate ()
 	{
 		if (!done) {
-			this.transform.RotateAround ( rotateAxis.position, new Vector3(0,0,1), -90);
+			this.GetComponentInChildren<BoxCollider2D> ().enabled = false;
+			animator.SetBool ("opened", true);
 			done = true;
 		}
-
 	}
 
 	public override void Deactivate ()
