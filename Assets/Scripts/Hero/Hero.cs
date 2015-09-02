@@ -88,16 +88,21 @@ public abstract class Hero : MonoBehaviour {
 
 		//JUMP, IF GROUDED OR ON OTHER HERO PLATFORM
 		if (jump && grounded) {
+			animator.SetTrigger("jumpStart");
 			foreach (Rigidbody2D rg2d in transform.GetComponentsInChildren<Rigidbody2D>())
 				rg2d.velocity = new Vector2(rigidBody2D.velocity.x, 0);
 			rigidBody2D.AddForce (new Vector2 (0f, (float)jumpForce), ForceMode2D.Impulse);
-            SoundManager.Instance.SendMessage("PlaySFXJump");
+//            SoundManager.Instance.SendMessage("PlaySFXJump");
 		}
 
-		if (grounded)
+		if (grounded) {
 			m_onAir = false;
-		else
+			animator.SetBool ("jumpOnAir", false);
+		}
+		else {
 			m_onAir = true;
+			animator.SetBool ("jumpOnAir", true);
+		}
 
 		//Flip the animation
 		if ((horizontalMove > 0 && !m_FacingRight) || (horizontalMove < 0 && m_FacingRight)) {
