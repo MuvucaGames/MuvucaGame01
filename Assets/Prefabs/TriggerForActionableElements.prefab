@@ -54,6 +54,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   actionableElement: {fileID: 0}
+  triggerOnlyOnce: 1
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
@@ -76,6 +77,10 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: m_LocalScale.y
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: triggerOnlyOnce
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
