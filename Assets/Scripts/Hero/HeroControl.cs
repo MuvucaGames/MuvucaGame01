@@ -1,12 +1,15 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
 
 public class HeroControl : MonoBehaviour {
+
+	private static float MOVE_THRESHOLD = 0.19f;
 
 	private Hero hero;
 
 	// Input States
-	private float _walkButtonPressed = 0.0f;
+	private float _moveButtonSpeed = 0.0f;
 	private bool _jumpButtonPressed = false;
 	private bool _crouchButtonPressed = false;
 	private bool _pushButtonPressed = false;
@@ -20,8 +23,7 @@ public class HeroControl : MonoBehaviour {
 
 	private void detectButtonStates(){
 		// Walk
-		if (Mathf.Abs(Input.GetAxis("Horizontal")) > 0.0f)
-			_walkButtonPressed = Input.GetAxis("Horizontal");
+		_moveButtonSpeed = Input.GetAxis("Horizontal");
 
 		// Change Hero
 		if (Input.GetButtonDown("ChangeHero"))
@@ -58,43 +60,43 @@ public class HeroControl : MonoBehaviour {
 		detectButtonStates();
 	}
 
-	/*void Update(){
-		if (!m_Jump)
-		{
-			// Read the jump input in Update so button presses aren't missed.
-			m_Jump = Input.GetButtonDown("Jump");
-			Debug.Log("Jump=" + m_Jump);
-		}
-
-        if (Input.GetKeyDown(KeyCode.Tab))
-        {
-            hero.ChangeHero();
-            SoundManager.Instance.SendMessage("PlaySFXSwap");
-        }
-
-        if (Input.GetButtonDown("Action") && hero.IsActive)
-        {
-            hero.SendMessage("DoAction");
-        }
-	}*/
-	
 	void FixedUpdate () {
+
+		if (!hero.IsActive) {
+			hero.StopWalk();
+			return;
+		}
 
 		if (_changeHeroButtonPressed) {
 			hero.ChangeHero();
 			SoundManager.Instance.SendMessage("PlaySFXSwap");
 		}
 
+		if (_jumpButtonPressed) {
+			hero.Jump ();
+		}
+
+		if (_crouchButtonPressed) {
+			hero.Crouch ();
+		} else {
+			hero.StandUp();
+		}
+
+		if (_pushButtonPressed) {
+			hero.Push();
+		}
+
 		if (_actionButtonPressed) {
-			hero.SendMessage("DoAction");
+			hero.Action();
+		}
+
+		Debug.Log ("Move=" + _moveButtonSpeed);
+		if (Mathf.Abs (_moveButtonSpeed) > HeroControl.MOVE_THRESHOLD) {
+			hero.Move (_moveButtonSpeed);
+		} else {
+			hero.Move (0.0f);
 		}
 
 
-		if (hero.IsActive)
-			hero.Move(_walkButtonPressed, _crouchButtonPressed, _jumpButtonPressed);
-		else
-			hero.StopWalk ();
-
-		_jumpButtonPressed = false;
 	}
 }

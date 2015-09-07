@@ -50,73 +50,73 @@ public abstract class Hero : MonoBehaviour {
 
 	}
 
-	public void Move(float horizontalMove, bool crouch, bool jump){
-
+	private bool isGrounded() {
 		//TODO better method to check if grounded
 		//old way:
 		//bool grounded = Physics2D.OverlapCircle (transform.position, 0.2f, whatIsGround.value | heroPlatformMask.value | mapInteractiveObjectsMask.value);
 		//new way:
 		bool grounded = footCollider.IsTouchingLayers (whatIsGround.value | heroPlatformMask.value | mapInteractiveObjectsMask.value);
+		return grounded;
+	}
 
-		//WALK HORIZONTALY
+	public void Move(float speed) {
+		bool grounded = isGrounded ();
 		if (grounded) {
-			ChangeMotorSpeed(motorMaxAngularSpeed * horizontalMove);
-
+			animator.SetBool ("jumpOnAir", false);
+			if (speed == 0.0f) {
+				animator.SetBool ("walk", false);
+				StopWalk ();
+			}
+			else {
+				animator.SetBool ("walk", true);
+				ChangeMotorSpeed (motorMaxAngularSpeed * speed);
+			}
 		} else {
-			if (rigidBody2D.velocity.x * Mathf.Sign(horizontalMove) < maxWalkingSpeed)
-				rigidBody2D.AddForce (new Vector2 (horizontalMove * horizontalFlyingForce, 0), ForceMode2D.Impulse);
+			if (rigidBody2D.velocity.x * Mathf.Sign(speed) < maxWalkingSpeed)
+				rigidBody2D.AddForce (new Vector2 (speed * horizontalFlyingForce, 0), ForceMode2D.Impulse);
+			animator.SetBool ("jumpOnAir", true);
 		}
+		flipAnimation(speed);
+	}
 
-
-		//SET WALKING ANIMATION
-		animator.SetBool ("walk", Mathf.Abs (horizontalMove) > 0);
-		if (horizontalMove != 0)
-			animator.speed = Mathf.Abs (horizontalMove);
-		else
-			animator.speed = 1;
-
-		//CROUCH
-		if (crouch) {
-			heroPlatform.offset = headCollider.offset -  new Vector2(0, heroPlatform.bounds.size.y);
-			//Crouch Animation
-			animator.SetBool ("crouch", true);
-		} else if (!crouch && !Physics2D.OverlapArea (headCollider.bounds.min, headCollider.bounds.max, whatIsGround.value)) {
-			heroPlatform.offset = headCollider.offset;
-			//Crouch Animatio
-			animator.SetBool ("crouch", false);
-		}
-
+	public void Jump() {
 		//JUMP, IF GROUDED OR ON OTHER HERO PLATFORM
-		if (jump && grounded) {
+		bool grounded = isGrounded ();
+		if (grounded) {
 			animator.SetTrigger("jumpStart");
 			foreach (Rigidbody2D rg2d in transform.GetComponentsInChildren<Rigidbody2D>())
 				rg2d.velocity = new Vector2(rigidBody2D.velocity.x, 0);
 			rigidBody2D.AddForce (new Vector2 (0f, (float)jumpForce), ForceMode2D.Impulse);
-            SoundManager.Instance.SendMessage("PlaySFXJump");
+			SoundManager.Instance.SendMessage("PlaySFXJump");
 		}
+	}
 
-		if (grounded) {
-			m_onAir = false;
-			animator.SetBool ("jumpOnAir", false);
-		}
-		else {
-			m_onAir = true;
-			animator.SetBool ("jumpOnAir", true);
-		}
+	public void Crouch() {
+		heroPlatform.offset = headCollider.offset -  new Vector2(0, heroPlatform.bounds.size.y);
+		//Crouch Animation
+		animator.SetBool ("crouch", true);
+	}
 
+	public void StandUp() {
+		heroPlatform.offset = headCollider.offset;
+		//Crouch Animatio
+		animator.SetBool ("crouch", false);
+	}
+
+	public void Push() {
+	}
+
+	private void flipAnimation(float horizontalMove)	{
 		//Flip the animation
 		if ((horizontalMove > 0 && !m_FacingRight) || (horizontalMove < 0 && m_FacingRight)) {
-
 			// Switch the way the player is labelled as facing.
 			m_FacingRight = !m_FacingRight;
-		
 			// Multiply the player's x local scale by -1.
-			Transform rendererTransform = transform.Find("Renderer").transform;
+			Transform rendererTransform = transform.Find ("Renderer").transform;
 			Vector3 theScale = rendererTransform.localScale;
 			theScale.x *= -1;
 			rendererTransform.localScale = theScale;
 		}
-
 	}
 
 	private void CalculateJumpForce(){
@@ -154,6 +154,10 @@ public abstract class Hero : MonoBehaviour {
 		tMotor.motorSpeed = speed;
 		tMotor.maxMotorTorque = walkMotorTorque;
 		walkMotor.motor = tMotor;
+	}
+
+	public void Action() {
+		this.DoAction ();
 	}
 
     private void DoAction()
