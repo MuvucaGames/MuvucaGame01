@@ -98,9 +98,11 @@ public abstract class Hero : MonoBehaviour {
 	}
 
 	public void StandUp() {
-		heroPlatform.offset = headCollider.offset;
-		//Crouch Animatio
-		animator.SetBool ("crouch", false);
+		if (!Physics2D.OverlapArea (headCollider.bounds.min, headCollider.bounds.max, whatIsGround.value)) { // Do not stand up inside a short area
+			heroPlatform.offset = headCollider.offset;
+			//Crouch Animation
+			animator.SetBool ("crouch", false);
+		}
 	}
 
 	public void Push() {
