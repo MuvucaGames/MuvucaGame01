@@ -90,7 +90,6 @@ public class HeroControl : MonoBehaviour {
 			hero.Action();
 		}
 
-		Debug.Log ("Move=" + _moveButtonSpeed);
 		if (Mathf.Abs (_moveButtonSpeed) > HeroControl.MOVE_THRESHOLD) {
 			hero.Move (_moveButtonSpeed);
 		} else {
