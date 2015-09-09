@@ -12,7 +12,7 @@ public class HeroControl : MonoBehaviour {
 	private float _moveButtonSpeed = 0.0f;
 	private bool _jumpButtonPressed = false;
 	private bool _crouchButtonPressed = false;
-	private bool _pushButtonPressed = false;
+	private bool _carryButtonPressed = false;
 	private bool _actionButtonPressed = false;
 	private bool _changeHeroButtonPressed = false;
 
@@ -28,31 +28,31 @@ public class HeroControl : MonoBehaviour {
 		// Change Hero
 		if (Input.GetButtonDown("ChangeHero"))
 			_changeHeroButtonPressed = true;
-		if (Input.GetButtonUp("ChangeHero"))
+		else
 			_changeHeroButtonPressed = false;
 
 		// Jump
 		if (Input.GetButtonDown("Jump"))
 			_jumpButtonPressed= true;
-		if (Input.GetButtonUp("Jump"))
+		else
 			_jumpButtonPressed = false;
 
 		// Crouch
 		if (Input.GetButtonDown("Crouch"))
 			_crouchButtonPressed= true;
-		if (Input.GetButtonUp("Crouch"))
+		else
 			_crouchButtonPressed = false;
 
 		// Push
-		if (Input.GetButtonDown("Push"))
-			_pushButtonPressed= true;
-		if (Input.GetButtonUp("Push"))
-			_pushButtonPressed = false;
+		if (Input.GetButtonDown("Carry"))
+			_carryButtonPressed= true;
+		else
+			_carryButtonPressed = false;
 
 		// Action
 		if (Input.GetButtonDown("Action"))
 			_actionButtonPressed= true;
-		if (Input.GetButtonUp("Action"))
+		else
 			_actionButtonPressed = false;
 	}
 
@@ -82,8 +82,10 @@ public class HeroControl : MonoBehaviour {
 			hero.StandUp();
 		}
 
-		if (_pushButtonPressed) {
-			hero.Push();
+		if (_carryButtonPressed) {
+			hero.Carry ();
+		} else {
+			hero.StopCarry();
 		}
 
 		if (_actionButtonPressed) {

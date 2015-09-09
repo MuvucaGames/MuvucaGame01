@@ -82,6 +82,7 @@ public abstract class Hero : MonoBehaviour {
 	public void Jump() {
 		//JUMP, IF GROUDED OR ON OTHER HERO PLATFORM
 		bool grounded = isGrounded ();
+		Debug.Log ("jump");
 		if (grounded) {
 			animator.SetTrigger("jumpStart");
 			foreach (Rigidbody2D rg2d in transform.GetComponentsInChildren<Rigidbody2D>())
@@ -106,6 +107,19 @@ public abstract class Hero : MonoBehaviour {
 	}
 
 	public void Push() {
+		animator.SetBool ("push", true);
+	}
+
+	public void StopPush() {
+		animator.SetBool ("push", false);
+	}
+
+	public void Carry() {
+		animator.SetBool ("carry", true);
+	}
+
+	public void StopCarry() {
+		animator.SetBool ("carry", false);
 	}
 
 	private void flipAnimation(float horizontalMove)	{
