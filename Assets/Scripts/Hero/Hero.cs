@@ -82,7 +82,6 @@ public abstract class Hero : MonoBehaviour {
 	public void Jump() {
 		//JUMP, IF GROUDED OR ON OTHER HERO PLATFORM
 		bool grounded = isGrounded ();
-		Debug.Log ("jump");
 		if (grounded) {
 			animator.SetTrigger("jumpStart");
 			foreach (Rigidbody2D rg2d in transform.GetComponentsInChildren<Rigidbody2D>())
