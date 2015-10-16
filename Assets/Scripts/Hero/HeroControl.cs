@@ -1,42 +1,103 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
 
 public class HeroControl : MonoBehaviour {
 
+	private static float MOVE_THRESHOLD = 0.19f;
+
 	private Hero hero;
 
-	private bool m_Jump;
+	// Input States
+	private float _moveButtonSpeed = 0.0f;
+	private bool _jumpButtonPressed = false;
+	private bool _crouchButtonPressed = false;
+	private bool _carryButtonPressed = false;
+	private bool _actionButtonPressed = false;
+	private bool _changeHeroButtonPressed = false;
+
 
 	void Awake () {
 		hero = GetComponent<Hero> ();
 	}
 
-	void Update(){
-		if (!m_Jump)
-		{
-			// Read the jump input in Update so button presses aren't missed.
-			m_Jump = Input.GetKeyDown(KeyCode.Space);
-		}
+	private void detectButtonStates(){
+		// Walk
+		_moveButtonSpeed = Input.GetAxis("Horizontal");
 
-        if (Input.GetKeyDown(KeyCode.Tab))
-        {
-            hero.ChangeHero();
-            SoundManager.Instance.SendMessage("PlaySFXSwap");
-        }
+		// Change Hero
+		if (Input.GetButtonDown("ChangeHero"))
+			_changeHeroButtonPressed = true;
+		else
+			_changeHeroButtonPressed = false;
 
-        if (Input.GetButtonDown("Action") && hero.IsActive)
-        {
-            hero.SendMessage("DoAction");
-        }
+		// Jump
+		if (Input.GetButtonDown("Jump"))
+			_jumpButtonPressed= true;
+		else
+			_jumpButtonPressed = false;
+
+		// Crouch
+		if (Input.GetButtonDown("Crouch"))
+			_crouchButtonPressed= true;
+		else
+			_crouchButtonPressed = false;
+
+		// Push
+		if (Input.GetButtonDown("Carry"))
+			_carryButtonPressed= true;
+		else
+			_carryButtonPressed = false;
+
+		// Action
+		if (Input.GetButtonDown("Action"))
+			_actionButtonPressed= true;
+		else
+			_actionButtonPressed = false;
 	}
-	
+
+	void Update() {
+		detectButtonStates();
+	}
+
 	void FixedUpdate () {
 
-		if (hero.IsActive)
-			hero.Move (Input.GetAxis ("Horizontal"), Input.GetKey (KeyCode.DownArrow) | Input.GetKey (KeyCode.S), m_Jump);
-		else
-			hero.StopWalk ();
+		if (!hero.IsActive) {
+			hero.StopWalk();
+			return;
+		}
 
-		m_Jump = false;
+		if (_changeHeroButtonPressed) {
+			hero.ChangeHero();
+			SoundManager.Instance.SendMessage("PlaySFXSwap");
+		}
+
+		if (_jumpButtonPressed) {
+			hero.Jump ();
+		}
+
+		if (_crouchButtonPressed) {
+			hero.Crouch ();
+		} else {
+			hero.StandUp();
+		}
+
+		if (_carryButtonPressed) {
+			hero.Carry ();
+		} else {
+			hero.StopCarry();
+		}
+
+		if (_actionButtonPressed) {
+			hero.Action();
+		}
+
+		if (Mathf.Abs (_moveButtonSpeed) > HeroControl.MOVE_THRESHOLD) {
+			hero.Move (_moveButtonSpeed);
+		} else {
+			hero.Move (0.0f);
+		}
+
+
 	}
 }
