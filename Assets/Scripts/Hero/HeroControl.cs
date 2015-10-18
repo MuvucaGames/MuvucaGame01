@@ -64,6 +64,9 @@ public class HeroControl : MonoBehaviour {
 
 		if (!hero.IsActive) {
 			hero.StopWalk();
+			if (_changeHeroButtonPressed) {
+				hero.ChangeHero();
+			}
 			return;
 		}
 
