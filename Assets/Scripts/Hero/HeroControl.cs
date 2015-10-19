@@ -22,38 +22,40 @@ public class HeroControl : MonoBehaviour {
 	}
 
 	private void detectButtonStates(){
+		//Analog Input:
 		// Walk
 		_moveButtonSpeed = Input.GetAxis("Horizontal");
 
-		// Change Hero
-		if (Input.GetButtonDown("ChangeHero"))
-			_changeHeroButtonPressed = true;
-		else
-			_changeHeroButtonPressed = false;
+		//-------------------------------------------
 
-		// Jump
-		if (Input.GetButtonDown("Jump"))
-			_jumpButtonPressed= true;
-		else
-			_jumpButtonPressed = false;
-
+		//Boolean Buttons, or teo state buttons:
 		// Crouch
-		if (Input.GetButtonDown("Crouch"))
+		if (Input.GetButton("Crouch"))
 			_crouchButtonPressed= true;
 		else
 			_crouchButtonPressed = false;
-
+		
 		// Push
-		if (Input.GetButtonDown("Carry"))
+		if (Input.GetButton("Carry"))
 			_carryButtonPressed= true;
 		else
 			_carryButtonPressed = false;
 
+		//----------------------------------------
+
+		//Trigger Buttons, one time activation: (they are deactivated on Fixed Update)
+
+		// Change Hero
+		if (Input.GetButtonDown("ChangeHero"))
+			_changeHeroButtonPressed = true;
+
+		// Jump
+		if (Input.GetButtonDown("Jump"))
+			_jumpButtonPressed= true;
+
 		// Action
 		if (Input.GetButtonDown("Action"))
 			_actionButtonPressed= true;
-		else
-			_actionButtonPressed = false;
 	}
 
 	void Update() {
@@ -64,7 +66,23 @@ public class HeroControl : MonoBehaviour {
 
 		if (!hero.IsActive) {
 			hero.StopWalk();
+			if (_changeHeroButtonPressed) {
+				hero.ChangeHero();
+			}
+			DeactivateTriggerButtons();
 			return;
+		}
+
+		if (_crouchButtonPressed) {
+			hero.Crouch ();
+		} else {
+			hero.StandUp();
+		}
+		
+		if (_carryButtonPressed) {
+			hero.Carry ();
+		} else {
+			hero.StopCarry();
 		}
 
 		if (_changeHeroButtonPressed) {
@@ -74,18 +92,6 @@ public class HeroControl : MonoBehaviour {
 
 		if (_jumpButtonPressed) {
 			hero.Jump ();
-		}
-
-		if (_crouchButtonPressed) {
-			hero.Crouch ();
-		} else {
-			hero.StandUp();
-		}
-
-		if (_carryButtonPressed) {
-			hero.Carry ();
-		} else {
-			hero.StopCarry();
 		}
 
 		if (_actionButtonPressed) {
@@ -98,6 +104,13 @@ public class HeroControl : MonoBehaviour {
 			hero.Move (0.0f);
 		}
 
+		DeactivateTriggerButtons();
+	}
 
+	private void DeactivateTriggerButtons(){
+		
+		_changeHeroButtonPressed = false;
+		_jumpButtonPressed = false;
+		_actionButtonPressed = false;
 	}
 }
