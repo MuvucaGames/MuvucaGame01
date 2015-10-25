@@ -43,12 +43,19 @@ public class TwoStatesActionablePlatform : ActionableElement {
 		float distanceToTarget = Vector3.Distance (transform.position, target);
 		while(distanceToTarget > 0.00005f)
 		{
+			//recalculate the distance between the element's position to the target's position
 			distanceToTarget = Vector3.Distance (transform.position, target);
+			//recalculate the distance between the element's position and the departure point
 			float distanceFromDeparture = Vector3.Distance(transform.position, from);
 
+			//Create a vector that point to target
 			Vector3 vel = (target - from);
+			//Normalize the vector
 			vel.Normalize ();
+			//assign the desired speed
 			vel *= speed;
+
+			//Corect the speed in case of acceleration or decceleration
 
 			//ACCELERATE
 			if(distanceFromDeparture<accelerationDistance){
@@ -60,6 +67,7 @@ public class TwoStatesActionablePlatform : ActionableElement {
 				vel *= distanceToTarget/decelerationDistance;
 			}
 
+			//Set the velocity for this update frame
 			rigidBody2D.velocity = vel;
 
 			yield return null;
