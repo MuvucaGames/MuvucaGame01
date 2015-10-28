@@ -326,10 +326,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3460601dd8830bf429940b626321c2fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxWalkingSpeed: 5
+  maxWalkingSpeed: 6
   walkMotorTorque: 40
   horizontalFlyingForce: .25
-  jumpHeight: 2
+  jumpHeight: 2.5
   whatIsGround:
     serializedVersion: 2
     m_Bits: 4096
@@ -465,7 +465,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: jumpHeight
-      value: 2
+      value: 2.5
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: m_Name
@@ -474,6 +474,10 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: m_TagString
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: maxWalkingSpeed
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
