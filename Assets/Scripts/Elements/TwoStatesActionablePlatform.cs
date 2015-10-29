@@ -55,7 +55,7 @@ public class TwoStatesActionablePlatform : ActionableElement {
 			//assign the desired speed
 			vel *= speed;
 
-			//Corect the speed in case of acceleration or decceleration
+			//Correct the speed in case of acceleration or decceleration
 
 			//ACCELERATE
 			if(distanceFromDeparture<accelerationDistance){
