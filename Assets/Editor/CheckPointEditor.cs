@@ -5,24 +5,76 @@ using UnityEditor;
 [CustomEditor (typeof(Checkpoint))]
 public class CheckPointEditor : Editor {
 
+	Transform heroFast;
+	Transform heroStrong;
 
+	public void OnEnable(){
+		Checkpoint checkpoint = (Checkpoint)target;
+		heroFast = checkpoint.transform.FindChild ("FastHeroRestartPosition");
+		heroStrong = checkpoint.transform.FindChild ("StrongHeroRestartPosition");
 
-	public void OnSceneGUI(){
+		heroFast.gameObject.SetActive (true);
+		heroStrong.gameObject.SetActive (true);
+	}
 
+	public void OnDisable(){
+		heroFast.gameObject.SetActive (false);
+		heroStrong.gameObject.SetActive (false);
+	}
 
+	public override void OnInspectorGUI ()
+	{
+		heroFast.position = EditorGUILayout.Vector3Field ("Hero Fast", heroFast.position);
+		heroStrong.position = EditorGUILayout.Vector3Field ("Hero Strong", heroStrong.position);
+		base.OnInspectorGUI ();
+	}
 
+	 void OnSceneGUI(){
 		serializedObject.Update ();
 		Checkpoint checkpoint = (Checkpoint)target;
 
+		Handles.matrix = checkpoint.transform.localToWorldMatrix;
+
+		//HANDLES FOR THE RESPAWN POSITION
+		Color spawn_color = new Color (0.8f, 0.2f, 0.2f, 0.6f);
+		Handles.color = spawn_color;
+		heroFast.localPosition = Handles.FreeMoveHandle (
+			heroFast.localPosition,
+			Quaternion.identity,
+			HandleUtility.GetHandleSize(heroFast.localPosition) * 0.3f,
+			Vector3.one * 0.1f,
+			Handles.SphereCap);
+		Handles.DrawLine (Vector3.zero, heroFast.transform.localPosition);
+
+		heroStrong.localPosition = Handles.FreeMoveHandle (
+			heroStrong.localPosition,
+			Quaternion.identity,
+			HandleUtility.GetHandleSize(heroStrong.localPosition) * 0.3f,
+			Vector3.one * 0.1f,
+			Handles.SphereCap);
+		Handles.DrawLine (Vector3.zero, heroStrong.transform.localPosition);
+
+		spawn_color.b = 0.8f;
+		spawn_color.r = 0.5f;
+		Handles.matrix = Matrix4x4.identity;
+		Handles.color = spawn_color;
+		checkpoint.transform.localPosition = Handles.FreeMoveHandle (
+			checkpoint.transform.localPosition,
+			Quaternion.identity,
+			HandleUtility.GetHandleSize(checkpoint.transform.localPosition) * 0.3f,
+			Vector3.one * 0.1f,
+			Handles.ConeCap);
+		Handles.matrix = checkpoint.transform.localToWorldMatrix;
 
 		//HANDLES FOR THE BOX COLLIDER TRIGGER
 		//TODO There must be an easier way...
 		BoxCollider2D boxCollider2D = checkpoint.GetComponent<BoxCollider2D> ();
+		float dotSize = 0.08f;
 
 		Color bc2d_color = new Color (0.1f, 0.8f, 0.1f, 0.8f);
 		Handles.color = bc2d_color;
 
-		Handles.matrix = checkpoint.transform.localToWorldMatrix;
+
 		Bounds bounds = boxCollider2D.bounds;
 		bounds.center = checkpoint.transform.InverseTransformPoint (bounds.center);
 
@@ -31,7 +83,7 @@ public class CheckPointEditor : Editor {
 		up_left = Handles.FreeMoveHandle(
 			up_left,
 			Quaternion.identity,
-			HandleUtility.GetHandleSize (up_left) * 0.1f,
+			HandleUtility.GetHandleSize (up_left) * dotSize,
 			Vector3.one * 0.1f,
 			Handles.DotCap);
 		if(GUI.changed)
@@ -42,7 +94,7 @@ public class CheckPointEditor : Editor {
 		up_right = Handles.FreeMoveHandle(
 			up_right,
 			Quaternion.identity,
-			HandleUtility.GetHandleSize (up_right) * 0.1f,
+			HandleUtility.GetHandleSize (up_right) * dotSize,
 			Vector3.one * 0.1f,
 			Handles.DotCap);
 		if(GUI.changed)
@@ -53,7 +105,7 @@ public class CheckPointEditor : Editor {
 		down_left = Handles.FreeMoveHandle(
 			down_left,
 			Quaternion.identity,
-			HandleUtility.GetHandleSize (down_left) * 0.1f,
+			HandleUtility.GetHandleSize (down_left) * dotSize,
 			Vector3.one * 0.1f,
 			Handles.DotCap);
 		if(GUI.changed)
@@ -64,7 +116,7 @@ public class CheckPointEditor : Editor {
 		down_right = Handles.FreeMoveHandle(
 			down_right,
 			Quaternion.identity,
-			HandleUtility.GetHandleSize (down_right) * 0.1f,
+			HandleUtility.GetHandleSize (down_right) * dotSize,
 			Vector3.one * 0.1f,
 			Handles.DotCap);
 		if(GUI.changed)
