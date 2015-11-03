@@ -89,8 +89,8 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 476060}
-  - 61: {fileID: 6131870}
   - 114: {fileID: 11489900}
+  - 61: {fileID: 6131870}
   m_Layer: 11
   m_Name: Checkpoint
   m_TagString: Checkpoint
@@ -137,7 +137,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 113218}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: .5, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 476060}
@@ -200,7 +200,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 123384}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -.5, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 476060}
@@ -229,11 +229,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e78654ac58df7164d83445258b98733e, type: 3}
   m_Name: Checkpoint
   m_EditorClassIdentifier: 
-  heroStrongTransform: {fileID: 490780}
-  heroFastTransform: {fileID: 418984}
-  notCheckedRenderer: {fileID: 130566}
-  oneCheckedRenderer: {fileID: 127114}
-  bothCheckedRenderer: {fileID: 172256}
   checkpointOrder: -1
   requiresBothHeroes: 1
   manager: {fileID: 0}
