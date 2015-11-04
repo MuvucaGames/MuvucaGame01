@@ -2,12 +2,11 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class WeigthButtonWithPhysics : MonoBehaviour {
+public class WeigthButtonWithPhysics : Activator {
 
 	[SerializeField] private SpringJoint2D springJoint2D = null;
 	[SerializeField] private float activationWeight = 1f;
 	[SerializeField]private Rigidbody2D selfWeight = null;
-	[SerializeField] private List<ActionableElement> actionableElements = new List<ActionableElement>();
 
 	private bool wasActivated = false;
 	private List<float> lastMeasures = new List<float>();
@@ -18,12 +17,10 @@ public class WeigthButtonWithPhysics : MonoBehaviour {
 
 		if (meanWeight >= activationWeight && !wasActivated) {
 			wasActivated = true;
-			foreach (ActionableElement actEle in actionableElements)
-				actEle.Activate ();
+			ActivateAll();
 		} else if (meanWeight < activationWeight && wasActivated) {
 			wasActivated = false;
-			foreach (ActionableElement actEle in actionableElements)
-				actEle.Deactivate ();
+			DeactivateAll();
 		}
 	}
 
