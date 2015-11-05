@@ -144,11 +144,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d8e77e0cb76d75d4b8bf63a5a2ea2707, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  actionableElements:
+  - {fileID: 0}
   springJoint2D: {fileID: 23181478}
   activationWeight: 2
   selfWeight: {fileID: 5028682}
-  actionableElements:
-  - {fileID: 0}
 --- !u!212 &21205016
 SpriteRenderer:
   m_ObjectHideFlags: 1
