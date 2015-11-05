@@ -1,10 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Lever : MonoBehaviour
+public class Lever : Activator
 {
-    [SerializeField]
-    private ActionableElement actionableObject;
     [SerializeField]
     private bool isTimeBased;
     [SerializeField]
@@ -43,9 +41,9 @@ public class Lever : MonoBehaviour
         timer = 0f;
         isActive = !isActive;
         if (isActive)
-            actionableObject.SendMessage("Activate");
-        else
-            actionableObject.SendMessage("Deactivate");
+			ActivateAll ();
+		else
+			DeactivateAll ();
 
         Swap();
     }

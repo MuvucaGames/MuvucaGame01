@@ -1,8 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class TriggerForActionableElement : MonoBehaviour {
-	public ActionableElement actionableElement;
+public class TriggerForActionableElement : Activator {
+
 	public bool triggerOnlyOnce = false;
 	private bool alreadyTrigged = false;
 
@@ -14,7 +14,7 @@ public class TriggerForActionableElement : MonoBehaviour {
 
 		if (other.tag == "Player") 
 		{
-			actionableElement.Activate ();
+			ActivateAll();
 			alreadyTrigged = true;
 		}
 	}
