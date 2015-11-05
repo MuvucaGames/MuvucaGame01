@@ -219,48 +219,6 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: a4f7644ebad17174699f5597f7bf8471, type: 2}
   m_IsPrefabParent: 0
---- !u!1001 &543490351
-Prefab:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 494422, guid: adff57e466d032a4a8d2ca0baae77e8e, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 494422, guid: adff57e466d032a4a8d2ca0baae77e8e, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 494422, guid: adff57e466d032a4a8d2ca0baae77e8e, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 494422, guid: adff57e466d032a4a8d2ca0baae77e8e, type: 2}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 494422, guid: adff57e466d032a4a8d2ca0baae77e8e, type: 2}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 494422, guid: adff57e466d032a4a8d2ca0baae77e8e, type: 2}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 494422, guid: adff57e466d032a4a8d2ca0baae77e8e, type: 2}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 494422, guid: adff57e466d032a4a8d2ca0baae77e8e, type: 2}
-      propertyPath: m_RootOrder
-      value: 13
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 100100000, guid: adff57e466d032a4a8d2ca0baae77e8e, type: 2}
-  m_IsPrefabParent: 0
 --- !u!1001 &712936003
 Prefab:
   m_ObjectHideFlags: 0
@@ -667,23 +625,23 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11456742, guid: 278a16fa706477448b2e1440f179252f, type: 2}
       propertyPath: accelerationDistance
-      value: 1.50000012
+      value: 2.45969319
       objectReference: {fileID: 0}
     - target: {fileID: 11456742, guid: 278a16fa706477448b2e1440f179252f, type: 2}
       propertyPath: pointB.x
-      value: 0
+      value: 4.93683577
       objectReference: {fileID: 0}
     - target: {fileID: 11456742, guid: 278a16fa706477448b2e1440f179252f, type: 2}
       propertyPath: pointB.y
-      value: 5
+      value: 8.17614555
       objectReference: {fileID: 0}
     - target: {fileID: 11456742, guid: 278a16fa706477448b2e1440f179252f, type: 2}
       propertyPath: speed
-      value: 5
+      value: 11.3091555
       objectReference: {fileID: 0}
     - target: {fileID: 11456742, guid: 278a16fa706477448b2e1440f179252f, type: 2}
       propertyPath: decelerationDistance
-      value: 2
+      value: 1.62940121
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 278a16fa706477448b2e1440f179252f, type: 2}

@@ -88,7 +88,7 @@ public class TwoStatesActionablePlatformEditor : Editor {
 		Handles.DrawAAConvexPolygon(new Vector3[]{pointB, dec_A, dec_B});
 
 		//SPEED
-		Color c_spe = Color.magenta;
+		Color c_spe = Color.Lerp(Color.red, Color.green, 0.5f);
 		Handles.color = c_spe;
 		Vector3 speed_B = (acc_B + dec_B) / 2f;
 		speed_B = Handles.FreeMoveHandle (
