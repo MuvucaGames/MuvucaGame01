@@ -102,6 +102,9 @@ public abstract class Hero : MonoBehaviour {
 			heroPlatform.offset = headCollider.offset;
 			//Crouch Animation
 			animator.SetBool ("crouch", false);
+
+
+			//COMENTARIO TESTE!
 		}
 	}
 
