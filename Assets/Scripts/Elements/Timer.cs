@@ -5,12 +5,12 @@ public class Timer : ActionableElement {
 
 	private float timeLeftInSeconds;
 	private bool isActive;
-
+	private TimerActivator timerActivator;
 	public int initialTimeInSeconds;
-	public ActionableElement actionableElement;
 
 	public override void Activate()
 	{
+		timerActivator = GetComponent<TimerActivator> ();
 		isActive = true;
 	}
 
@@ -35,10 +35,10 @@ public class Timer : ActionableElement {
 	}
 
 	void timeout() {
-		actionableElement.Activate ();
+		timerActivator.Activation ();
 	}
 
 	void resetTimer() {
-		actionableElement.Deactivate ();
+		timerActivator.Deactivation ();
 	}
 }
