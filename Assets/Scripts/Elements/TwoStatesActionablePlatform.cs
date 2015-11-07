@@ -5,8 +5,8 @@ public class TwoStatesActionablePlatform : ActionableElement {
 
 
 	private Vector3 pointA;
-	private Vector3 pointB;
- 	[SerializeField] private Transform transformB = null;
+	[SerializeField]private Vector3 pointB = new Vector3(0,10,0);
+ 	
 
 	[Range(0.0f, 20.0f)]public float speed = 8f;
 	[Range(0.00001f, 5f)] public float accelerationDistance = 1.5f;
@@ -19,7 +19,7 @@ public class TwoStatesActionablePlatform : ActionableElement {
 	// Use this for initialization
 	void Awake () {
 		pointA = new Vector3(transform.position.x, transform.position.y, transform.position.z);
-		pointB = transformB.position;
+		pointB = transform.TransformPoint(pointB);
 
 		rigidBody2D = GetComponent<Rigidbody2D> ();
 	}
@@ -55,7 +55,7 @@ public class TwoStatesActionablePlatform : ActionableElement {
 			//assign the desired speed
 			vel *= speed;
 
-			//Corect the speed in case of acceleration or decceleration
+			//Correct the speed in case of acceleration or decceleration
 
 			//ACCELERATE
 			if(distanceFromDeparture<accelerationDistance){
