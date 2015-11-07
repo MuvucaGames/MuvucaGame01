@@ -150,7 +150,7 @@ Prefab:
       objectReference: {fileID: 1438356996}
     - target: {fileID: 11481918, guid: 5f46287fbdc37924a9c17409e6c336c8, type: 2}
       propertyPath: triggerOnlyOnce
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 5f46287fbdc37924a9c17409e6c336c8, type: 2}

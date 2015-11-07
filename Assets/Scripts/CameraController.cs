@@ -3,7 +3,7 @@ using System.Collections;
 
 public class CameraController : MonoBehaviour {
 
-    private Camera camera;
+    private Camera myCamera;
 
 	[SerializeField] private float cameraSpeed = 0.3f;
 
@@ -12,7 +12,7 @@ public class CameraController : MonoBehaviour {
 	private Vector3 velocity = Vector3.zero;
 
 	void Awake () {
-        camera = Camera.main;
+        myCamera = Camera.main;
 
 		if(heroStrong == null || heroFast == null)
 			throw new UnityException ("Missing heroes in Camera Control");
@@ -40,7 +40,7 @@ public class CameraController : MonoBehaviour {
 			m_newPosition += new Vector3(0, 1.5f);
 		}
 
-		camera.transform.position = Vector3.SmoothDamp (camera.transform.position, m_newPosition, ref velocity, cameraSpeed);
+		myCamera.transform.position = Vector3.SmoothDamp (myCamera.transform.position, m_newPosition, ref velocity, cameraSpeed);
 		//transform.position = m_newPosition;
 	}
 }
