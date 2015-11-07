@@ -14,7 +14,6 @@ public class TriggerForActionableElement : Activator {
 
 		if (other.tag == "Player") 
 		{
-            print("Ativei");
 			ActivateAll();
 			alreadyTrigged = true;
 		}
