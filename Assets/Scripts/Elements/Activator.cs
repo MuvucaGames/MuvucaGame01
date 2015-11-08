@@ -4,39 +4,39 @@ using System.Collections.Generic;
 
 public class Activator : MonoBehaviour{
 
-	[SerializeField]protected List<ActionableElement> actionableElementsList;
+	[SerializeField]protected List<ActionableElement> actionableElements;
 
 	protected virtual void ActivateAll(){
-		foreach (ActionableElement actionableElement in actionableElementsList) {
-			if(actionableElement!=null && actionableElement.isActiveAndEnabled){
-				actionableElement.Activate();
+		foreach (ActionableElement a_element in actionableElements) {
+			if(a_element!=null && a_element.isActiveAndEnabled){
+				a_element.Activate();
 			}
 		}
 	}
 
 	protected virtual void DeactivateAll(){
-		foreach (ActionableElement actionableElement in actionableElementsList) {
-			if(actionableElement!=null && actionableElement.isActiveAndEnabled){
-				actionableElement.Deactivate();
+		foreach (ActionableElement a_element in actionableElements) {
+			if(a_element!=null && a_element.isActiveAndEnabled){
+				a_element.Deactivate();
 			}
 		}
 	}
 
 	public List<ActionableElement> ActionableElements {
 		get {
-			return this.actionableElementsList;
+			return this.actionableElements;
 		}
 		set {
-			actionableElementsList = value;
+			actionableElements = value;
 		}
 	}
 
-	public void AddActionableElement(ActionableElement actionableElement){
-		actionableElementsList.Add (actionableElement);
+	public void AddActionableElement(ActionableElement act_elem){
+		actionableElements.Add (act_elem);
 	}
 
-	public void RemoveActionableElement(ActionableElement actionableElement){
-		actionableElementsList.Remove (actionableElement);
+	public void RemoveActionableElement(ActionableElement act_elem){
+		actionableElements.Remove (act_elem);
 	}
 }
 
