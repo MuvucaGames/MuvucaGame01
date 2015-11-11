@@ -4,12 +4,12 @@ using System.Collections.Generic;
 
 public class Checkpoint : MonoBehaviour {
 
-	[SerializeField]private Transform heroStrongTransform = null;
-	[SerializeField]private Transform heroFastTransform = null;
+	private Transform heroStrongTransform;
+	private Transform heroFastTransform;
 
-	[SerializeField]private GameObject notCheckedRenderer = null;
-	[SerializeField]private GameObject oneCheckedRenderer = null;
-	[SerializeField]private GameObject bothCheckedRenderer = null;
+	private GameObject notCheckedRenderer;
+	private GameObject oneCheckedRenderer;
+	private GameObject bothCheckedRenderer;
 
 
 	public int checkpointOrder;
@@ -19,9 +19,21 @@ public class Checkpoint : MonoBehaviour {
 	public GameObject manager;
 
 	public void Awake(){
+		heroFastTransform = transform.FindChild ("FastHeroRestartPosition");
+		heroStrongTransform = transform.FindChild ("StrongHeroRestartPosition");
+
+		Transform particleTransform = this.transform.FindChild ("ParticulesRenderers");
+		notCheckedRenderer = particleTransform.FindChild ("NotChecked").gameObject;
+		oneCheckedRenderer = particleTransform.FindChild("OneChecked").gameObject;
+		bothCheckedRenderer = particleTransform.FindChild ("Checked").gameObject;
+
 		//Remove renderers from chackpoint helpers;
 		heroFastTransform.GetComponent<SpriteRenderer>().enabled = false;
 		heroStrongTransform.GetComponent<SpriteRenderer>().enabled = false;
+	}
+
+	public void Start(){
+
 	}
 
 	void OnTriggerEnter2D(Collider2D other) {

@@ -8,27 +8,12 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 412808}
+  - 114: {fileID: 11456742}
   - 50: {fileID: 5028558}
   - 61: {fileID: 6195158}
   - 212: {fileID: 21260950}
-  - 114: {fileID: 11456742}
   m_Layer: 12
   m_Name: TwoStatesActionablePlataform
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!1 &182654
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 465910}
-  m_Layer: 12
-  m_Name: PointB
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -43,21 +28,8 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 465910}
-  m_Father: {fileID: 0}
-  m_RootOrder: 0
---- !u!4 &465910
-Transform:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 182654}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 12.1999998, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 412808}
+  m_Father: {fileID: 0}
   m_RootOrder: 0
 --- !u!50 &5028558
 Rigidbody2D:
@@ -99,7 +71,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 429901665fde1d34c9d178fc83c7b852, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  transformB: {fileID: 465910}
+  pointB: {x: 0, y: 5, z: 0}
   speed: 5
   accelerationDistance: 1.5
   decelerationDistance: 2
