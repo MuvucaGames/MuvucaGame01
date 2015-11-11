@@ -7,7 +7,9 @@ using System.Linq;
 [CustomEditor (typeof(Activator), true)]
 public class ActivatorEditor : Editor {
 
+	SerializedProperty actionableElements_sp;
 	public void OnEnable(){
+		actionableElements_sp = serializedObject.FindProperty ("actionableElements");
 
 	}
 
@@ -15,6 +17,7 @@ public class ActivatorEditor : Editor {
 		serializedObject.Update ();
 		Activator activator = (Activator)target;
 		RemoveRepeatedElements ();
+
 
 		Handles.color = new Color (0.9f, 0.1f, 0.1f, 0.3f);
 		Handles.DrawSolidDisc(activator.transform.position, Vector3.forward, HandleUtility.GetHandleSize(activator.transform.position)*0.1f); 
@@ -27,6 +30,7 @@ public class ActivatorEditor : Editor {
 				Handles.ArrowCap(0, activator.transform.position, Quaternion.FromToRotation(Vector3.forward, act_elem.transform.position - activator.transform.position), Vector3.Distance(activator.transform.position, act_elem.transform.position)*0.85f) ;
 			}
 		}
+
 
 		ActionableElement [] allActionablesOnScene = FindObjectsOfType<ActionableElement> ();
 		Activator [] allActivatorsOnScene = FindObjectsOfType<Activator> ();
@@ -53,11 +57,16 @@ public class ActivatorEditor : Editor {
 
 			if(!activator.ActionableElements.Contains( act_elem)){
 				if(GUILayout.Button("LINK")){
-					activator.AddActionableElement(act_elem);
+					actionableElements_sp.arraySize++;
+					actionableElements_sp.GetArrayElementAtIndex(actionableElements_sp.arraySize - 1).objectReferenceValue = act_elem;
 				}
 			}else{
 				if(GUILayout.Button("UNLINK")){
-					activator.RemoveActionableElement(act_elem);
+					for(int i = 0; i<actionableElements_sp.arraySize; i++){
+						if(actionableElements_sp.GetArrayElementAtIndex(i).objectReferenceValue == act_elem){
+							actionableElements_sp.DeleteArrayElementAtIndex(i);
+						}
+					}
 				}
 			}
 
