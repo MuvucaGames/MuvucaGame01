@@ -5,19 +5,19 @@ using System.Collections;
  * WarpZoneDoor.cs
  */
 
-public class WarpZoneDoor : Door
+public class WarpZoneDoor : ActionableElement
 {
     public Hero hero;
-    public Door doorTarget;
+    public WarpZoneDoor doorTarget;
+    public bool isDoorOpened;
 
     public void OnTriggerEnter2D(Collider2D other)
     {
         Vector3 doorTargetPosition = doorTarget.transform.position;
-        Vector3 heroPosition = new Vector3(hero.transform.position.x, hero.transform.position.y,
-            hero.transform.position.z);
+        Vector3 heroPosition = hero.transform.position;
         if (this.isDoorOpened && doorTarget.isDoorOpened)
         {
-            // TODO: Character goes at lightspeed to linked target door. Fix
+            // TODO: Character goes at lightspeed from his position to linked target door. Fix
             // this using realistic travel time to another target door at some realistic velocity
             hero.transform.Translate(doorTargetPosition - heroPosition, Space.World);
         }
@@ -25,12 +25,11 @@ public class WarpZoneDoor : Door
 
     public void OnExitTrigger2D(Collider2D other)
     {
-        
     }
 
     public override void Activate()
     {
-        
+        isDoorOpened = true;
     }
 
     public override void Deactivate()
