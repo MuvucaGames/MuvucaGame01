@@ -6,7 +6,7 @@ using System.Linq;
 public class Dialog : ActionableElement{
 
 	[SerializeField]
-	public List<SentenceInfo> senteces;
+	public List<Sentence.Info> senteces;
 
 	public Balloon balloonPrefab;
 
@@ -15,20 +15,11 @@ public class Dialog : ActionableElement{
 	private bool alreadyTriggered = false;
 
 	public void Awake(){
+		//Remove null objects
 		senteces = senteces.Where(item => item != null&&item.sentence!=null).ToList();
 	}
 
-	[System.Serializable]
-	public class SentenceInfo{
-		public Sentence sentence;
 
-		public int timeInSeconds = 2;
-
-		public Transform Hooker;
-
-		public TypeOfBalloon typeOfBalloon;
-
-	}
 
 	public override void Activate ()
 	{
@@ -51,9 +42,5 @@ public class Dialog : ActionableElement{
 
 	}
 
-	public enum TypeOfBalloon{
-		Normal,
-		Think,
-		Shout
-	}
+
 }
