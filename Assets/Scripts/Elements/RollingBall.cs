@@ -6,7 +6,7 @@ public class RollingBall : ActionableElementBase
     [SerializeField] private LayerMask whatIsGround;
     [SerializeField] private LayerMask heroPlatformMask;
     [SerializeField] private LayerMask mapInteractiveObjectsMask;
-    [SerializeField] private Vector2 force = new Vector2(-200f, 0f);
+    [SerializeField] private Vector3 force = new Vector3(-200f, 0f, 0f);
     [SerializeField] private float deltaTimeStopSound = 0.2f;
 
     private Collider2D coll = null;
@@ -36,8 +36,7 @@ public class RollingBall : ActionableElementBase
             }
             if (isGrounded())
             {
-                print("Delta time L " + deltaTimeLastSound.ToString());
-                print("Delta time " + Time.deltaTime.ToString());
+                
                 if (deltaTimeLastSound < 0 || deltaTimeLastSound + Time.deltaTime > deltaTimeStopSound)
                 {
                     SoundManager.Instance.SendMessage("PlaySFXBounceBall");
