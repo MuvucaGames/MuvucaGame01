@@ -6,7 +6,5 @@ using System.Collections.Generic;
 public class Sentence : ScriptableObject
 {
 	public List<Sprite> images;
-
-	public float timeInSeconds;
 }
 
