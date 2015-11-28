@@ -12,7 +12,6 @@ public class TriggerForActionableElement : Activator {
         if (other.tag == "Player")
         {
             playerCount++;
-            print(playerCount);
         }
 
         if (triggerOnlyOnce && alreadyTrigged) 
@@ -43,7 +42,6 @@ public class TriggerForActionableElement : Activator {
         if (other.tag == "Player")
         {
             playerCount--;
-            print(playerCount);
         }
 
     }
