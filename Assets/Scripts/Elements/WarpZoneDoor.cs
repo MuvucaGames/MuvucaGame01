@@ -17,18 +17,15 @@ public class WarpZoneDoor : ActionableElement
     public float timeToTeleport = 0.5f;
     public float timeToChangeLockState = 1.0f;
 
-    private bool justTeleported;
+    private bool justTeleported = false;
     private bool runningTimeBasedEffect;
-    private bool isHeroAAtDoor;
-    private bool isHeroBAtDoor;
+    private bool isHeroAAtDoor = false;
+    private bool isHeroBAtDoor = false;
     private Rigidbody2D rigidBodyHeroStrong;
     private Rigidbody2D rigidBodyHeroFast;
 
     public void Start()
     {
-        justTeleported = false;
-        isHeroAAtDoor = false;
-        isHeroBAtDoor = false;
         rigidBodyHeroStrong = heroStrong.GetComponent<Rigidbody2D>();
         rigidBodyHeroFast = heroFast.GetComponent<Rigidbody2D>();
     }
@@ -61,12 +58,13 @@ public class WarpZoneDoor : ActionableElement
 
     IEnumerator teleport(Hero hero, Collider2D collider)
     {
-        Vector2 doorTargetPosition = doorTarget.transform.position;
         // TODO: when hero lands on the target door, he is not perfect grounded with the door
         // fine-tune this!
         float heroHeight = collider.bounds.extents.y;
         float doorTargetHeight = doorTarget.GetComponent<BoxCollider2D>().bounds.extents.y;
         Vector2 heroVerticalPositionOffset = new Vector2(0, doorTargetHeight - heroHeight);
+
+        Vector2 doorTargetPosition = doorTarget.transform.position;
 
         if ((bothHeroesNeeded && isHeroAAtDoor && isHeroBAtDoor))
         {
@@ -102,10 +100,7 @@ public class WarpZoneDoor : ActionableElement
             isHeroBAtDoor = true;
             return heroFast;
         }
-        else
-        {
-            return null;
-        }
+        return null;
     }
 
     public override void Activate()

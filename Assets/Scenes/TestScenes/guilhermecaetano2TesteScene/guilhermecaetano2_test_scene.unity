@@ -141,6 +141,19 @@ Prefab:
 GameObject:
   m_PrefabParentObject: {fileID: 145470, guid: 02cfdc1b47f741e4687d244d4ac165cb, type: 2}
   m_PrefabInternal: {fileID: 1303667312}
+--- !u!61 &231423866
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 231423865}
+  m_Enabled: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Size: {x: 1, y: 3}
 --- !u!33 &231423868
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -455,7 +468,8 @@ Prefab:
       propertyPath: doorTarget
       value: 
       objectReference: {fileID: 969468726}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 5858500, guid: 02cfdc1b47f741e4687d244d4ac165cb, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 02cfdc1b47f741e4687d244d4ac165cb, type: 2}
   m_IsPrefabParent: 0
 --- !u!4 &1303667313 stripped
