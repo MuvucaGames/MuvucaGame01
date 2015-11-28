@@ -11,4 +11,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 97df47fab9edf7c4db67c3517b42607e, type: 3}
   m_Name: MaryMe_Strong
   m_EditorClassIdentifier: 
-  images: []
+  images:
+  - {fileID: 21300000, guid: bc5f84f205a541f4f873441b77223633, type: 3}
+  - {fileID: 21300000, guid: b663b14533d24894eb112924fda9d62b, type: 3}

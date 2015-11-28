@@ -11,4 +11,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 97df47fab9edf7c4db67c3517b42607e, type: 3}
   m_Name: YesIDo
   m_EditorClassIdentifier: 
-  images: []
+  images:
+  - {fileID: 21300000, guid: c285d35aa0d52744bbad85b1c90c5153, type: 3}

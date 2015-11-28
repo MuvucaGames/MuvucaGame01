@@ -12,6 +12,5 @@ MonoBehaviour:
   m_Name: What
   m_EditorClassIdentifier: 
   images:
-  - {fileID: 21300000, guid: 47e0af5b21996284db16ab7a0200aa0a, type: 3}
-  - {fileID: 21300000, guid: bc5f84f205a541f4f873441b77223633, type: 3}
-  - {fileID: 0}
+  - {fileID: 21300000, guid: b663b14533d24894eb112924fda9d62b, type: 3}
+  - {fileID: 21300000, guid: ac83b1b4931939342879fb2c422881e8, type: 3}
