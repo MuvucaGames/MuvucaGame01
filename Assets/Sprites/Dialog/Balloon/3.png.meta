@@ -1,10 +1,9 @@
 fileFormatVersion: 2
-guid: 3935f3ea79d7c5644b8b6aaf9250cdc7
-timeCreated: 1448599043
+guid: fc01bbe3dab89f24bba33a85739cc7a1
+timeCreated: 1448674732
 licenseType: Free
 TextureImporter:
-  fileIDToRecycleName:
-    21300000: DialogBalloon
+  fileIDToRecycleName: {}
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -27,8 +26,8 @@ TextureImporter:
   cubemapConvolutionSteps: 8
   cubemapConvolutionExponent: 1.5
   seamlessCubemap: 0
-  textureFormat: -3
-  maxTextureSize: 32
+  textureFormat: -1
+  maxTextureSize: 2048
   textureSettings:
     filterMode: 0
     aniso: 16
@@ -42,25 +41,15 @@ TextureImporter:
   spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 1
-  alignment: 9
-  spritePivot: {x: .292401105, y: .0645645186}
-  spriteBorder: {x: 10, y: 31, z: 10, w: 10}
-  spritePixelsToUnits: 20000
+  alignment: 0
+  spritePivot: {x: .5, y: .5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 10
   alphaIsTransparency: 1
   textureType: 8
   buildTargetSettings: []
   spriteSheet:
-    sprites:
-    - name: DialogBalloon
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 0
-        width: 322
-        height: 196
-      alignment: 9
-      pivot: {x: .315148532, y: .0480714589}
-      border: {x: 0, y: 0, z: 0, w: 0}
+    sprites: []
   spritePackingTag: 
   userData: 
   assetBundleName: 
