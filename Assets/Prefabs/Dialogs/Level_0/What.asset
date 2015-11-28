@@ -9,9 +9,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 97df47fab9edf7c4db67c3517b42607e, type: 3}
-  m_Name: TestSentence
+  m_Name: What
   m_EditorClassIdentifier: 
   images:
-  - {fileID: 21300000, guid: 009a6e1a3c38ed54289483495f4b0eac, type: 3}
-  - {fileID: 21300000, guid: bfdb4c0ceaa954845bf1b9d6f6ddc945, type: 3}
-  - {fileID: 21300002, guid: bfdb4c0ceaa954845bf1b9d6f6ddc945, type: 3}
+  - {fileID: 21300000, guid: b663b14533d24894eb112924fda9d62b, type: 3}
+  - {fileID: 21300000, guid: ac83b1b4931939342879fb2c422881e8, type: 3}
