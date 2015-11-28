@@ -24,7 +24,7 @@ public abstract class Hero : MonoBehaviour {
 	private Animator animator;
 
 
-	protected bool m_isActive = false;
+	public bool m_isActive = false;
 	public bool IsActive{
 		get { return m_isActive; }
 		protected set { m_isActive = value; }
@@ -266,6 +266,5 @@ public abstract class Hero : MonoBehaviour {
 		}
 
 	}
-
 
 }
