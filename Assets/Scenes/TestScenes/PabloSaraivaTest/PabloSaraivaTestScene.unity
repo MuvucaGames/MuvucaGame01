@@ -92,14 +92,6 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 11481918, guid: 5f46287fbdc37924a9c17409e6c336c8, type: 2}
-      propertyPath: actionableElements.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 11481918, guid: 5f46287fbdc37924a9c17409e6c336c8, type: 2}
-      propertyPath: actionableElementsList.Array.size
-      value: 2
-      objectReference: {fileID: 0}
     - target: {fileID: 431290, guid: 5f46287fbdc37924a9c17409e6c336c8, type: 2}
       propertyPath: m_LocalPosition.x
       value: -9.90999985
@@ -132,110 +124,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 431290, guid: 5f46287fbdc37924a9c17409e6c336c8, type: 2}
-      propertyPath: m_LocalScale.y
-      value: 7.4559288
-      objectReference: {fileID: 0}
-    - target: {fileID: 431290, guid: 5f46287fbdc37924a9c17409e6c336c8, type: 2}
-      propertyPath: m_LocalScale.x
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 431290, guid: 5f46287fbdc37924a9c17409e6c336c8, type: 2}
-      propertyPath: m_LocalScale.z
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 11481918, guid: 5f46287fbdc37924a9c17409e6c336c8, type: 2}
-      propertyPath: actionableElement
-      value: 
-      objectReference: {fileID: 1438356996}
-    - target: {fileID: 11481918, guid: 5f46287fbdc37924a9c17409e6c336c8, type: 2}
-      propertyPath: actionableElements.Array.data[0]
-      value: 
-      objectReference: {fileID: 330128281}
-    - target: {fileID: 11481918, guid: 5f46287fbdc37924a9c17409e6c336c8, type: 2}
-      propertyPath: triggerOnlyOnce
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 11481918, guid: 5f46287fbdc37924a9c17409e6c336c8, type: 2}
-      propertyPath: actionableElements.Array.data[1]
-      value: 
-      objectReference: {fileID: 330128281}
-    - target: {fileID: 11481918, guid: 5f46287fbdc37924a9c17409e6c336c8, type: 2}
-      propertyPath: actionableElements.Array.data[2]
-      value: 
-      objectReference: {fileID: 1438356996}
-    - target: {fileID: 11481918, guid: 5f46287fbdc37924a9c17409e6c336c8, type: 2}
-      propertyPath: actionableElements.Array.data[3]
-      value: 
-      objectReference: {fileID: 1438356996}
-    - target: {fileID: 11481918, guid: 5f46287fbdc37924a9c17409e6c336c8, type: 2}
-      propertyPath: actionableElements.Array.data[4]
-      value: 
-      objectReference: {fileID: 1438356996}
-    - target: {fileID: 11481918, guid: 5f46287fbdc37924a9c17409e6c336c8, type: 2}
-      propertyPath: actionableElements.Array.data[5]
-      value: 
-      objectReference: {fileID: 1438356996}
-    - target: {fileID: 11481918, guid: 5f46287fbdc37924a9c17409e6c336c8, type: 2}
-      propertyPath: actionableElements.Array.data[6]
-      value: 
-      objectReference: {fileID: 1438356996}
-    - target: {fileID: 11481918, guid: 5f46287fbdc37924a9c17409e6c336c8, type: 2}
-      propertyPath: actionableElements.Array.data[7]
-      value: 
-      objectReference: {fileID: 1438356996}
-    - target: {fileID: 11481918, guid: 5f46287fbdc37924a9c17409e6c336c8, type: 2}
-      propertyPath: actionableElements.Array.data[8]
-      value: 
-      objectReference: {fileID: 1438356996}
-    - target: {fileID: 11481918, guid: 5f46287fbdc37924a9c17409e6c336c8, type: 2}
-      propertyPath: actionableElements.Array.data[9]
-      value: 
-      objectReference: {fileID: 1438356996}
-    - target: {fileID: 11481918, guid: 5f46287fbdc37924a9c17409e6c336c8, type: 2}
-      propertyPath: actionableElements.Array.data[10]
-      value: 
-      objectReference: {fileID: 1438356996}
-    - target: {fileID: 11481918, guid: 5f46287fbdc37924a9c17409e6c336c8, type: 2}
-      propertyPath: actionableElements.Array.data[11]
-      value: 
-      objectReference: {fileID: 1438356996}
-    - target: {fileID: 11481918, guid: 5f46287fbdc37924a9c17409e6c336c8, type: 2}
-      propertyPath: actionableElements.Array.data[12]
-      value: 
-      objectReference: {fileID: 1438356996}
-    - target: {fileID: 11481918, guid: 5f46287fbdc37924a9c17409e6c336c8, type: 2}
-      propertyPath: actionableElements.Array.data[13]
-      value: 
-      objectReference: {fileID: 1438356996}
-    - target: {fileID: 11481918, guid: 5f46287fbdc37924a9c17409e6c336c8, type: 2}
-      propertyPath: actionableElements.Array.data[14]
-      value: 
-      objectReference: {fileID: 1438356996}
-    - target: {fileID: 11481918, guid: 5f46287fbdc37924a9c17409e6c336c8, type: 2}
-      propertyPath: actionableElements.Array.data[15]
-      value: 
-      objectReference: {fileID: 1438356996}
-    - target: {fileID: 11481918, guid: 5f46287fbdc37924a9c17409e6c336c8, type: 2}
-      propertyPath: actionableElements.Array.data[16]
-      value: 
-      objectReference: {fileID: 1438356996}
-    - target: {fileID: 11481918, guid: 5f46287fbdc37924a9c17409e6c336c8, type: 2}
-      propertyPath: actionableElements.Array.data[17]
-      value: 
-      objectReference: {fileID: 1438356996}
-    - target: {fileID: 11481918, guid: 5f46287fbdc37924a9c17409e6c336c8, type: 2}
-      propertyPath: actionableElements.Array.data[18]
-      value: 
-      objectReference: {fileID: 1438356996}
-    - target: {fileID: 11481918, guid: 5f46287fbdc37924a9c17409e6c336c8, type: 2}
-      propertyPath: actionableElements.Array.data[19]
-      value: 
-      objectReference: {fileID: 1438356996}
-    - target: {fileID: 11481918, guid: 5f46287fbdc37924a9c17409e6c336c8, type: 2}
-      propertyPath: actionableElements.Array.data[20]
-      value: 
-      objectReference: {fileID: 1438356996}
     - target: {fileID: 11481918, guid: 5f46287fbdc37924a9c17409e6c336c8, type: 2}
       propertyPath: actionableElementsList.Array.data[0]
       value: 
@@ -244,10 +132,6 @@ Prefab:
       propertyPath: actionableElementsList.Array.data[1]
       value: 
       objectReference: {fileID: 330128281}
-    - target: {fileID: 11481918, guid: 5f46287fbdc37924a9c17409e6c336c8, type: 2}
-      propertyPath: triggerOnlyWhenBothCharactersAreInside
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 5f46287fbdc37924a9c17409e6c336c8, type: 2}
   m_IsPrefabParent: 0
