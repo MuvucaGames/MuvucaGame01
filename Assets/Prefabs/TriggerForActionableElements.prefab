@@ -55,6 +55,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   actionableElements: []
   triggerOnlyOnce: 1
+  triggersWithBothInside: 1
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
@@ -80,6 +81,10 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: triggerOnlyOnce
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: triggersWithBothInside
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
