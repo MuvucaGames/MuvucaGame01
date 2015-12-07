@@ -148,6 +148,7 @@ public class ColorsPuzzle : ActionableElement
         heroFast.GetComponent<HeroControl>().enabled = true;
         puzzleController.SelectionBox1.GetComponent<Renderer>().enabled = false;
         puzzleController.SelectionBox2.GetComponent<Renderer>().enabled = false;
+        puzzleController.cursor.GetComponent<Renderer>().enabled = false;
         
     }
 
