@@ -23,6 +23,7 @@ public class ColorsPuzzle : ActionableElement
         GetComponentInChildren<SpriteRenderer>().enabled = false;
         puzzleController.SelectionBox1.GetComponent<Renderer>().enabled = false;
         puzzleController.SelectionBox2.GetComponent<Renderer>().enabled = false;
+        puzzleController.cursor.GetComponent<Renderer>().enabled = false;
         colorsPuzzleActivator = GetComponent<ColorsPuzzleActivator>();
     }
 
