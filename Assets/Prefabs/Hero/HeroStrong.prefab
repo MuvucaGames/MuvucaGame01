@@ -231,7 +231,7 @@ Rigidbody2D:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 122942}
   m_Mass: 1
-  m_LinearDrag: 0
+  m_LinearDrag: 1
   m_AngularDrag: .0500000007
   m_GravityScale: 1
   m_IsKinematic: 0
@@ -355,6 +355,7 @@ MonoBehaviour:
   bodyCollider: {fileID: 6003864}
   walkMotor: {fileID: 23342416}
   footCollider: {fileID: 5814716}
+  m_isActive: 0
 --- !u!212 &21212648
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -416,7 +417,6 @@ PlatformEffector2D:
   m_SurfaceArc: 20
   m_UseSideFriction: 0
   m_UseSideBounce: 0
-  m_SideArc: 1
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
@@ -479,6 +479,10 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: jumpHeight
       value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_LinearDrag
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
