@@ -23,6 +23,7 @@ public class ColorsPuzzle : ActionableElement
         GetComponentInChildren<SpriteRenderer>().enabled = false;
         puzzleController.SelectionBox1.GetComponent<Renderer>().enabled = false;
         puzzleController.SelectionBox2.GetComponent<Renderer>().enabled = false;
+        puzzleController.cursor.GetComponent<Renderer>().enabled = false;
         colorsPuzzleActivator = GetComponent<ColorsPuzzleActivator>();
     }
 
@@ -40,6 +41,7 @@ public class ColorsPuzzle : ActionableElement
         GetComponentInChildren<SpriteRenderer>().enabled = true;
         puzzleController.SelectionBox1.GetComponent<Renderer>().enabled = true;
         puzzleController.SelectionBox2.GetComponent<Renderer>().enabled = true;
+        puzzleController.cursor.GetComponent<Renderer>().enabled = true;
         heroStrong.GetComponent<HeroControl>().enabled = false;
         heroFast.GetComponent<HeroControl>().enabled = false;
         heroStrong.StopWalk();
@@ -148,6 +150,7 @@ public class ColorsPuzzle : ActionableElement
         heroFast.GetComponent<HeroControl>().enabled = true;
         puzzleController.SelectionBox1.GetComponent<Renderer>().enabled = false;
         puzzleController.SelectionBox2.GetComponent<Renderer>().enabled = false;
+        puzzleController.cursor.GetComponent<Renderer>().enabled = false;
         
     }
 
