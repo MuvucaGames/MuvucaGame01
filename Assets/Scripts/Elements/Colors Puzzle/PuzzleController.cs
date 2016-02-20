@@ -89,7 +89,7 @@ public class PuzzleController : MonoBehaviour
         controlActive = false;
     }
 
-    public float getSpinningPosition()
+    public float getRotationPosition()
     {
         return _spinningPosition;
     }
@@ -109,3 +109,4 @@ public class PuzzleController : MonoBehaviour
         SelectionBoxCurrent = gameObj;
     }
 }
+
