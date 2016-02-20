@@ -50,7 +50,7 @@ public abstract class Hero : MonoBehaviour {
 
 	}
 
-	private bool isGrounded() {
+	public bool isGrounded() {
 		//TODO better method to check if grounded
 		//old way:
 		//bool grounded = Physics2D.OverlapCircle (transform.position, 0.2f, whatIsGround.value | heroPlatformMask.value | mapInteractiveObjectsMask.value);
