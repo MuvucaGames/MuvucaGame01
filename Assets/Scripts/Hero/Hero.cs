@@ -161,6 +161,8 @@ public abstract class Hero : MonoBehaviour {
 
 	public void StopWalk(){
 		animator.SetBool ("walk", false);
+		//This command + changing Linear Drag to 1, prevents the hero slide after the jump
+		rigidBody2D.velocity = new Vector2 (0, rigidBody2D.velocity.y);
 		ChangeMotorSpeed (0f);
 	}
 

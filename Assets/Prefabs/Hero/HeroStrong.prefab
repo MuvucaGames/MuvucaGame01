@@ -184,7 +184,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 122942}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -5.32999992, y: -.0700000003, z: -.100000001}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 442330}
@@ -231,7 +231,7 @@ Rigidbody2D:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 122942}
   m_Mass: 1
-  m_LinearDrag: 0
+  m_LinearDrag: 1
   m_AngularDrag: .0500000007
   m_GravityScale: 1
   m_IsKinematic: 0
@@ -337,7 +337,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 136f294596530fc48b3cd9525ee4ca94, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxWalkingSpeed: 4
+  maxWalkingSpeed: 4.5
   walkMotorTorque: 80
   horizontalFlyingForce: .5
   jumpHeight: 1.5
@@ -355,6 +355,7 @@ MonoBehaviour:
   bodyCollider: {fileID: 6003864}
   walkMotor: {fileID: 23342416}
   footCollider: {fileID: 5814716}
+  m_isActive: 0
 --- !u!212 &21212648
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -373,7 +374,9 @@ SpriteRenderer:
   m_ProbeAnchor: {fileID: 0}
   m_ScaleInLightmap: 1
   m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
+  m_MinimumChartSize: 4
   m_AutoUVMaxDistance: .5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
@@ -479,6 +482,10 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: jumpHeight
       value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_LinearDrag
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
