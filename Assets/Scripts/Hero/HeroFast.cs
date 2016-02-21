@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class HeroB : Hero {
+public class HeroFast : Hero {
 
 
 }
