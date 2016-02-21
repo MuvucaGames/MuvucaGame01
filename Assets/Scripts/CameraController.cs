@@ -22,10 +22,9 @@ public class CameraController : MonoBehaviour {
         myCamera = Camera.main;
         float cameraZ = myCamera.transform.position.z;
 
-
-        if (heroStrong == null || heroFast == null) {
-			heroStrong = FindObjectOfType<HeroA>();
-			heroFast = FindObjectOfType<HeroB>();
+		if (heroStrong == null || heroFast == null) {
+			heroStrong = FindObjectOfType<HeroStrong>();
+			heroFast = FindObjectOfType<HeroFast>();
 			if (heroStrong == null || heroFast == null)
 				throw new UnityException ("Missing heroes in Camera Control");
 		}
