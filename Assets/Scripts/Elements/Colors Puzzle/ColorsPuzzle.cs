@@ -1,12 +1,12 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 public class ColorsPuzzle : ActionableElement 
 {
     static public Color Orange = new Color(1.0f, 0.5f, 0);
     static public Color Purple = new Color(0.5f, 0, 0.5f);
-    public HeroA heroStrong;
-    public HeroB heroFast;
+    public HeroStrong heroStrong;
+    public HeroFast heroFast;
     private PuzzleController puzzleController;
     public bool isActive = false;
     private Color puzzleSolutionColor;
@@ -29,8 +29,8 @@ public class ColorsPuzzle : ActionableElement
 
     void Awake()
     {
-        heroStrong = FindObjectOfType<HeroA>();
-        heroFast = FindObjectOfType<HeroB>();
+        heroStrong = FindObjectOfType<HeroStrong>();
+        heroFast = FindObjectOfType<HeroFast>();
         puzzleController = this.GetComponent<PuzzleController>();
     }
 
