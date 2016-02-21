@@ -15,13 +15,14 @@ public class SceneOEncontro : Scene {
 	{
 		heroStrong = FindObjectOfType<HeroA> ();
 		heroFast = FindObjectOfType<HeroB> ();
-		dialog = FindObjectOfType<Dialog> ();
+		dialog = GetComponentInChildren<Dialog> ();
 		heroStrongRigidbody = heroStrong.GetComponent<Rigidbody2D>();
 		heroFastRigidbody = heroFast.GetComponent<Rigidbody2D>();
 	}
 
 	public override void SceneAwake() {
 		Camera myCamera = Camera.main;
+		DisableControl ();
 		LockHeroesMovement ();
 	}
 

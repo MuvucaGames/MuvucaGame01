@@ -1,0 +1,187 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &176090
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 423414}
+  - 61: {fileID: 6174112}
+  - 114: {fileID: 11442634}
+  m_Layer: 0
+  m_Name: TriggerPedidoCasamento
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &185918
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 479812}
+  - 114: {fileID: 11434154}
+  m_Layer: 0
+  m_Name: MarriageProposalDialog
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &188348
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 455076}
+  - 114: {fileID: 11441900}
+  m_Layer: 0
+  m_Name: Dialog
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &423414
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 176090}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 479812}
+  m_RootOrder: 0
+--- !u!4 &455076
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 188348}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 479812}
+  m_RootOrder: 1
+--- !u!4 &479812
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 185918}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -12.8800001, y: 4.19000006, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 423414}
+  - {fileID: 455076}
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+--- !u!61 &6174112
+BoxCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 176090}
+  m_Enabled: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Size: {x: 10, y: 3}
+--- !u!114 &11434154
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 185918}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4bcd8aed5e50a042b626569eaba4840, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneActive: 0
+  heroStrongState: 0
+  heroFastState: 0
+--- !u!114 &11441900
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 188348}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9eed79ee3e0b1604abb8dcd9de07abe1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  senteces:
+  - sentence: {fileID: 11400000, guid: 004f74c59c9ff764fb280a5f5852b3f7, type: 2}
+    timeInSeconds: 1
+    Hooker: {fileID: 0}
+    typeOfBalloon: 0
+  - sentence: {fileID: 11400000, guid: 3b2700b63a296914da8b77ac261b0e93, type: 2}
+    timeInSeconds: 2
+    Hooker: {fileID: 0}
+    typeOfBalloon: 0
+  - sentence: {fileID: 11400000, guid: 463fe2083b6bf0e4b859b2716ad27b19, type: 2}
+    timeInSeconds: 2
+    Hooker: {fileID: 0}
+    typeOfBalloon: 0
+  - sentence: {fileID: 11400000, guid: 1e816c814f39e5c499185c5929f5faa4, type: 2}
+    timeInSeconds: 2
+    Hooker: {fileID: 0}
+    typeOfBalloon: 0
+  - sentence: {fileID: 11400000, guid: 8cafe8b2d672d8e40b8b908afe5382d1, type: 2}
+    timeInSeconds: 1
+    Hooker: {fileID: 0}
+    typeOfBalloon: 0
+  - sentence: {fileID: 11400000, guid: 8cafe8b2d672d8e40b8b908afe5382d1, type: 2}
+    timeInSeconds: 2
+    Hooker: {fileID: 0}
+    typeOfBalloon: 0
+  - sentence: {fileID: 11400000, guid: 6aaac9947469ed2499ee30455827d99d, type: 2}
+    timeInSeconds: 2
+    Hooker: {fileID: 0}
+    typeOfBalloon: 0
+  - sentence: {fileID: 0}
+    timeInSeconds: 2
+    Hooker: {fileID: 0}
+    typeOfBalloon: 0
+  balloonPrefab: {fileID: 11446132, guid: edba59d85190af645aa6e0c9078104cb, type: 2}
+--- !u!114 &11442634
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 176090}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cfaa8ad1391fe714dad62d5608fc7512, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  actionableElements:
+  - {fileID: 11434154}
+  triggerOnlyOnce: 1
+  triggersWithBothInside: 1
+--- !u!1001 &100100000
+Prefab:
+  m_ObjectHideFlags: 1
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications: []
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 0}
+  m_RootGameObject: {fileID: 185918}
+  m_IsPrefabParent: 1
