@@ -17,7 +17,7 @@ public abstract class Scene : ActionableElement {
 	void Start () {
 		heroStrong = FindObjectOfType<HeroA>();
 		heroFast = FindObjectOfType<HeroB> ();
-		dialog = FindObjectOfType<Dialog> ();
+		dialog = GetComponentInChildren<Dialog> ();
 		cameraController = FindObjectOfType<CameraController> ();
 	}
 
@@ -29,9 +29,13 @@ public abstract class Scene : ActionableElement {
 	public void SaveHeroesControl() {
 		heroFastState = heroFast.m_isActive;
 		heroStrongState = heroStrong.m_isActive;
+		cameraController.m_isOnCutscene = true;
+	}
+
+	public void DisableControl()
+	{
 		heroStrong.GetComponent<HeroControl> ().enabled = false;
 		heroFast.GetComponent<HeroControl> ().enabled = false;
-		cameraController.m_isOnCutscene = true;
 	}
 
 	public void RestoreHeroesControl() {
