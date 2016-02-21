@@ -24,8 +24,8 @@ public class CameraController : MonoBehaviour {
 
 
         if (heroStrong == null || heroFast == null) {
-			heroStrong = FindObjectOfType<HeroA>();
-			heroFast = FindObjectOfType<HeroB>();
+			heroStrong = FindObjectOfType<HeroStrong>();
+			heroFast = FindObjectOfType<HeroFast>();
 			if (heroStrong == null || heroFast == null)
 				throw new UnityException ("Missing heroes in Camera Control");
 		}
