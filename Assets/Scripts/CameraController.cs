@@ -20,8 +20,10 @@ public class CameraController : MonoBehaviour {
 
 	void Awake () {
         myCamera = Camera.main;
+        float cameraZ = myCamera.transform.position.z;
 
-		if (heroStrong == null || heroFast == null) {
+
+        if (heroStrong == null || heroFast == null) {
 			heroStrong = FindObjectOfType<HeroA>();
 			heroFast = FindObjectOfType<HeroB>();
 			if (heroStrong == null || heroFast == null)
@@ -30,19 +32,22 @@ public class CameraController : MonoBehaviour {
 
 
 		if (heroStrong.IsActive) {
-			m_newPosition = new Vector3(heroStrong.transform.position.x, heroStrong.transform.position.y, -1f);
+			m_newPosition = new Vector3(heroStrong.transform.position.x, heroStrong.transform.position.y, cameraZ);
 		} else {
-			m_newPosition = new Vector3(heroFast.transform.position.x, heroFast.transform.position.y, -1f);
+			m_newPosition = new Vector3(heroFast.transform.position.x, heroFast.transform.position.y, cameraZ);
 		}
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		if (!m_isOnCutscene) {
+        float cameraZ = myCamera.transform.position.z;
+
+
+        if (!m_isOnCutscene) {
 			if (heroStrong.IsActive) {
-				m_newPosition = new Vector3 (heroStrong.transform.position.x, heroStrong.transform.position.y, -1f);
+				m_newPosition = new Vector3 (heroStrong.transform.position.x, heroStrong.transform.position.y, cameraZ);
 			} else {
-				m_newPosition = new Vector3 (heroFast.transform.position.x, heroFast.transform.position.y, -1f);
+				m_newPosition = new Vector3 (heroFast.transform.position.x, heroFast.transform.position.y, cameraZ);
 			}
 
 			if (Input.GetKey (KeyCode.DownArrow)) {
