@@ -4,8 +4,8 @@ using System.Collections;
 public abstract class Scene : ActionableElement {
 
 	protected Dialog dialog;
-	protected HeroA heroStrong;
-	protected HeroB heroFast;
+	protected HeroStrong heroStrong;
+	protected HeroFast heroFast;
 
 	[SerializeField]private bool sceneActive = false;
 	[SerializeField]private bool heroStrongState = false;
@@ -15,8 +15,8 @@ public abstract class Scene : ActionableElement {
 	private CameraController cameraController;
 
 	void Start () {
-		heroStrong = FindObjectOfType<HeroA>();
-		heroFast = FindObjectOfType<HeroB> ();
+		heroStrong = FindObjectOfType<HeroStrong>();
+		heroFast = FindObjectOfType<HeroFast> ();
 		dialog = GetComponentInChildren<Dialog> ();
 		cameraController = FindObjectOfType<CameraController> ();
 	}
