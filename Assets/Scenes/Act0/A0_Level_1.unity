@@ -2470,7 +2470,6 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 397977863}
-  - 50: {fileID: 397977864}
   m_Layer: 8
   m_Name: Sogro
   m_TagString: Player
@@ -2493,23 +2492,6 @@ Transform:
   - {fileID: 1927284766}
   m_Father: {fileID: 138863328}
   m_RootOrder: 1
---- !u!50 &397977864
-Rigidbody2D:
-  serializedVersion: 2
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 5083748, guid: fcc10d5871859b54e87f0349e1da8078,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 397977862}
-  m_Mass: 1
-  m_LinearDrag: 1
-  m_AngularDrag: .0500000007
-  m_GravityScale: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 4
 --- !u!4 &403017800 stripped
 Transform:
   m_PrefabParentObject: {fileID: 497506, guid: 6d21b5866b8631a4299e7b2f1077c199, type: 2}
@@ -7568,7 +7550,7 @@ HingeJoint2D:
   m_Enabled: 1
   serializedVersion: 3
   m_EnableCollision: 0
-  m_ConnectedRigidBody: {fileID: 397977864}
+  m_ConnectedRigidBody: {fileID: 0}
   m_Anchor: {x: 0, y: 0}
   m_ConnectedAnchor: {x: 0, y: .349999994}
   m_UseMotor: 1
