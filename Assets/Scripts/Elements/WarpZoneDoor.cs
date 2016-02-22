@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 /*
@@ -11,8 +11,8 @@ public class WarpZoneDoor : ActionableElement
     public bool isTimeBased;
     public bool isToggle;
     public bool bothHeroesNeeded;
-    public HeroA heroStrong;
-    public HeroB heroFast;
+    public HeroStrong heroStrong;
+    public HeroFast heroFast;
     public WarpZoneDoor doorTarget;
     public float timeToTeleport = 0.5f;
     public float timeToChangeLockState = 1.0f;
