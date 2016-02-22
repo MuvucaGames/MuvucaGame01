@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using UnityEditor;
 
@@ -19,12 +19,12 @@ public class WarpZoneDoorEditor : Editor {
         bothHeroesNeeded = warpZoneDoor.bothHeroesNeeded;
         isToggle = warpZoneDoor.isToggle;
 
-        warpZoneDoor.heroStrong = (HeroA)EditorGUILayout.ObjectField("Hero Strong",
+        warpZoneDoor.heroStrong = (HeroStrong)EditorGUILayout.ObjectField("Hero Strong",
                                                                      warpZoneDoor.heroStrong,
-                                                                     typeof(HeroA), true);
-        warpZoneDoor.heroFast = (HeroB)EditorGUILayout.ObjectField("Hero Fast",
+                                                                     typeof(HeroStrong), true);
+        warpZoneDoor.heroFast = (HeroFast)EditorGUILayout.ObjectField("Hero Fast",
                                                                    warpZoneDoor.heroFast,
-                                                                   typeof(HeroB), true);
+                                                                   typeof(HeroFast), true);
         warpZoneDoor.doorTarget = (WarpZoneDoor)EditorGUILayout.ObjectField("Warp Door Target",
                                                                             warpZoneDoor.doorTarget,
                                                                             typeof(WarpZoneDoor), 
