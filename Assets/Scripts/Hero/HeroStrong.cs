@@ -1,7 +1,7 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
-public class HeroA : Hero {
+public class HeroStrong : Hero {
 
 	protected override void Awake(){
 		base.Awake ();

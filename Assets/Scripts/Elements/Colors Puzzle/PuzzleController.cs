@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 public class PuzzleController : MonoBehaviour 
@@ -7,8 +7,8 @@ public class PuzzleController : MonoBehaviour
     private bool _horizontalButtonPressed = false;
     private bool _colorSelected = false;
     private float _spinningPosition = 0.0f;
-    private HeroA heroStrong;
-    private HeroB heroFast;
+    private HeroStrong heroStrong;
+    private HeroFast heroFast;
     public GameObject SelectionBox1;
     public GameObject SelectionBox2;
 
@@ -22,8 +22,8 @@ public class PuzzleController : MonoBehaviour
 
     void Awake ()
     {
-        heroStrong = FindObjectOfType<HeroA>();
-        heroFast = FindObjectOfType<HeroB>();
+        heroStrong = FindObjectOfType<HeroStrong>();
+        heroFast = FindObjectOfType<HeroFast>();
         SelectionBoxCurrent = SelectionBox1;
         defaultColor = SelectionBox1.GetComponent<Renderer>().material.color;
         colorsPuzzle = this.GetComponent<ColorsPuzzle>();
@@ -89,7 +89,7 @@ public class PuzzleController : MonoBehaviour
         controlActive = false;
     }
 
-    public float getSpinningPosition()
+    public float getRotationPosition()
     {
         return _spinningPosition;
     }
@@ -109,3 +109,4 @@ public class PuzzleController : MonoBehaviour
         SelectionBoxCurrent = gameObj;
     }
 }
+
