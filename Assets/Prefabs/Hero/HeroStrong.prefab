@@ -25,7 +25,6 @@ GameObject:
   m_Component:
   - 4: {fileID: 453014}
   - 50: {fileID: 5066174}
-  - 114: {fileID: 11457944}
   - 114: {fileID: 11422286}
   m_Layer: 8
   m_Name: HeroStrong
@@ -326,36 +325,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3549de351e2ffd84595bdb598c2badb7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &11457944
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 122942}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 136f294596530fc48b3cd9525ee4ca94, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxWalkingSpeed: 4.5
-  walkMotorTorque: 80
-  horizontalFlyingForce: .5
-  jumpHeight: 1.5
-  whatIsGround:
-    serializedVersion: 2
-    m_Bits: 4096
-  heroPlatformMask:
-    serializedVersion: 2
-    m_Bits: 512
-  mapInteractiveObjectsMask:
-    serializedVersion: 2
-    m_Bits: 1024
-  headCollider: {fileID: 6198980}
-  heroPlatform: {fileID: 6154428}
-  bodyCollider: {fileID: 6003864}
-  walkMotor: {fileID: 23342416}
-  footCollider: {fileID: 5814716}
-  m_isActive: 0
 --- !u!212 &21212648
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -374,9 +343,7 @@ SpriteRenderer:
   m_ProbeAnchor: {fileID: 0}
   m_ScaleInLightmap: 1
   m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
-  m_MinimumChartSize: 4
   m_AutoUVMaxDistance: .5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
@@ -419,7 +386,6 @@ PlatformEffector2D:
   m_SurfaceArc: 20
   m_UseSideFriction: 0
   m_UseSideBounce: 0
-  m_SideArc: 1
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
