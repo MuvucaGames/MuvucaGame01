@@ -25,6 +25,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 453014}
   - 50: {fileID: 5066174}
+  - 114: {fileID: 11415372}
   - 114: {fileID: 11422286}
   m_Layer: 8
   m_Name: HeroStrong
@@ -314,6 +315,36 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &11415372
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 122942}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3b1a1a8bf2edeba4bb189878c796b7ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxWalkingSpeed: 5
+  walkMotorTorque: 40
+  horizontalFlyingForce: .5
+  jumpHeight: 1
+  whatIsGround:
+    serializedVersion: 2
+    m_Bits: 0
+  heroPlatformMask:
+    serializedVersion: 2
+    m_Bits: 0
+  mapInteractiveObjectsMask:
+    serializedVersion: 2
+    m_Bits: 0
+  headCollider: {fileID: 0}
+  heroPlatform: {fileID: 0}
+  bodyCollider: {fileID: 0}
+  walkMotor: {fileID: 0}
+  footCollider: {fileID: 0}
+  m_isActive: 1
 --- !u!114 &11422286
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -451,6 +482,10 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: m_LinearDrag
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_isActive
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
