@@ -13,8 +13,8 @@ public class SceneOEncontro : Scene {
 
 	public void Awake()
 	{
-		heroStrong = FindObjectOfType<HeroA> ();
-		heroFast = FindObjectOfType<HeroB> ();
+		heroStrong = FindObjectOfType<HeroStrong> ();
+		heroFast = FindObjectOfType<HeroFast> ();
 		dialog = GetComponentInChildren<Dialog> ();
 		heroStrongRigidbody = heroStrong.GetComponent<Rigidbody2D>();
 		heroFastRigidbody = heroFast.GetComponent<Rigidbody2D>();
