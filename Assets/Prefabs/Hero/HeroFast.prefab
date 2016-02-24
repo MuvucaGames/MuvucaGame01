@@ -25,7 +25,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 453238}
   - 50: {fileID: 5091290}
-  - 114: {fileID: 11472990}
+  - 114: {fileID: 11415378}
   - 114: {fileID: 11476276}
   m_Layer: 8
   m_Name: HeroFast
@@ -315,7 +315,7 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
---- !u!114 &11472990
+--- !u!114 &11415378
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -323,28 +323,28 @@ MonoBehaviour:
   m_GameObject: {fileID: 127062}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3460601dd8830bf429940b626321c2fd, type: 3}
+  m_Script: {fileID: 11500000, guid: efdac04d20f5969468168145ae49cc1d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxWalkingSpeed: 6
+  maxWalkingSpeed: 5
   walkMotorTorque: 40
-  horizontalFlyingForce: .25
-  jumpHeight: 2.5
+  horizontalFlyingForce: .5
+  jumpHeight: 1
   whatIsGround:
     serializedVersion: 2
-    m_Bits: 4096
+    m_Bits: 0
   heroPlatformMask:
     serializedVersion: 2
-    m_Bits: 512
+    m_Bits: 0
   mapInteractiveObjectsMask:
     serializedVersion: 2
-    m_Bits: 5120
-  headCollider: {fileID: 6127904}
-  heroPlatform: {fileID: 6159608}
-  bodyCollider: {fileID: 6087990}
-  walkMotor: {fileID: 23335832}
-  footCollider: {fileID: 5888030}
-  m_isActive: 0
+    m_Bits: 0
+  headCollider: {fileID: 0}
+  heroPlatform: {fileID: 0}
+  bodyCollider: {fileID: 0}
+  walkMotor: {fileID: 0}
+  footCollider: {fileID: 0}
+  m_isActive: 1
 --- !u!114 &11476276
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -482,6 +482,10 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: m_LinearDrag
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_isActive
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
