@@ -24,7 +24,7 @@ public abstract class Hero : MonoBehaviour {
 	private Animator animator;
 
 
-	protected bool m_isActive = false;
+	public bool m_isActive = false;
 	public bool IsActive{
 		get { return m_isActive; }
 		protected set { m_isActive = value; }
@@ -50,7 +50,7 @@ public abstract class Hero : MonoBehaviour {
 
 	}
 
-	private bool isGrounded() {
+	public bool isGrounded() {
 		//TODO better method to check if grounded
 		//old way:
 		//bool grounded = Physics2D.OverlapCircle (transform.position, 0.2f, whatIsGround.value | heroPlatformMask.value | mapInteractiveObjectsMask.value);
@@ -161,6 +161,8 @@ public abstract class Hero : MonoBehaviour {
 
 	public void StopWalk(){
 		animator.SetBool ("walk", false);
+		//This command + changing Linear Drag to 1, prevents the hero slide after the jump
+		rigidBody2D.velocity = new Vector2 (0, rigidBody2D.velocity.y);
 		ChangeMotorSpeed (0f);
 	}
 
@@ -266,6 +268,5 @@ public abstract class Hero : MonoBehaviour {
 		}
 
 	}
-
 
 }

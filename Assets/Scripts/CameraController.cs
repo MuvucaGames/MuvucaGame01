@@ -11,41 +11,55 @@ public class CameraController : MonoBehaviour {
 	private Vector3 m_newPosition;
 	private Vector3 velocity = Vector3.zero;
 
+	public bool m_isOnCutscene = false;
+	public bool IsOnActive{
+		get { return m_isOnCutscene; }
+		protected set { m_isOnCutscene = value; }
+	}
+
+
 	void Awake () {
         myCamera = Camera.main;
+        float cameraZ = myCamera.transform.position.z;
 
 		if (heroStrong == null || heroFast == null) {
-			heroStrong = FindObjectOfType<HeroA>();
-			heroFast = FindObjectOfType<HeroB>();
+			heroStrong = FindObjectOfType<HeroStrong>();
+			heroFast = FindObjectOfType<HeroFast>();
 			if (heroStrong == null || heroFast == null)
 				throw new UnityException ("Missing heroes in Camera Control");
 		}
 
 
 		if (heroStrong.IsActive) {
-			m_newPosition = new Vector3(heroStrong.transform.position.x, heroStrong.transform.position.y, -1f);
+			m_newPosition = new Vector3(heroStrong.transform.position.x, heroStrong.transform.position.y, cameraZ);
 		} else {
-			m_newPosition = new Vector3(heroFast.transform.position.x, heroFast.transform.position.y, -1f);
+			m_newPosition = new Vector3(heroFast.transform.position.x, heroFast.transform.position.y, cameraZ);
 		}
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		if (heroStrong.IsActive) {
-			m_newPosition = new Vector3(heroStrong.transform.position.x, heroStrong.transform.position.y, -1f);
-		} else {
-			m_newPosition = new Vector3(heroFast.transform.position.x, heroFast.transform.position.y, -1f);
-		}
+        float cameraZ = myCamera.transform.position.z;
 
-		if (Input.GetKey (KeyCode.DownArrow)) {
-			m_newPosition += new Vector3(0, -1.5f);
-		}
 
-		if (heroStrong.OnAir || heroFast.OnAir) {
-			m_newPosition += new Vector3(0, 1.5f);
-		}
+        if (!m_isOnCutscene) {
+			if (heroStrong.IsActive) {
+				m_newPosition = new Vector3 (heroStrong.transform.position.x, heroStrong.transform.position.y, cameraZ);
+			} else {
+				m_newPosition = new Vector3 (heroFast.transform.position.x, heroFast.transform.position.y, cameraZ);
+			}
 
-		myCamera.transform.position = Vector3.SmoothDamp (myCamera.transform.position, m_newPosition, ref velocity, cameraSpeed);
-		//transform.position = m_newPosition;
+			if (Input.GetKey (KeyCode.DownArrow)) {
+				m_newPosition += new Vector3 (0, -1.5f);
+			}
+
+			if (heroStrong.OnAir || heroFast.OnAir) {
+				m_newPosition += new Vector3 (0, 1.5f);
+			}
+			myCamera.transform.position = Vector3.SmoothDamp (myCamera.transform.position, m_newPosition, ref velocity, cameraSpeed);
+			//transform.position = m_newPosition;
+		}
 	}
+
+	public Camera getCamera() {return myCamera;}
 }
