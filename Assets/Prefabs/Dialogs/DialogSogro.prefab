@@ -23,59 +23,10 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 480882}
-  - 50: {fileID: 5083748}
+  - 50: {fileID: 5064752}
   m_Layer: 8
   m_Name: Sogro
   m_TagString: Player
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!1 &130350
-GameObject:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 482526}
-  - 60: {fileID: 6054510}
-  m_Layer: 8
-  m_Name: BodyCollider
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!1 &130984
-GameObject:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 447144}
-  - 61: {fileID: 6183928}
-  - 251: {fileID: 25196222}
-  m_Layer: 9
-  m_Name: HeroPlatform
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!1 &145452
-GameObject:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 477240}
-  - 61: {fileID: 6171006}
-  m_Layer: 8
-  m_Name: HeadColider
-  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -176,7 +127,7 @@ Transform:
   m_Children:
   - {fileID: 490290}
   m_Father: {fileID: 480882}
-  m_RootOrder: 4
+  m_RootOrder: 1
 --- !u!4 &439882
 Transform:
   m_ObjectHideFlags: 1
@@ -189,18 +140,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 455116}
   m_RootOrder: 0
---- !u!4 &447144
-Transform:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 130984}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 480882}
-  m_RootOrder: 2
 --- !u!4 &450172
 Transform:
   m_ObjectHideFlags: 1
@@ -239,18 +178,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 480882}
-  m_RootOrder: 3
---- !u!4 &477240
-Transform:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 145452}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 480882}
   m_RootOrder: 0
 --- !u!4 &480882
 Transform:
@@ -262,24 +189,9 @@ Transform:
   m_LocalPosition: {x: -3, y: -.944372177, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 477240}
-  - {fileID: 482526}
-  - {fileID: 447144}
   - {fileID: 474936}
   - {fileID: 428638}
   m_Father: {fileID: 455116}
-  m_RootOrder: 1
---- !u!4 &482526
-Transform:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 130350}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 480882}
   m_RootOrder: 1
 --- !u!4 &490290
 Transform:
@@ -309,7 +221,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!50 &5083748
+--- !u!50 &5064752
 Rigidbody2D:
   serializedVersion: 2
   m_ObjectHideFlags: 1
@@ -317,10 +229,10 @@ Rigidbody2D:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 130304}
   m_Mass: 1
-  m_LinearDrag: 1
+  m_LinearDrag: 0
   m_AngularDrag: .0500000007
   m_GravityScale: 1
-  m_IsKinematic: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
@@ -338,26 +250,6 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: .349999994
---- !u!60 &6054510
-PolygonCollider2D:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 130350}
-  m_Enabled: 1
-  m_Material: {fileID: 6200000, guid: 825096138afbdb94c91ef8421519409a, type: 2}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_Offset: {x: 0, y: 0}
-  m_Points:
-    m_Paths:
-    - - {x: -.349999994, y: .349999994}
-      - {x: -.349999994, y: 1.5}
-      - {x: .349999994, y: 1.5}
-      - {x: .349999994, y: .349999994}
-      - {x: .200000003, y: .150000006}
-      - {x: 0, y: .0799999982}
-      - {x: -.200000003, y: .150000006}
 --- !u!61 &6148040
 BoxCollider2D:
   m_ObjectHideFlags: 1
@@ -371,32 +263,6 @@ BoxCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Size: {x: 10, y: 3}
---- !u!61 &6171006
-BoxCollider2D:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 145452}
-  m_Enabled: 1
-  m_Material: {fileID: 6200000, guid: 825096138afbdb94c91ef8421519409a, type: 2}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_Offset: {x: 0, y: 1.75}
-  serializedVersion: 2
-  m_Size: {x: .699999988, y: .5}
---- !u!61 &6183928
-BoxCollider2D:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 130984}
-  m_Enabled: 1
-  m_Material: {fileID: 6200000, guid: 825096138afbdb94c91ef8421519409a, type: 2}
-  m_IsTrigger: 0
-  m_UsedByEffector: 1
-  m_Offset: {x: 0, y: 1.75}
-  serializedVersion: 2
-  m_Size: {x: .699999988, y: .5}
 --- !u!95 &9591302
 Animator:
   serializedVersion: 3
@@ -500,7 +366,7 @@ HingeJoint2D:
   m_Enabled: 1
   serializedVersion: 3
   m_EnableCollision: 0
-  m_ConnectedRigidBody: {fileID: 5083748}
+  m_ConnectedRigidBody: {fileID: 0}
   m_Anchor: {x: 0, y: 0}
   m_ConnectedAnchor: {x: 0, y: .349999994}
   m_UseMotor: 1
@@ -511,21 +377,6 @@ HingeJoint2D:
   m_AngleLimits:
     m_LowerAngle: 0
     m_UpperAngle: 359
---- !u!251 &25196222
-PlatformEffector2D:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 130984}
-  m_Enabled: 1
-  m_UseColliderMask: 1
-  m_ColliderMask:
-    serializedVersion: 2
-    m_Bits: 7424
-  m_UseOneWay: 1
-  m_SurfaceArc: 20
-  m_UseSideFriction: 0
-  m_UseSideBounce: 0
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
