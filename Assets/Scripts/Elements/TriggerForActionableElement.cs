@@ -31,7 +31,7 @@ public class TriggerForActionableElement : Activator {
 
     }
 
-    void OnExitTrigger2D(Collider2D other)
+    void OnTriggerExit2D(Collider2D other)
     {
         if (other.transform.parent != null && other.transform.parent.tag == "Player")
         {
