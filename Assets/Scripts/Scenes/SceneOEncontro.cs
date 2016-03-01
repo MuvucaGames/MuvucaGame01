@@ -51,12 +51,19 @@ public class SceneOEncontro : Scene {
 			switch (action) {
 			case 0:
 				RunsOnce = false;
-				if ((Mathf.Abs (heroFastRigidbody.position.x - heroStrongRigidbody.position.x)) > 4.0f) {
+				if (Mathf.Abs(heroFastRigidbody.position.x - heroStrongRigidbody.position.x) > 4.0f) {
 					heroStrong.Move (direction * 0.32f);
 					heroFast.Move (direction * -0.10f);
 					break;
 				}
+				else if (Mathf.Abs (heroFastRigidbody.position.x - heroStrongRigidbody.position.x) < 3.5f)
+				{
+					heroStrong.Move (-0.32f);
+					heroFast.Move (-0.08f);
+					break;
+				}
 				heroFast.StopWalk ();
+				heroStrong.StopWalk ();
 				AdvanceInScene();
 				break;
 			case 1:
