@@ -10,6 +10,7 @@ public class SceneOEncontro : Scene {
 	private int timeAct = 0;
 	private bool cameraNaturalMovement = true;
 	private Vector3 vel = Vector3.zero;
+	private int direction = 0;
 
 	public void Awake()
 	{
@@ -39,14 +40,20 @@ public class SceneOEncontro : Scene {
 			                                                  ref vel, 0.7f);
 		}
 
+		if (heroFast.transform.position.x > heroStrong.transform.position.x) {
+			direction = 1;
+		} else {
+			direction = -1;
+		}
+
 		if (!RunsOnce) {
 			RunsOnce = true;
 			switch (action) {
 			case 0:
 				RunsOnce = false;
-				if (heroFastRigidbody.position.x < (heroStrongRigidbody.position.x + 3.5f)) {
-					heroStrong.Move (-0.42f);
-					heroFast.Move (-0.08f);
+				if ((Mathf.Abs (heroFastRigidbody.position.x - heroStrongRigidbody.position.x)) > 4.0f) {
+					heroStrong.Move (direction * 0.32f);
+					heroFast.Move (direction * -0.10f);
 					break;
 				}
 				heroFast.StopWalk ();
@@ -67,7 +74,7 @@ public class SceneOEncontro : Scene {
 				RunsOnce = false;
 				if (TimeElapsed_ms(timeAct) > 240)
 				{
-					heroStrong.Move (0.10f);
+					heroStrong.Move (direction * 0.10f);
 					heroStrong.StopWalk ();
 					StartCoroutine (WaitSecondsToAction (1));
 					RunsOnce = true;
@@ -85,7 +92,7 @@ public class SceneOEncontro : Scene {
 			case 6:
 				RunsOnce = false;
 				if (heroStrongRigidbody.position.x < (heroFastRigidbody.position.x - 2)) {
-					heroFast.Move (-0.20f);
+					heroFast.Move (direction * -0.20f);
 					break;
 				}
 				heroStrong.StopWalk ();
@@ -105,26 +112,26 @@ public class SceneOEncontro : Scene {
 				ballonInstance.Init (dialog.senteces[3], AdvanceInScene);
 				break;
 			case 9:
-				heroStrong.Move (-0.05f);
+				heroStrong.Move (direction * -0.05f);
 				heroStrong.StopWalk ();
 				ballonInstance = Instantiate (dialog.balloonPrefab);
 				ballonInstance.Init (dialog.senteces[4], AdvanceInScene);
 				break;
 			case 10:
-				heroFast.Move (0.05f);
+				heroFast.Move (direction * 0.05f);
 				heroFast.StopWalk ();
 				ballonInstance = Instantiate (dialog.balloonPrefab);
 				ballonInstance.Init (dialog.senteces[5], AdvanceInScene);
 				break;
 			case 11:
-				heroStrong.Move(0.05f);
+				heroStrong.Move(direction * 0.05f);
 				heroStrong.StopWalk();
 				ballonInstance = Instantiate (dialog.balloonPrefab);
 				ballonInstance.Init (dialog.senteces[6], FixedUpdate);
 				StartCoroutine (WaitSecondsToAction (1));
 				break;
 			case 12:
-				heroFast.Move (-0.05f);
+				heroFast.Move (direction * -0.05f);
 				heroFast.StopWalk();
 				StartCoroutine (WaitSecondsToAction (1));
 				break;
@@ -137,8 +144,8 @@ public class SceneOEncontro : Scene {
 				if ((heroFastRigidbody.position.x > heroStrongRigidbody.position.x + 1) ||
 				    (heroFastRigidbody.position.x < heroStrongRigidbody.position.x - 1))
 				{
-					heroFast.Move(-0.08f);
-					heroStrong.Move (0.08f);
+					heroFast.Move(direction * -0.08f);
+					heroStrong.Move (direction * 0.08f);
 				}
 				else
 				{
