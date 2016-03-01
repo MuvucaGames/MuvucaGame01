@@ -56,8 +56,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 176090}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: -.610000014, y: 1.91999996, z: 0}
+  m_LocalScale: {x: .854999006, y: 2.28437805, z: 1}
   m_Children: []
   m_Father: {fileID: 479812}
   m_RootOrder: 0
@@ -80,8 +80,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 185918}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -12.8800001, y: 4.19000006, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: -9.80000019, y: -1.53999996, z: 0}
+  m_LocalScale: {x: 1.68562615, y: 1, z: 1}
   m_Children:
   - {fileID: 423414}
   - {fileID: 455076}
@@ -151,10 +151,6 @@ MonoBehaviour:
     Hooker: {fileID: 0}
     typeOfBalloon: 0
   - sentence: {fileID: 11400000, guid: 6aaac9947469ed2499ee30455827d99d, type: 2}
-    timeInSeconds: 2
-    Hooker: {fileID: 0}
-    typeOfBalloon: 0
-  - sentence: {fileID: 0}
     timeInSeconds: 2
     Hooker: {fileID: 0}
     typeOfBalloon: 0
