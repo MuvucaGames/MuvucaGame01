@@ -2,41 +2,61 @@
 using System.Collections;
 using System;
 
-public abstract class Hero : MonoBehaviour {
+public abstract class Hero : MonoBehaviour
+{
 
-	[SerializeField] private float maxWalkingSpeed = 5f;
-	[SerializeField] private float walkMotorTorque = 40f;
-	[SerializeField] private float horizontalFlyingForce = 0.5f;
-	[SerializeField] private float jumpHeight = 1f;
-	[SerializeField] private LayerMask whatIsGround;
-	[SerializeField] private LayerMask heroPlatformMask;
-	[SerializeField] private LayerMask mapInteractiveObjectsMask;
-	[SerializeField] private Collider2D headCollider = null;
-	[SerializeField] private Collider2D heroPlatform = null;
-	[SerializeField] private Collider2D bodyCollider = null;
-	[SerializeField] private HingeJoint2D walkMotor = null;
-	[SerializeField] private Collider2D footCollider = null;
+	[SerializeField]
+	private float maxWalkingSpeed = 5f;
+	[SerializeField]
+	private float walkMotorTorque = 40f;
+	[SerializeField]
+	private float horizontalFlyingForce = 0.5f;
+	[SerializeField]
+	private float jumpHeight = 1f;	
+	[SerializeField]
+	private float offsetCarryObjHero = 0.7f;
+	[SerializeField]
+	private bool isHeroStrong = true;
+
+	[SerializeField]
+	private LayerMask whatIsGround;
+	[SerializeField]
+	private LayerMask heroPlatformMask;
+	[SerializeField]
+	private LayerMask mapInteractiveObjectsMask;
+	[SerializeField]
+	private Collider2D headCollider = null;
+	[SerializeField]
+	private Collider2D heroPlatform = null;
+	[SerializeField]
+	private Collider2D bodyCollider = null;
+	[SerializeField]
+	private HingeJoint2D walkMotor = null;
+	[SerializeField]
+	private Collider2D footCollider = null;
 
 	private float motorMaxAngularSpeed = 0f;
 	private bool m_FacingRight = true;
 	private Rigidbody2D rigidBody2D;
 	private double jumpForce;
 	private Animator animator;
-
-
+	private bool Carrying = false;
+	private GameObject CarriedObject;
 	public bool m_isActive = false;
-	public bool IsActive{
+
+	public bool IsActive {
 		get { return m_isActive; }
 		protected set { m_isActive = value; }
 	}
 
 	private bool m_onAir = false;
-	public bool OnAir{
+
+	public bool OnAir {
 		get { return m_onAir; }
 	}
 
-
-	protected virtual void Awake(){
+	protected virtual void Awake ()
+	{
 		rigidBody2D = GetComponent<Rigidbody2D> ();
 
 		//get the animator
@@ -46,11 +66,13 @@ public abstract class Hero : MonoBehaviour {
 		CalculateWalkingMotorAngularSpeed ();
 	}
 
-	void FixedUpdate(){
+	void FixedUpdate ()
+	{
 
 	}
 
-	public bool isGrounded() {
+	public bool isGrounded ()
+	{
 		//TODO better method to check if grounded
 		//old way:
 		//bool grounded = Physics2D.OverlapCircle (transform.position, 0.2f, whatIsGround.value | heroPlatformMask.value | mapInteractiveObjectsMask.value);
@@ -58,46 +80,79 @@ public abstract class Hero : MonoBehaviour {
 		bool grounded = footCollider.IsTouchingLayers (whatIsGround.value | heroPlatformMask.value | mapInteractiveObjectsMask.value);
 		return grounded;
 	}
-
-	public void Move(float speed) {
+	
+	public bool isPushingSomething ()
+	{
+		//TODO better method to check if grounded
+		//old way:
+		//bool grounded = Physics2D.OverlapCircle (transform.position, 0.2f, whatIsGround.value | heroPlatformMask.value | mapInteractiveObjectsMask.value);
+		//new way:
+		bool grounded = bodyCollider.IsTouchingLayers (mapInteractiveObjectsMask.value);
+		return grounded;
+	}
+	
+	public void Move (float speed)
+	{
 		bool grounded = isGrounded ();
 		if (grounded) {
 			animator.SetBool ("jumpOnAir", false);
 			if (speed == 0.0f) {
 				animator.SetBool ("walk", false);
 				StopWalk ();
-			}
-			else {
+				StopPush();
+				if (Carrying)
+					Carry();
+			} else {
+				if (Carrying)
+					Carry();
+				else if (isPushingSomething ())
+					Push ();
+				else
+					StopPush();
 				animator.SetBool ("walk", true);
 				ChangeMotorSpeed (motorMaxAngularSpeed * speed);
 			}
 		} else {
-			if (rigidBody2D.velocity.x * Mathf.Sign(speed) < maxWalkingSpeed)
+			if (rigidBody2D.velocity.x * Mathf.Sign (speed) < maxWalkingSpeed)
 				rigidBody2D.AddForce (new Vector2 (speed * horizontalFlyingForce, 0), ForceMode2D.Impulse);
+			StopPush();
+			if (Carrying)
+				Carry();
 			animator.SetBool ("jumpOnAir", true);
 		}
-		flipAnimation(speed);
+		flipAnimation (speed);
 	}
 
-	public void Jump() {
+	public void StopWalk ()
+	{
+		animator.SetBool ("walk", false);
+		//This command + changing Linear Drag to 1, prevents the hero slide after the jump
+		rigidBody2D.velocity = new Vector2 (0, rigidBody2D.velocity.y);
+		ChangeMotorSpeed (0f);
+	}
+	
+	public void Jump ()
+	{
 		//JUMP, IF GROUDED OR ON OTHER HERO PLATFORM
 		bool grounded = isGrounded ();
 		if (grounded) {
-			animator.SetTrigger("jumpStart");
+			animator.SetTrigger ("jumpStart");
 			foreach (Rigidbody2D rg2d in transform.GetComponentsInChildren<Rigidbody2D>())
-				rg2d.velocity = new Vector2(rigidBody2D.velocity.x, 0);
+				rg2d.velocity = new Vector2 (rigidBody2D.velocity.x, 0);
 			rigidBody2D.AddForce (new Vector2 (0f, (float)jumpForce), ForceMode2D.Impulse);
-			SoundManager.Instance.SendMessage("PlaySFXJump");
+			SoundManager.Instance.SendMessage ("PlaySFXJump");
 		}
 	}
 
-	public void Crouch() {
-		heroPlatform.offset = headCollider.offset -  new Vector2(0, heroPlatform.bounds.size.y);
+	public void Crouch ()
+	{
+		heroPlatform.offset = headCollider.offset - new Vector2 (0, heroPlatform.bounds.size.y);
 		//Crouch Animation
 		animator.SetBool ("crouch", true);
 	}
 
-	public void StandUp() {
+	public void StandUp ()
+	{
 		if (!Physics2D.OverlapArea (headCollider.bounds.min, headCollider.bounds.max, whatIsGround.value)) { // Do not stand up inside a short area
 			heroPlatform.offset = headCollider.offset;
 			//Crouch Animation
@@ -105,23 +160,28 @@ public abstract class Hero : MonoBehaviour {
 		}
 	}
 
-	public void Push() {
+	public void Push ()
+	{
 		animator.SetBool ("push", true);
 	}
 
-	public void StopPush() {
+	public void StopPush ()
+	{
 		animator.SetBool ("push", false);
 	}
 
-	public void Carry() {
+	public void Carry ()
+	{
 		animator.SetBool ("carry", true);
 	}
 
-	public void StopCarry() {
+	public void StopCarry ()
+	{
 		animator.SetBool ("carry", false);
 	}
 
-	private void flipAnimation(float horizontalMove)	{
+	private void flipAnimation (float horizontalMove)
+	{
 		//Flip the animation
 		if ((horizontalMove > 0 && !m_FacingRight) || (horizontalMove < 0 && m_FacingRight)) {
 			// Switch the way the player is labelled as facing.
@@ -134,11 +194,12 @@ public abstract class Hero : MonoBehaviour {
 		}
 	}
 
-	private void CalculateJumpForce(){
+	private void CalculateJumpForce ()
+	{
 		//Impulse to Jump that height
 		//more info look at http://hyperphysics.phy-astr.gsu.edu/hbase/impulse.html and reverse http://hyperphysics.phy-astr.gsu.edu/hbase/flobj.html#c2
 		double totalMass = 0;
-		//get the total mass from the hero
+		//get the total mass from the he
 		foreach (Rigidbody2D rg2d in transform.GetComponentsInChildren<Rigidbody2D>())
 			totalMass += rg2d.mass;
 
@@ -148,73 +209,99 @@ public abstract class Hero : MonoBehaviour {
 		jumpForce *= 1.03;
 	}
 
-	private void CalculateWalkingMotorAngularSpeed(){
-		float footRadius = walkMotor.GetComponent<CircleCollider2D>().radius;
+	private void CalculateWalkingMotorAngularSpeed ()
+	{
+		float footRadius = walkMotor.GetComponent<CircleCollider2D> ().radius;
 
-		motorMaxAngularSpeed = Mathf.Rad2Deg * maxWalkingSpeed/footRadius;
+		motorMaxAngularSpeed = Mathf.Rad2Deg * maxWalkingSpeed / footRadius;
 
 	}
 
-	public void ChangeHero(){
+	public void ChangeHero ()
+	{
 		m_isActive = !m_isActive;
 	}
 
-	public void StopWalk(){
-		animator.SetBool ("walk", false);
-		//This command + changing Linear Drag to 1, prevents the hero slide after the jump
-		rigidBody2D.velocity = new Vector2 (0, rigidBody2D.velocity.y);
-		ChangeMotorSpeed (0f);
-	}
-
-	private void ChangeMotorSpeed(float speed){
+	private void ChangeMotorSpeed (float speed)
+	{
 		JointMotor2D tMotor = walkMotor.motor; 
 		tMotor.motorSpeed = speed;
 		tMotor.maxMotorTorque = walkMotorTorque;
 		walkMotor.motor = tMotor;
 	}
 
-	public void Action() {
+	public void Action ()
+	{
 		this.DoAction ();
 	}
 
-    private void DoAction()
-    {
-        Renderer r = GetComponentInChildren<Renderer>();
-        Vector2 a = new Vector2(transform.position.x - r.bounds.extents.x, transform.position.y - r.bounds.extents.x);
-        Vector2 b = new Vector2(transform.position.x + r.bounds.extents.x, transform.position.y + r.bounds.extents.x);
-        Collider2D coll = Physics2D.OverlapArea(a, b, 1 << 11);
+	private void DoAction ()
+	{
+		Renderer r = GetComponentInChildren<Renderer> ();
+		Vector2 a = new Vector2 (transform.position.x - r.bounds.extents.x, transform.position.y - r.bounds.extents.x);
+		Vector2 b = new Vector2 (transform.position.x + r.bounds.extents.x, transform.position.y + r.bounds.extents.x);
+		Collider2D coll = Physics2D.OverlapArea (a, b, 1 << 11);
 
-        if (coll != null)
-        {
-            switch (coll.tag)
-            {
-                case "Lever":
-                    {
+		if (coll != null) {
+			switch (coll.tag) {
+			case "Lever":
+				{
 
-                        coll.SendMessage("ChangeState");
-                        break;
-                    }
-                default:
-                    {
-                        break;
-                    }
-            }
-        }
-    }
+					coll.SendMessage ("ChangeState");
+					break;
+				}
+			default:
+				{
+					break;
+				}
+			}
+		} else {
+			int facingDirection = (m_FacingRight?1:-1);
+			if (!Carrying) {
+				a = new Vector2 (transform.position.x + facingDirection*r.bounds.extents.x, transform.position.y - r.bounds.extents.y);
+				b = new Vector2 (transform.position.x + facingDirection*r.bounds.extents.x + facingDirection*r.bounds.extents.x, transform.position.y + r.bounds.extents.y);
+				coll = Physics2D.OverlapArea (a, b, mapInteractiveObjectsMask.value);
+				if (coll != null && (coll.tag == "CarringObjectLight" || (coll.tag == "CarringObjectHeavy" && isHeroStrong))) {
+					float fator = (coll.tag == "CarringObjectHeavy"?1.5f:1);
+					Carrying = true;
+					CarriedObject = coll.gameObject;
+					CarriedObject.transform.parent = transform;
+					CarriedObject.GetComponent<Rigidbody2D> ().isKinematic = true;
+					CarriedObject.transform.rotation = new Quaternion(0, 0, 0, CarriedObject.transform.localRotation.w);
+					CarriedObject.transform.position = new Vector2 (transform.position.x, transform.position.y + transform.localScale.y + CarriedObject.transform.localScale.y + offsetCarryObjHero*fator);
 
-    private void TouchedForceField()
-    {
-        float speed = 2;
+					//CalculateJumpForce ();
+					StopPush();
+					Carry();
+				}
+			
+			}
+			else{
+				float fator = (CarriedObject.tag == "CarringObjectHeavy"?1.5f:1);
+				CarriedObject.transform.parent = null;
+				CarriedObject.GetComponent<Rigidbody2D> ().isKinematic = false;
+				CarriedObject.GetComponent<Rigidbody2D> ().velocity = new Vector2 (rigidBody2D.velocity.x, 0);
+				CarriedObject.GetComponent<Rigidbody2D> ().AddForce (new Vector2 (fator*facingDirection*5f, fator*1f), ForceMode2D.Impulse);
+				Carrying = false;
+				CarriedObject = null;
+				StopCarry();
+				//CalculateJumpForce ();
+			}
 
-        if (m_FacingRight)
-        {
-            rigidBody2D.AddForce(new Vector2(maxWalkingSpeed * -speed, 0), ForceMode2D.Impulse);
-        }
-        else
-        {
-            rigidBody2D.AddForce(new Vector2(maxWalkingSpeed * speed, 0), ForceMode2D.Impulse);
-        }
-    }
+
+		}
+	}
+
+	private void TouchedForceField ()
+	{
+		float speed = 2;
+
+		if (m_FacingRight) {
+			rigidBody2D.AddForce (new Vector2 (maxWalkingSpeed * -speed, 0), ForceMode2D.Impulse);
+		} else {
+			rigidBody2D.AddForce (new Vector2 (maxWalkingSpeed * speed, 0), ForceMode2D.Impulse);
+		}
+	}
 
 	public float JumpHeight {
 		get {
@@ -232,7 +319,7 @@ public abstract class Hero : MonoBehaviour {
 		}
 		set {
 			walkMotorTorque = value;
-			CalculateWalkingMotorAngularSpeed();
+			CalculateWalkingMotorAngularSpeed ();
 		}
 	}
 
@@ -242,7 +329,7 @@ public abstract class Hero : MonoBehaviour {
 		}
 		set {
 			maxWalkingSpeed = value;
-			CalculateWalkingMotorAngularSpeed();
+			CalculateWalkingMotorAngularSpeed ();
 		}
 	}
 
@@ -255,7 +342,7 @@ public abstract class Hero : MonoBehaviour {
 		}
 	}
 
-	public float GravityScale{
+	public float GravityScale {
 		get {
 			return rigidBody2D.gravityScale;
 		}
@@ -264,7 +351,7 @@ public abstract class Hero : MonoBehaviour {
 			foreach (Rigidbody2D rg2d in transform.GetComponentsInChildren<Rigidbody2D>())
 				rg2d.gravityScale = value;
 
-			CalculateJumpForce();
+			CalculateJumpForce ();
 		}
 
 	}
