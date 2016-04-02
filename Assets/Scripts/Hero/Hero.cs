@@ -96,6 +96,7 @@ public abstract class Hero : MonoBehaviour
 		bool grounded = isGrounded ();
 		if (grounded) {
 			animator.SetBool ("jumpOnAir", false);
+//			animator.SetBool ("jumpStart", false);
 			if (speed == 0.0f) {
 				animator.SetBool ("walk", false);
 				StopWalk ();
@@ -115,10 +116,14 @@ public abstract class Hero : MonoBehaviour
 		} else {
 			if (rigidBody2D.velocity.x * Mathf.Sign (speed) < maxWalkingSpeed)
 				rigidBody2D.AddForce (new Vector2 (speed * horizontalFlyingForce, 0), ForceMode2D.Impulse);
-			StopPush();
 			if (Carrying)
 				Carry();
+			else
+				StopPush();
+
 			animator.SetBool ("jumpOnAir", true);
+//			animator.SetBool ("jumpStart", true);
+
 		}
 		flipAnimation (speed);
 	}
@@ -128,6 +133,10 @@ public abstract class Hero : MonoBehaviour
 		animator.SetBool ("walk", false);
 		//This command + changing Linear Drag to 1, prevents the hero slide after the jump
 		rigidBody2D.velocity = new Vector2 (0, rigidBody2D.velocity.y);
+		if (Carrying) {
+			Rigidbody2D rbCO= CarriedObject.GetComponent<Rigidbody2D> ();
+			rbCO.velocity = new Vector2 (0, rbCO.velocity.y);
+		}
 		ChangeMotorSpeed (0f);
 	}
 	
@@ -136,7 +145,8 @@ public abstract class Hero : MonoBehaviour
 		//JUMP, IF GROUDED OR ON OTHER HERO PLATFORM
 		bool grounded = isGrounded ();
 		if (grounded) {
-			animator.SetTrigger ("jumpStart");
+//			animator.SetTrigger ("jumpStart");
+			animator.SetTrigger ("jumpOnAir");
 			foreach (Rigidbody2D rg2d in transform.GetComponentsInChildren<Rigidbody2D>())
 				rg2d.velocity = new Vector2 (rigidBody2D.velocity.x, 0);
 			rigidBody2D.AddForce (new Vector2 (0f, (float)jumpForce), ForceMode2D.Impulse);
@@ -259,7 +269,7 @@ public abstract class Hero : MonoBehaviour
 			int facingDirection = (m_FacingRight?1:-1);
 			if (!Carrying) {
 				a = new Vector2 (transform.position.x + facingDirection*r.bounds.extents.x, transform.position.y - r.bounds.extents.y);
-				b = new Vector2 (transform.position.x + facingDirection*r.bounds.extents.x + facingDirection*r.bounds.extents.x, transform.position.y + r.bounds.extents.y);
+				b = new Vector2 (transform.position.x + 1.5f*facingDirection*r.bounds.extents.x, transform.position.y + r.bounds.extents.y);
 				coll = Physics2D.OverlapArea (a, b, mapInteractiveObjectsMask.value);
 				if (coll != null && (coll.tag == "CarringObjectLight" || (coll.tag == "CarringObjectHeavy" && isHeroStrong))) {
 					float fator = (coll.tag == "CarringObjectHeavy"?1.5f:1);
