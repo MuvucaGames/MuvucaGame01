@@ -33,7 +33,7 @@ GameObject:
   - 58: {fileID: 5893104}
   m_Layer: 10
   m_Name: HeavyBox
-  m_TagString: Untagged
+  m_TagString: CarringObjectHeavy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -214,6 +214,10 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: m_Color.b
       value: .941176474
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_TagString
+      value: CarringObjectHeavy
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

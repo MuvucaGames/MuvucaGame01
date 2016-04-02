@@ -7,6 +7,9 @@ TagManager:
   - Checkpoint
   - CheckpointManager
   - Lever
+  - CarringObjectLight
+  - CarringObjectHeavy
+  - Box
   layers:
   - Default
   - TransparentFX
