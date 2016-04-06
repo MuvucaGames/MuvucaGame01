@@ -15,8 +15,6 @@ public class HeroControlTemp : MonoBehaviour {
 	private bool _carryButtonPressed = false;
 	private bool _actionButtonPressed = false;
 	private bool _changeHeroButtonPressed = false;
-	private ElementoCarregavel _elementoCarregavel;
-	private bool _cannCarry = false;
 	
 	
 	void Awake () {
@@ -83,23 +81,10 @@ public class HeroControlTemp : MonoBehaviour {
 		
 		if (_carryButtonPressed) {
 			hero.Carry ();
-			if(_elementoCarregavel != null && _elementoCarregavel.HeroInn){
-				_cannCarry = true;
-			}
 		} else {
-			if(_cannCarry){
-				_elementoCarregavel.SendMessage("adicionaGravidade");
-			}
-			_cannCarry = false;
 			hero.StopCarry();
 		}
 
-
-
-		if(_cannCarry){
-			hero.LevantaElementoCarregavel(_elementoCarregavel);
-		}
-		
 		if (_changeHeroButtonPressed) {
 			hero.ChangeHero();
 			SoundManager.Instance.SendMessage("PlaySFXSwap");
@@ -127,12 +112,6 @@ public class HeroControlTemp : MonoBehaviour {
 		_changeHeroButtonPressed = false;
 		_jumpButtonPressed = false;
 		_actionButtonPressed = false;
-	}
-
-	public void TriggerEscada(ElementoCarregavel elemento){
-		//if (_carryButtonPressed) {
-			_elementoCarregavel = elemento;
-		//}
 	}
 
 }

@@ -17,6 +17,8 @@ public abstract class HeroTemp : MonoBehaviour {
 	[SerializeField] private HingeJoint2D walkMotor = null;
 	[SerializeField] private Collider2D footCollider = null;
 	[SerializeField] private float heroHeight = 0;
+	private ElementoCarregavel _elementoCarregavel;
+	public bool _cannCarry = false;
 	
 	private float motorMaxAngularSpeed = 0f;
 	private bool m_FacingRight = true;
@@ -114,10 +116,18 @@ public abstract class HeroTemp : MonoBehaviour {
 	}
 
 	public void Carry() {
+		if(_elementoCarregavel != null && _elementoCarregavel.HeroInn){
+			_cannCarry = true;
+			LevantaElementoCarregavel(_elementoCarregavel);
+		}
 		animator.SetBool ("carry", true);
 	}
 	
 	public void StopCarry() {
+		if(_cannCarry){
+			_elementoCarregavel.SendMessage("adicionaGravidade");
+		}
+		_cannCarry = false;
 		animator.SetBool ("carry", false);
 	}
 	
@@ -275,11 +285,19 @@ public abstract class HeroTemp : MonoBehaviour {
 	}
 
 	public void LevantaElementoCarregavel(ElementoCarregavel elemento){
-		float novaPosicao = (elemento.InicialPosition +
-		                     heroHeight);
+		if(_cannCarry){
+			elemento.ObjectRigidbody.gravityScale = 0;
+			float novaPosicao = (elemento.InicialPosition + heroHeight + headCollider.transform.position.y);
 
-		elemento.ObjectRigidbody.transform.position = new Vector2(headCollider.transform.position.x,
-		                                                        novaPosicao);
+			elemento.ObjectRigidbody.transform.position = new Vector2(headCollider.transform.position.x,
+			                                                        novaPosicao);
+		}
 	}
 	
+	public void TriggerEscada(ElementoCarregavel elemento){
+		_elementoCarregavel = elemento;
+	}
+
+
+
 }
