@@ -4,6 +4,9 @@ using System;
 
 public abstract class Hero : MonoBehaviour
 {
+	private static int _FACING_LEFT = -1;
+	private static int _FACING_RIGHT = 1;
+	public enum ObjPositionRelHero {_Above, _inFront, _Bellow, _Behind, _Inside};
 
 	[SerializeField]
 	private float maxWalkingSpeed = 5f;
@@ -36,11 +39,14 @@ public abstract class Hero : MonoBehaviour
 	private Collider2D footCollider = null;
 
 	private float motorMaxAngularSpeed = 0f;
-	private bool m_FacingRight = true;
+	private int facingDirection=_FACING_RIGHT;
 	private Rigidbody2D rigidBody2D;
 	private double jumpForce;
 	private Animator animator;
+	private float gravityOriginal;
 	private bool Carrying = false;
+	private bool Crouched = false;
+	private bool CarryingByAction = false;
 	private GameObject CarriedObject;
 	public bool m_isActive = false;
 
@@ -61,6 +67,8 @@ public abstract class Hero : MonoBehaviour
 
 		//get the animator
 		animator = GetComponentInChildren<Animator> ();
+
+		gravityOriginal = rigidBody2D.gravityScale;
 
 		CalculateJumpForce ();
 		CalculateWalkingMotorAngularSpeed ();
@@ -94,18 +102,18 @@ public abstract class Hero : MonoBehaviour
 	public void Move (float speed)
 	{
 		bool grounded = isGrounded ();
+
 		if (grounded) {
 			animator.SetBool ("jumpOnAir", false);
-//			animator.SetBool ("jumpStart", false);
 			if (speed == 0.0f) {
 				animator.SetBool ("walk", false);
 				StopWalk ();
 				StopPush();
 				if (Carrying)
-					Carry();
+					animator.SetBool ("carry", true);
 			} else {
 				if (Carrying)
-					Carry();
+					animator.SetBool ("carry", true);
 				else if (isPushingSomething ())
 					Push ();
 				else
@@ -117,12 +125,10 @@ public abstract class Hero : MonoBehaviour
 			if (rigidBody2D.velocity.x * Mathf.Sign (speed) < maxWalkingSpeed)
 				rigidBody2D.AddForce (new Vector2 (speed * horizontalFlyingForce, 0), ForceMode2D.Impulse);
 			if (Carrying)
-				Carry();
+				animator.SetBool ("carry", true);
 			else
 				StopPush();
-
 			animator.SetBool ("jumpOnAir", true);
-//			animator.SetBool ("jumpStart", true);
 
 		}
 		flipAnimation (speed);
@@ -139,11 +145,12 @@ public abstract class Hero : MonoBehaviour
 		}
 		ChangeMotorSpeed (0f);
 	}
-	
+			
 	public void Jump ()
 	{
 		//JUMP, IF GROUDED OR ON OTHER HERO PLATFORM
 		bool grounded = isGrounded ();
+
 		if (grounded) {
 //			animator.SetTrigger ("jumpStart");
 			animator.SetTrigger ("jumpOnAir");
@@ -157,6 +164,7 @@ public abstract class Hero : MonoBehaviour
 	public void Crouch ()
 	{
 		heroPlatform.offset = headCollider.offset - new Vector2 (0, heroPlatform.bounds.size.y);
+		Crouched = true;
 		//Crouch Animation
 		animator.SetBool ("crouch", true);
 	}
@@ -165,6 +173,7 @@ public abstract class Hero : MonoBehaviour
 	{
 		if (!Physics2D.OverlapArea (headCollider.bounds.min, headCollider.bounds.max, whatIsGround.value)) { // Do not stand up inside a short area
 			heroPlatform.offset = headCollider.offset;
+			Crouched = false;
 			//Crouch Animation
 			animator.SetBool ("crouch", false);
 		}
@@ -182,20 +191,29 @@ public abstract class Hero : MonoBehaviour
 
 	public void Carry ()
 	{
-		animator.SetBool ("carry", true);
+		if (!Carrying) {
+			Collider2D coll = GetColliderObjAround (ObjPositionRelHero._inFront);
+			CarryObject(coll);
+			CarryingByAction = false;
+		}
+		else
+			animator.SetBool ("carry", true);
 	}
 
 	public void StopCarry ()
 	{
+		if (Carrying && !CarryingByAction) {
+			ReleaseObject();
+		}
 		animator.SetBool ("carry", false);
 	}
 
 	private void flipAnimation (float horizontalMove)
 	{
 		//Flip the animation
-		if ((horizontalMove > 0 && !m_FacingRight) || (horizontalMove < 0 && m_FacingRight)) {
+		if ((horizontalMove > 0 && facingDirection==_FACING_LEFT) || (horizontalMove < 0 && facingDirection==_FACING_RIGHT)) {
 			// Switch the way the player is labelled as facing.
-			m_FacingRight = !m_FacingRight;
+			facingDirection*=-1;
 			// Multiply the player's x local scale by -1.
 			Transform rendererTransform = transform.Find ("Renderer").transform;
 			Vector3 theScale = rendererTransform.localScale;
@@ -247,70 +265,38 @@ public abstract class Hero : MonoBehaviour
 
 	private void DoAction ()
 	{
-		Renderer r = GetComponentInChildren<Renderer> ();
-		Vector2 a = new Vector2 (transform.position.x - r.bounds.extents.x, transform.position.y - r.bounds.extents.x);
-		Vector2 b = new Vector2 (transform.position.x + r.bounds.extents.x, transform.position.y + r.bounds.extents.x);
-		Collider2D coll = Physics2D.OverlapArea (a, b, 1 << 11);
-
-		if (coll != null) {
-			switch (coll.tag) {
-			case "Lever":
-				{
-
-					coll.SendMessage ("ChangeState");
-					break;
+		if (!Carrying) {
+			Collider2D coll = GetColliderObjAround (ObjPositionRelHero._Inside);
+			if (coll != null) {
+				switch (coll.tag) {
+				case "Lever":
+					{
+						coll.SendMessage ("ChangeState");
+						break;
+					}
+				default:
+					{
+						break;
+					}
 				}
-			default:
-				{
-					break;
-				}
+			} 
+			else {
+				coll = GetColliderObjAround (ObjPositionRelHero._inFront);
+				CarryObject(coll);
+				CarryingByAction = true;
 			}
-		} else {
-			int facingDirection = (m_FacingRight?1:-1);
-			if (!Carrying) {
-				a = new Vector2 (transform.position.x + facingDirection*r.bounds.extents.x, transform.position.y - r.bounds.extents.y);
-				b = new Vector2 (transform.position.x + 1.5f*facingDirection*r.bounds.extents.x, transform.position.y + r.bounds.extents.y);
-				coll = Physics2D.OverlapArea (a, b, mapInteractiveObjectsMask.value);
-				if (coll != null && (coll.tag == "CarringObjectLight" || (coll.tag == "CarringObjectHeavy" && isHeroStrong))) {
-					float fator = (coll.tag == "CarringObjectHeavy"?1.5f:1);
-					Carrying = true;
-					CarriedObject = coll.gameObject;
-					CarriedObject.transform.parent = transform;
-					CarriedObject.GetComponent<Rigidbody2D> ().isKinematic = true;
-					CarriedObject.transform.rotation = new Quaternion(0, 0, 0, CarriedObject.transform.localRotation.w);
-					CarriedObject.transform.position = new Vector2 (transform.position.x, transform.position.y + transform.localScale.y + CarriedObject.transform.localScale.y + offsetCarryObjHero*fator);
-
-					//CalculateJumpForce ();
-					StopPush();
-					Carry();
-				}
-			
-			}
-			else{
-				float fator = (CarriedObject.tag == "CarringObjectHeavy"?1.5f:1);
-				CarriedObject.transform.parent = null;
-				CarriedObject.GetComponent<Rigidbody2D> ().isKinematic = false;
-				CarriedObject.GetComponent<Rigidbody2D> ().velocity = new Vector2 (rigidBody2D.velocity.x, 0);
-				CarriedObject.GetComponent<Rigidbody2D> ().AddForce (new Vector2 (fator*facingDirection*5f, fator*1f), ForceMode2D.Impulse);
-				Carrying = false;
-				CarriedObject = null;
-				StopCarry();
-				//CalculateJumpForce ();
-			}
-
 
 		}
+		else{
+			ReleaseObject();
+		}
+
 	}
 
 	private void TouchedForceField ()
 	{
 		float speed = 2;
-
-		if (m_FacingRight) {
-			rigidBody2D.AddForce (new Vector2 (maxWalkingSpeed * -speed, 0), ForceMode2D.Impulse);
-		} else {
-			rigidBody2D.AddForce (new Vector2 (maxWalkingSpeed * speed, 0), ForceMode2D.Impulse);
-		}
+		rigidBody2D.AddForce (new Vector2 (facingDirection * maxWalkingSpeed * speed, 0), ForceMode2D.Impulse);
 	}
 
 	public float JumpHeight {
@@ -360,10 +346,76 @@ public abstract class Hero : MonoBehaviour
 		set {
 			foreach (Rigidbody2D rg2d in transform.GetComponentsInChildren<Rigidbody2D>())
 				rg2d.gravityScale = value;
-
 			CalculateJumpForce ();
 		}
 
 	}
+	public Collider2D GetColliderObjAround(ObjPositionRelHero objPos){
+		Collider2D coll;
+		Vector2 a, b;
+		Renderer r = GetComponentInChildren<Renderer> ();
+		switch (objPos) {
+			case ObjPositionRelHero._Above:
+				a = new Vector2 (transform.position.x - r.bounds.extents.x, transform.position.y - r.bounds.extents.y);
+				b = new Vector2 (transform.position.x + r.bounds.extents.x, transform.position.y - 1.5f*r.bounds.extents.y);
+				break;
+			case ObjPositionRelHero._inFront:
+				a = new Vector2 (transform.position.x + facingDirection*r.bounds.extents.x, transform.position.y - r.bounds.extents.y);
+				b = new Vector2 (transform.position.x + 1.5f*facingDirection*r.bounds.extents.x, transform.position.y + r.bounds.extents.y);
+				break;
+			case ObjPositionRelHero._Behind:
+				a = new Vector2 (transform.position.x - facingDirection*r.bounds.extents.x, transform.position.y - r.bounds.extents.y);
+				b = new Vector2 (transform.position.x - 1.5f*facingDirection*r.bounds.extents.x, transform.position.y + r.bounds.extents.y);
+				break;
+			case ObjPositionRelHero._Bellow:
+				a = new Vector2 (transform.position.x - r.bounds.extents.x, transform.position.y + r.bounds.extents.y);
+				b = new Vector2 (transform.position.x + r.bounds.extents.x, transform.position.y + 1.5f*r.bounds.extents.y);
+				break;
+			default:
+				a = new Vector2 (transform.position.x - r.bounds.extents.x, transform.position.y - r.bounds.extents.x);
+				b = new Vector2 (transform.position.x + r.bounds.extents.x, transform.position.y + r.bounds.extents.x);
+				break;
+		}
+		if (objPos==ObjPositionRelHero._Inside){
+			coll = Physics2D.OverlapArea (a, b, 1 << 11);
+		}
+		else
+		{
+			coll = Physics2D.OverlapArea (a, b, mapInteractiveObjectsMask.value);
+		}
+		return coll;
 
+	}
+	private void CarryObject(Collider2D coll){
+		if (coll != null && (coll.tag == "CarringObjectLight" || (coll.tag == "CarringObjectHeavy" && isHeroStrong))) {
+			float fator = (coll.tag == "CarringObjectHeavy"?1.5f:1);
+			Carrying = true;
+			CarriedObject = coll.gameObject;
+			CarriedObject.transform.parent = transform;
+			CarriedObject.GetComponent<Rigidbody2D> ().isKinematic = true;
+			CarriedObject.transform.rotation = new Quaternion(0, 0, 0, CarriedObject.transform.localRotation.w);
+			CarriedObject.transform.position = new Vector2 (transform.position.x, transform.position.y + transform.localScale.y + CarriedObject.transform.localScale.y + offsetCarryObjHero*fator);
+			StopPush();
+			animator.SetBool ("carry", true);
+		}
+
+	}
+	private void ReleaseObject(){
+		float fator = (CarriedObject.tag == "CarringObjectHeavy"?1.5f:1);
+		CarriedObject.transform.parent = null;
+		CarriedObject.GetComponent<Rigidbody2D> ().isKinematic = false;
+		if (Crouched) {
+			CarriedObject.GetComponent<Rigidbody2D> ().velocity = new Vector2 (0, 0);
+			CarriedObject.transform.rotation = new Quaternion(0, 0, 0, CarriedObject.transform.localRotation.w);
+			CarriedObject.transform.position = new Vector2 (transform.position.x + facingDirection * transform.localScale.x/2 + facingDirection * CarriedObject.transform.localScale.x/2, transform.position.y - transform.localScale.y + CarriedObject.transform.localScale.y + offsetCarryObjHero*fator);
+		}
+		else
+		{
+			CarriedObject.GetComponent<Rigidbody2D> ().velocity = new Vector2 (rigidBody2D.velocity.x, 0);
+			CarriedObject.GetComponent<Rigidbody2D> ().AddForce (new Vector2 (fator * facingDirection * 5f, fator * 1f), ForceMode2D.Impulse);
+		}
+		Carrying = false;
+		CarriedObject = null;
+		animator.SetBool ("carry", false);
+	}
 }
