@@ -10,6 +10,7 @@ TagManager:
   - CarringObjectLight
   - CarringObjectHeavy
   - Box
+  - Ladder
   layers:
   - Default
   - TransparentFX
