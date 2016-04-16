@@ -161,6 +161,26 @@ public abstract class Hero : MonoBehaviour
 		}
 	}
 
+	/// <summary>
+	/// Makes the Hero jump to his/her maximum height multiplied by a factor.
+	/// </summary>
+	/// <param name="multiplier">Maximum height factor.</param>
+	public void TrampolineJump (float multiplier)
+	{
+		//JUMP, IF GROUDED OR ON OTHER HERO PLATFORM
+		bool grounded = isGrounded ();
+		
+		if (grounded) {
+			animator.SetTrigger ("jumpOnAir");
+
+			foreach (Rigidbody2D rg2d in transform.GetComponentsInChildren<Rigidbody2D>())
+				rg2d.velocity = new Vector2 (rigidBody2D.velocity.x, 0);
+
+			rigidBody2D.AddForce (new Vector2 (0f, (float)jumpForce) * Mathf.Sqrt(multiplier), ForceMode2D.Impulse);
+			SoundManager.Instance.SendMessage ("PlaySFXJump");
+		}
+	}
+
 	public void Crouch ()
 	{
 		heroPlatform.offset = headCollider.offset - new Vector2 (0, heroPlatform.bounds.size.y);
