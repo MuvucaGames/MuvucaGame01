@@ -10,6 +10,7 @@ public class HeroControl : MonoBehaviour {
 
 	// Input States
 	private float _moveButtonSpeed = 0.0f;
+	private float _verticalMoveButtonSpeed = 0.0f;
 	private bool _jumpButtonPressed = false;
 	private bool _crouchButtonPressed = false;
 	private bool _carryButtonPressed = false;
@@ -25,7 +26,9 @@ public class HeroControl : MonoBehaviour {
 		//Analog Input:
 		// Walk
 		_moveButtonSpeed = Input.GetAxis("Horizontal");
-
+		
+		_verticalMoveButtonSpeed = Input.GetAxis("Vertical");
+		
 		//-------------------------------------------
 
 		//Boolean Buttons, or teo state buttons:
@@ -102,6 +105,11 @@ public class HeroControl : MonoBehaviour {
 			hero.Move (_moveButtonSpeed);
 		} else {
 			hero.Move (0.0f);
+		}
+		if (Mathf.Abs (_verticalMoveButtonSpeed) > HeroControl.MOVE_THRESHOLD) {
+			hero.VerticalMove (_verticalMoveButtonSpeed);
+		} else {
+			hero.VerticalMove (0.0f);
 		}
 
 		DeactivateTriggerButtons();
