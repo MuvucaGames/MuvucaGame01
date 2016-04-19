@@ -1,2 +1,6 @@
-m_EditorVersion: 5.3.3f1
+<<<<<<< HEAD
+m_EditorVersion: 5.2.3f1
+=======
+m_EditorVersion: 5.2.1f1
+>>>>>>> refs/remotes/MuvucaGames/master
 m_StandardAssetsVersion: 0

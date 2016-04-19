@@ -2,35 +2,32 @@
 using System.Collections;
 using System;
 
-public class HeroControl : MonoBehaviour {
-
+public class HeroControlTemp : MonoBehaviour {
+	
 	private static float MOVE_THRESHOLD = 0.19f;
-
-	private Hero hero;
-
+	
+	private HeroTemp hero;
+	
 	// Input States
 	private float _moveButtonSpeed = 0.0f;
-	private float _verticalMoveButtonSpeed = 0.0f;
 	private bool _jumpButtonPressed = false;
 	private bool _crouchButtonPressed = false;
 	private bool _carryButtonPressed = false;
 	private bool _actionButtonPressed = false;
 	private bool _changeHeroButtonPressed = false;
-
-
+	
+	
 	void Awake () {
-		hero = GetComponent<Hero> ();
+		hero = GetComponent<HeroTemp> ();
 	}
-
+	
 	private void detectButtonStates(){
 		//Analog Input:
 		// Walk
 		_moveButtonSpeed = Input.GetAxis("Horizontal");
 		
-		_verticalMoveButtonSpeed = Input.GetAxis("Vertical");
-		
 		//-------------------------------------------
-
+		
 		//Boolean Buttons, or teo state buttons:
 		// Crouch
 		if (Input.GetButton("Crouch"))
@@ -43,30 +40,30 @@ public class HeroControl : MonoBehaviour {
 			_carryButtonPressed= true;
 		else
 			_carryButtonPressed = false;
-
+		
 		//----------------------------------------
-
+		
 		//Trigger Buttons, one time activation: (they are deactivated on Fixed Update)
-
+		
 		// Change Hero
 		if (Input.GetButtonDown("ChangeHero"))
 			_changeHeroButtonPressed = true;
-
+		
 		// Jump
 		if (Input.GetButtonDown("Jump"))
 			_jumpButtonPressed= true;
-
+		
 		// Action
 		if (Input.GetButtonDown("Action"))
 			_actionButtonPressed= true;
 	}
-
+	
 	void Update() {
 		detectButtonStates();
 	}
-
+	
 	void FixedUpdate () {
-
+		
 		if (!hero.IsActive) {
 			hero.StopWalk();
 			if (_changeHeroButtonPressed) {
@@ -75,7 +72,7 @@ public class HeroControl : MonoBehaviour {
 			DeactivateTriggerButtons();
 			return;
 		}
-
+		
 		if (_crouchButtonPressed) {
 			hero.Crouch ();
 		} else {
@@ -92,33 +89,29 @@ public class HeroControl : MonoBehaviour {
 			hero.ChangeHero();
 			SoundManager.Instance.SendMessage("PlaySFXSwap");
 		}
-
+		
 		if (_jumpButtonPressed) {
 			hero.Jump ();
 		}
-
+		
 		if (_actionButtonPressed) {
 			hero.Action();
 		}
-
-		if (Mathf.Abs (_moveButtonSpeed) > HeroControl.MOVE_THRESHOLD) {
+		
+		if (Mathf.Abs (_moveButtonSpeed) > HeroControlTemp.MOVE_THRESHOLD) {
 			hero.Move (_moveButtonSpeed);
 		} else {
 			hero.Move (0.0f);
 		}
-		if (Mathf.Abs (_verticalMoveButtonSpeed) > HeroControl.MOVE_THRESHOLD) {
-			hero.VerticalMove (_verticalMoveButtonSpeed);
-		} else {
-			hero.VerticalMove (0.0f);
-		}
-
+		
 		DeactivateTriggerButtons();
 	}
-
+	
 	private void DeactivateTriggerButtons(){
 		
 		_changeHeroButtonPressed = false;
 		_jumpButtonPressed = false;
 		_actionButtonPressed = false;
 	}
+
 }
