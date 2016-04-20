@@ -563,11 +563,11 @@ Prefab:
     - target: {fileID: 11462352, guid: 00a8a2fb693b40243bc3f47b8efebba6, type: 2}
       propertyPath: hero
       value: 
-      objectReference: {fileID: 702192519}
+      objectReference: {fileID: 702192520}
     - target: {fileID: 11469316, guid: 00a8a2fb693b40243bc3f47b8efebba6, type: 2}
       propertyPath: hero
       value: 
-      objectReference: {fileID: 152537252}
+      objectReference: {fileID: 152537253}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 00a8a2fb693b40243bc3f47b8efebba6, type: 2}
   m_IsPrefabParent: 0
@@ -629,12 +629,12 @@ GameObject:
 Transform:
   m_PrefabParentObject: {fileID: 453238, guid: da6c3f2b32057634086650730829966f, type: 2}
   m_PrefabInternal: {fileID: 1389932448}
---- !u!114 &152537252 stripped
+--- !u!114 &152537253 stripped
 MonoBehaviour:
-  m_PrefabParentObject: {fileID: 11472990, guid: da6c3f2b32057634086650730829966f,
+  m_PrefabParentObject: {fileID: 11455098, guid: da6c3f2b32057634086650730829966f,
     type: 2}
   m_PrefabInternal: {fileID: 1389932448}
-  m_Script: {fileID: 11500000, guid: 3460601dd8830bf429940b626321c2fd, type: 3}
+  m_Script: {fileID: 11500000, guid: efdac04d20f5969468168145ae49cc1d, type: 3}
 --- !u!1001 &161201092
 Prefab:
   m_ObjectHideFlags: 0
@@ -2495,12 +2495,12 @@ GameObject:
 Transform:
   m_PrefabParentObject: {fileID: 453014, guid: 513460c9793a2244f99b593170803ee6, type: 2}
   m_PrefabInternal: {fileID: 1906065709}
---- !u!114 &702192519 stripped
+--- !u!114 &702192520 stripped
 MonoBehaviour:
-  m_PrefabParentObject: {fileID: 11457944, guid: 513460c9793a2244f99b593170803ee6,
+  m_PrefabParentObject: {fileID: 11475352, guid: 513460c9793a2244f99b593170803ee6,
     type: 2}
   m_PrefabInternal: {fileID: 1906065709}
-  m_Script: {fileID: 11500000, guid: 136f294596530fc48b3cd9525ee4ca94, type: 3}
+  m_Script: {fileID: 11500000, guid: 3b1a1a8bf2edeba4bb189878c796b7ea, type: 3}
 --- !u!1 &704026816
 GameObject:
   m_ObjectHideFlags: 0
@@ -8291,11 +8291,11 @@ Prefab:
     - target: {fileID: 11405778, guid: be476e4369a222444933678e85b7a928, type: 2}
       propertyPath: heroStrong
       value: 
-      objectReference: {fileID: 702192519}
+      objectReference: {fileID: 0}
     - target: {fileID: 11405778, guid: be476e4369a222444933678e85b7a928, type: 2}
       propertyPath: heroFast
       value: 
-      objectReference: {fileID: 152537252}
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: be476e4369a222444933678e85b7a928, type: 2}
   m_IsPrefabParent: 0
