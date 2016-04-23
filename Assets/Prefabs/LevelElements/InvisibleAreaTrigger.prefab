@@ -11,7 +11,7 @@ GameObject:
   - 114: {fileID: 11481918}
   - 61: {fileID: 6174342}
   m_Layer: 11
-  m_Name: TriggerForActionableElements
+  m_Name: InvisibleAreaTrigger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -36,6 +36,7 @@ BoxCollider2D:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 128834}
   m_Enabled: 1
+  m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_UsedByEffector: 0
