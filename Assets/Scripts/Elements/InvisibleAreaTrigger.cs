@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class TriggerForActionableElement : Activator {
+public class InvisibleAreaTrigger : Activator {
 
 	public bool triggerOnlyOnce = false;
     public bool triggersWithBothInside = false;
