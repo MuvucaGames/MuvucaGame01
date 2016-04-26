@@ -7,6 +7,10 @@ TagManager:
   - Checkpoint
   - CheckpointManager
   - Lever
+  - CarringObjectLight
+  - CarringObjectHeavy
+  - Box
+  - Ladder
   layers:
   - Default
   - TransparentFX
@@ -43,4 +47,7 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Heroes
+    uniqueID: 4032916013
     locked: 0
