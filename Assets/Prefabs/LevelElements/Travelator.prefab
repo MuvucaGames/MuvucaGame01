@@ -122,12 +122,13 @@ BoxCollider2D:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 123236}
   m_Enabled: 1
+  m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_UsedByEffector: 1
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Size: {x: 2, y: .200000003}
+  m_Size: {x: 2, y: 0.2}
 --- !u!114 &11435064
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -157,14 +158,18 @@ SpriteRenderer:
   m_ProbeAnchor: {fileID: 0}
   m_ScaleInLightmap: 1
   m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
-  m_AutoUVMaxDistance: .5
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: a7d9fecfc10ad984cacffa04e53cf038, type: 3}
-  m_Color: {r: 1, g: .992647052, b: .992647052, a: .397000015}
+  m_Color: {r: 1, g: 0.99264705, b: 0.99264705, a: 0.397}
+  m_FlipX: 0
+  m_FlipY: 0
 --- !u!252 &25224544
 SurfaceEffector2D:
   m_ObjectHideFlags: 1
@@ -178,7 +183,7 @@ SurfaceEffector2D:
     m_Bits: 4294967295
   m_Speed: 1
   m_SpeedVariation: 0
-  m_ForceScale: .899999976
+  m_ForceScale: 0.9
   m_UseContactForce: 0
   m_UseFriction: 1
   m_UseBounce: 1
