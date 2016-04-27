@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class ActionableStair : ActionableElementBase
+public class ActionableLadder : ActionableElementBase
 {
 
     private bool _isActivated;
