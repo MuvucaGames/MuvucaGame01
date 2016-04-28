@@ -4,7 +4,7 @@ using System.Collections;
 public class MoveAtoB : MonoBehaviour {
 
 	private Vector3 pointA;
-	private Vector3 pointB = new Vector3(2,0,0);
+	[SerializeField]private Vector3 pointB = new Vector3(2,0,0);
 
 	[Range(0.0f, 20.0f)]public float speed = 2f;
 
