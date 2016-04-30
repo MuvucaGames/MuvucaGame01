@@ -473,8 +473,9 @@ namespace Tiled2Unity
                         orderby custom.Order
                         select t;
 
-            var instances = types.Select(t => (ICustomTiledImporter)Activator.CreateInstance(t));
+			var instances = types.Select(t => (ICustomTiledImporter)System.Activator.CreateInstance(t));
             return instances.ToList();
+
         }
 
     } // end class
