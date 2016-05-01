@@ -74,9 +74,10 @@ Rigidbody2D:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 163892}
-  m_Mass: .5
+  m_UseAutoMass: 0
+  m_Mass: 0.5
   m_LinearDrag: 0
-  m_AngularDrag: .0500000007
+  m_AngularDrag: 0.05
   m_GravityScale: 1
   m_IsKinematic: 1
   m_Interpolate: 0
@@ -90,9 +91,10 @@ Rigidbody2D:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 109620}
-  m_Mass: .5
+  m_UseAutoMass: 0
+  m_Mass: 0.5
   m_LinearDrag: 0
-  m_AngularDrag: .0500000007
+  m_AngularDrag: 0.05
   m_GravityScale: 1
   m_IsKinematic: 0
   m_Interpolate: 0
@@ -106,16 +108,17 @@ PolygonCollider2D:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 163892}
   m_Enabled: 1
+  m_Density: 1
   m_Material: {fileID: 6200000, guid: 23150ab06393d944aba807d12ca2091d, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 1
   m_Offset: {x: 0, y: 0}
   m_Points:
     m_Paths:
-    - - {x: .899999976, y: .100000001}
-      - {x: 1.20000005, y: 0}
-      - {x: -1.20000005, y: 0}
-      - {x: -.899999976, y: .100000001}
+    - - {x: 0.9, y: 0.1}
+      - {x: 1.2, y: 0}
+      - {x: -1.2, y: 0}
+      - {x: -0.9, y: 0.1}
 --- !u!60 &6072830
 PolygonCollider2D:
   m_ObjectHideFlags: 1
@@ -123,16 +126,17 @@ PolygonCollider2D:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 109620}
   m_Enabled: 1
+  m_Density: 1
   m_Material: {fileID: 6200000, guid: 23150ab06393d944aba807d12ca2091d, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 1
   m_Offset: {x: 0, y: 0}
   m_Points:
     m_Paths:
-    - - {x: -.550000012, y: .400000006}
-      - {x: -.899999976, y: .100000001}
-      - {x: .899999976, y: .100000001}
-      - {x: .550000012, y: .400000006}
+    - - {x: -0.55, y: 0.4}
+      - {x: -0.9, y: 0.1}
+      - {x: 0.9, y: 0.1}
+      - {x: 0.55, y: 0.4}
 --- !u!114 &11496618
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -167,14 +171,18 @@ SpriteRenderer:
   m_ProbeAnchor: {fileID: 0}
   m_ScaleInLightmap: 1
   m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
-  m_AutoUVMaxDistance: .5
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300002, guid: 253e3cf4387af8f418d5c85de608fb6d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_FlipX: 0
+  m_FlipY: 0
 --- !u!212 &21262508
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -193,14 +201,18 @@ SpriteRenderer:
   m_ProbeAnchor: {fileID: 0}
   m_ScaleInLightmap: 1
   m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
-  m_AutoUVMaxDistance: .5
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingOrder: -1
   m_Sprite: {fileID: 21300000, guid: 253e3cf4387af8f418d5c85de608fb6d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_FlipX: 0
+  m_FlipY: 0
 --- !u!231 &23128720
 SpringJoint2D:
   m_ObjectHideFlags: 1
@@ -208,13 +220,17 @@ SpringJoint2D:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 109620}
   m_Enabled: 1
-  serializedVersion: 3
+  serializedVersion: 4
   m_EnableCollision: 0
   m_ConnectedRigidBody: {fileID: 5011182}
+  m_BreakForce: Infinity
+  m_BreakTorque: Infinity
+  m_AutoConfigureConnectedAnchor: 0
   m_Anchor: {x: 0, y: 0}
-  m_ConnectedAnchor: {x: 0, y: -.5}
-  m_Distance: .5
-  m_DampingRatio: .699999988
+  m_ConnectedAnchor: {x: 0, y: -0.5}
+  m_AutoConfigureDistance: 0
+  m_Distance: 0.5
+  m_DampingRatio: 0.7
   m_Frequency: 2
 --- !u!232 &23243936
 DistanceJoint2D:
@@ -223,12 +239,16 @@ DistanceJoint2D:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 109620}
   m_Enabled: 0
-  serializedVersion: 3
+  serializedVersion: 4
   m_EnableCollision: 0
   m_ConnectedRigidBody: {fileID: 5011182}
+  m_BreakForce: Infinity
+  m_BreakTorque: Infinity
+  m_AutoConfigureConnectedAnchor: 0
   m_Anchor: {x: 0, y: 0}
-  m_ConnectedAnchor: {x: 0, y: -.5}
-  m_Distance: .5
+  m_ConnectedAnchor: {x: 0, y: -0.5}
+  m_AutoConfigureDistance: 0
+  m_Distance: 0.5
   m_MaxDistanceOnly: 1
 --- !u!232 &23281916
 DistanceJoint2D:
@@ -237,12 +257,16 @@ DistanceJoint2D:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 109620}
   m_Enabled: 1
-  serializedVersion: 3
+  serializedVersion: 4
   m_EnableCollision: 0
   m_ConnectedRigidBody: {fileID: 5011182}
+  m_BreakForce: Infinity
+  m_BreakTorque: Infinity
+  m_AutoConfigureConnectedAnchor: 0
   m_Anchor: {x: 0, y: 0}
   m_ConnectedAnchor: {x: 0, y: 1}
-  m_Distance: 1.29999995
+  m_AutoConfigureDistance: 0
+  m_Distance: 1.3
   m_MaxDistanceOnly: 1
 --- !u!251 &25144450
 PlatformEffector2D:
@@ -256,9 +280,11 @@ PlatformEffector2D:
     serializedVersion: 2
     m_Bits: 1280
   m_UseOneWay: 0
+  m_UseOneWayGrouping: 0
   m_SurfaceArc: 120
   m_UseSideFriction: 1
   m_UseSideBounce: 0
+  m_SideArc: 1
 --- !u!251 &25153046
 PlatformEffector2D:
   m_ObjectHideFlags: 1
@@ -271,9 +297,11 @@ PlatformEffector2D:
     serializedVersion: 2
     m_Bits: 5376
   m_UseOneWay: 0
+  m_UseOneWayGrouping: 0
   m_SurfaceArc: 0
   m_UseSideFriction: 0
   m_UseSideBounce: 0
+  m_SideArc: 1
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
