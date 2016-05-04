@@ -72,7 +72,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 449300}
-  - 114: {fileID: 11430018}
+  - 114: {fileID: 11494042}
   m_Layer: 0
   m_Name: ActionableLadder
   m_TagString: Untagged
@@ -216,7 +216,7 @@ BoxCollider2D:
   m_Offset: {x: 0, y: 1.2}
   serializedVersion: 2
   m_Size: {x: 0.25, y: 3}
---- !u!114 &11430018
+--- !u!114 &11494042
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -227,8 +227,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c156dc7ee5658b247b438375457eeb33, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  initialHeight: 1
-  finalHeight: 4
+  initialHeight: 3
+  finalHeight: 5
 --- !u!212 &21261542
 SpriteRenderer:
   m_ObjectHideFlags: 1

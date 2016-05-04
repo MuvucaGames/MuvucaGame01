@@ -107,7 +107,7 @@ public abstract class Hero : MonoBehaviour
 		bool grounded = isGrounded ();
 		Collider2D coll = GetColliderObjNext (ObjPositionRelHero._Inside);		
 		if (OnLadder)
-			OnLadder = (coll != null && coll.tag=="Ladder" && !grounded);
+			OnLadder = (coll != null && coll.GetComponent<ILadder>()!=null && !grounded);
 		
 		if (grounded) {
 			animator.SetBool ("jumpOnAir", false);
@@ -165,10 +165,11 @@ public abstract class Hero : MonoBehaviour
 	{
 		bool grounded = isGrounded ();
 		Collider2D coll = GetColliderObjNext (ObjPositionRelHero._Inside);
+
 		if (OnLadder)
-			OnLadder = (coll != null && coll.tag=="Ladder" && !grounded);
+			OnLadder = (coll != null && coll.GetComponent<ILadder> () != null && !grounded);
 		else
-			OnLadder = (coll != null && coll.tag=="Ladder" && !grounded && speed !=0f && !Carrying);
+			OnLadder = (coll != null && coll.GetComponent<ILadder> () != null && !grounded && speed != 0f && !Carrying);
 		
 		if (OnLadder){
 			GravityScale = 0f;
@@ -341,6 +342,8 @@ public abstract class Hero : MonoBehaviour
 		if (!Carrying) {
 			Collider2D coll = GetColliderObjNext (ObjPositionRelHero._Inside);
 			if (coll != null) {
+				//TODO
+				/*
 				switch (coll.tag) {
 				case "Lever":
 				{
@@ -352,6 +355,7 @@ public abstract class Hero : MonoBehaviour
 					break;
 				}
 				}
+				*/
 			} 
 			else {
 				coll = GetColliderObjNext (ObjPositionRelHero._inFront);
@@ -366,7 +370,7 @@ public abstract class Hero : MonoBehaviour
 		
 	}
 	
-	private void TouchedForceField ()
+	public void TouchedForceField ()
 	{
 		float speed = 2;
 		rigidBody2D.AddForce (new Vector2 (facingDirection * maxWalkingSpeed * speed, 0), ForceMode2D.Impulse);
@@ -460,8 +464,8 @@ public abstract class Hero : MonoBehaviour
 		
 	}
 	private void CarryObject(Collider2D coll){
-		if (coll != null && (coll.tag == "CarringObjectLight" || (coll.tag == "CarringObjectHeavy" && isHeroStrong))) {
-			float fator = (coll.tag == "CarringObjectHeavy"?1.5f:1);
+		if (coll != null && (coll.GetComponent<CarriableLight>()!=null || (coll.GetComponent<CarriableHeavy>()!=null && isHeroStrong))) {
+			float fator = (coll.GetComponent<CarriableHeavy>()!=null?1.5f:1);
 			Carrying = true;
 			CarriedObject = coll.gameObject;
 			CarriedObject.transform.parent = transform;
@@ -474,7 +478,7 @@ public abstract class Hero : MonoBehaviour
 		
 	}
 	private void ReleaseObject(){
-		float fator = (CarriedObject.tag == "CarringObjectHeavy"?1.5f:1);
+		float fator = (CarriedObject.GetComponent<CarriableHeavy>()!=null?1.5f:1);
 		CarriedObject.transform.parent = null;
 		CarriedObject.GetComponent<Rigidbody2D> ().isKinematic = false;
 		if (Crouched) {

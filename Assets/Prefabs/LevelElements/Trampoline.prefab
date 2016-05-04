@@ -19,7 +19,7 @@ GameObject:
   - 114: {fileID: 11489860}
   m_Layer: 10
   m_Name: Trampoline
-  m_TagString: CarringObjectHeavy
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

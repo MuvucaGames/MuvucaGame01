@@ -33,7 +33,7 @@ GameObject:
   - 58: {fileID: 5893104}
   m_Layer: 10
   m_Name: Box
-  m_TagString: CarringObjectLight
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
