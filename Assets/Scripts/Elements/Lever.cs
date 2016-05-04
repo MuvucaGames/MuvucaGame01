@@ -4,9 +4,9 @@ using System.Collections;
 public class Lever : Activator
 {
     [SerializeField]
-    private bool isTimeBased;
+    private bool isTimeBased = false;
     [SerializeField]
-    private float leverDelay;
+    private float leverDelay = 0f;
     private float timer;
     private bool isActive;
 

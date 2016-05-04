@@ -170,7 +170,7 @@ public abstract class Hero : MonoBehaviour
 			OnLadder = (coll != null && coll.GetComponent<ILadder> () != null && !grounded);
 		else
 			OnLadder = (coll != null && coll.GetComponent<ILadder> () != null && !grounded && speed != 0f && !Carrying);
-		
+
 		if (OnLadder){
 			GravityScale = 0f;
 			Transform tGO = coll.gameObject.transform;
