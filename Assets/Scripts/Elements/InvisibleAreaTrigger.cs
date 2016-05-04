@@ -7,7 +7,7 @@ public class InvisibleAreaTrigger : Activator {
 	public bool triggerOnlyOnce = false;
     public bool triggersWithBothInside = false;
     private bool alreadyTrigged = false;
-    private HashSet<GameObject> playersInside = new HashSet<GameObject>();
+    private HashSet<Hero> heroesInside = new HashSet<Hero>();
 
 	void OnTriggerEnter2D(Collider2D other) {
 		if (triggerOnlyOnce && alreadyTrigged) 
@@ -15,15 +15,17 @@ public class InvisibleAreaTrigger : Activator {
 			return;
 		}
 
-        if (other.transform.parent != null && other.transform.parent.tag == "Player")
+		Hero hero = other.gameObject.GetComponent<Hero> ();
+
+		if (hero!=null)
         {
-            playersInside.Add(other.transform.parent.gameObject);
+			heroesInside.Add(hero);
         }
 
-        if (playersInside.Count == 2 && triggersWithBothInside) {
+		if (heroesInside.Count == 2 && triggersWithBothInside) {
             ActivateAll();
             alreadyTrigged = true;
-        } else if (playersInside.Count > 0 && !triggersWithBothInside)
+		} else if (heroesInside.Count > 0 && !triggersWithBothInside)
         {
             ActivateAll();
             alreadyTrigged = true;
@@ -33,9 +35,10 @@ public class InvisibleAreaTrigger : Activator {
 
     void OnTriggerExit2D(Collider2D other)
     {
-        if (other.transform.parent != null && other.transform.parent.tag == "Player")
+		Hero hero = other.gameObject.GetComponent<Hero> ();
+		if (hero!=null)
         {
-            playersInside.Remove(other.transform.parent.gameObject);
+			heroesInside.Remove(hero);
         }
     }
 }

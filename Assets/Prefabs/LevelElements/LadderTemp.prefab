@@ -27,7 +27,7 @@ GameObject:
   - 61: {fileID: 6187774}
   m_Layer: 11
   m_Name: LadderTemp
-  m_TagString: Ladder
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

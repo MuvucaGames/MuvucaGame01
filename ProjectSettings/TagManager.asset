@@ -3,14 +3,7 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags:
-  - Checkpoint
-  - CheckpointManager
-  - Lever
-  - CarringObjectLight
-  - CarringObjectHeavy
-  - Box
-  - Ladder
+  tags: []
   layers:
   - Default
   - TransparentFX
