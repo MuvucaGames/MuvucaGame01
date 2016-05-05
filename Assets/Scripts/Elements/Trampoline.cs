@@ -8,7 +8,7 @@ public class Trampoline : MonoBehaviour {
 		Hero hero = other.GetComponentInParent<Hero> ();
 
 		if (hero != null) {
-			hero.TrampolineJump(maxHeightMultiplier);
+			hero.Jump(maxHeightMultiplier);
 		}
 	}
 }

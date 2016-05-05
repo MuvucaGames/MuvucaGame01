@@ -176,6 +176,8 @@ public abstract class Hero : MonoBehaviour
 			
 			transform.position = new Vector2 (tGO.position.x, transform.position.y);
 			rigidBody2D.velocity = new Vector2 (0, -speed * maxClimbingSpeed);
+			// The code comment bellow is to be undone when the animator animating climb and stop on ladder
+			/*
 			if (speed ==0f){
 				animator.SetBool ("climb", false);
 				animator.SetBool ("stopclimb", true);
@@ -184,36 +186,29 @@ public abstract class Hero : MonoBehaviour
 				animator.SetBool ("stopclimb", false);
 				animator.SetBool ("climb", true);
 			}
-			
+			*/			
 		} 
 		else{
 			GravityScale = gravityOriginal;
+			// The code comment bellow is to be undone when the animator animating climb and stop on ladder
+			/*
 			animator.SetBool ("climb", false);
 			animator.SetBool ("stopclimb", false);
+			*/
 		}
 		
 	}
 	
 	public void Jump ()
 	{
-		//JUMP, IF GROUDED OR ON OTHER HERO PLATFORM
-		bool grounded = isGrounded ();
-		
-		if (grounded) {
-			//			animator.SetTrigger ("jumpStart");
-			animator.SetTrigger ("jumpOnAir");
-			foreach (Rigidbody2D rg2d in transform.GetComponentsInChildren<Rigidbody2D>())
-				rg2d.velocity = new Vector2 (rigidBody2D.velocity.x, 0);
-			rigidBody2D.AddForce (new Vector2 (0f, (float)jumpForce), ForceMode2D.Impulse);
-			SoundManager.Instance.SendMessage ("PlaySFXJump");
-		}
+		Jump (1);
 	}
 
 	/// <summary>
 	/// Makes the Hero jump to his/her maximum height multiplied by a factor.
 	/// </summary>
 	/// <param name="multiplier">Maximum height factor.</param>
-	public void TrampolineJump (float multiplier)
+	public void Jump (float multiplier)
 	{
 		//JUMP, IF GROUDED OR ON OTHER HERO PLATFORM
 		bool grounded = isGrounded ();
