@@ -1,7 +1,9 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
+using UnityEditor.SceneManagement;
 
 public class MenuHelpers{
 	[MenuItem("MuvucaGames/GDD")]
@@ -21,38 +23,22 @@ public class MenuHelpers{
 
 	[MenuItem("MuvucaGames/Inicializar Scene")]
 	public static void InitializeScene(){
-		string clearMessage = "Deseja realmente deletar TODOS os objetos dessa scene permanentemente?";
+		string defaultScenePath = "Assets/Scenes/DefaultScene.unity";
+		string clearMessage = "Deseja carregar novos objetos na scene atual? Salve antes de prosseguir.";
 		string clearTitle = "Inicializar Scene";
 
 		Object[] objects = GameObject.FindObjectsOfType (typeof(GameObject));
 
-		// Caso já existam objetos na scene verificar se o usuário realmente os quer deletar
+		// Caso já existam objetos na scene verificar se o usuário realmente quer carregar novos objectos
 		if (objects.Length > 0) {
-			if (EditorUtility.DisplayDialog (clearTitle, clearMessage, "Ok", "Cancelar")) {
-				ClearScene ();
-			} else {
+			if (!EditorUtility.DisplayDialog (clearTitle, clearMessage, "Ok", "Cancelar")) {
 				return;
 			}
 		}
 
-		// Lista de prefabs a serem instanciados
-		List<string> prefabList = new List<string> 
-		{ 
-			"Managers",
-			"Camera",
-			"Hero/HeroFast",
-			"Hero/HeroStrong"
-		};
-
-		foreach (string prefabPath in prefabList) {
-			GameObject prefab = AssetDatabase.LoadAssetAtPath<GameObject> ("Assets/Prefabs/" + prefabPath + ".prefab");
-
-			if (prefab != null) {
-				PrefabUtility.InstantiatePrefab (prefab);
-			} else {
-				Debug.Log ("Prefab '" + prefabPath + "' not found");
-			}
-		}
+		EditorSceneManager.OpenScene (defaultScenePath, OpenSceneMode.Additive);
+		Scene defaultScene = EditorSceneManager.GetSceneByName ("DefaultScene");
+		EditorSceneManager.MergeScenes (defaultScene, EditorSceneManager.GetActiveScene());
 	}
 
 	private static void ClearScene() {
