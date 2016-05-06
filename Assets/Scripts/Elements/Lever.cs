@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Lever : Activator
+public class Lever : Activator, IHeroActionable
 {
     [SerializeField]
     private bool isTimeBased = false;
@@ -54,4 +54,9 @@ public class Lever : Activator
 		deactiveRenderer.gameObject.SetActive (!isActive);
 
     }
+
+	public void OnHeroActivate ()
+	{
+		ChangeState ();
+	}
 }

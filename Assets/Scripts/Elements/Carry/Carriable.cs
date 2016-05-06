@@ -1,8 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Carriable : MonoBehaviour
-{
-
+public abstract class Carriable : MonoBehaviour {
+	public abstract bool isHeavy();
 }
 
