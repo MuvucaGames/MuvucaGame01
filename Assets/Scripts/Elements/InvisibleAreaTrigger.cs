@@ -7,7 +7,7 @@ public class InvisibleAreaTrigger : Activator {
 	public bool triggerOnlyOnce = false;
     public bool triggersWithBothInside = false;
     private bool alreadyTrigged = false;
-    private HashSet<GameObject> playersInside = new HashSet<GameObject>();
+    public HashSet<GameObject> playersInside = new HashSet<GameObject>();
 
 	void OnTriggerEnter2D(Collider2D other) {
 		if (triggerOnlyOnce && alreadyTrigged) 
