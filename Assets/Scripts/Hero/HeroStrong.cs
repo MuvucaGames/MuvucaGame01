@@ -8,4 +8,9 @@ public class HeroStrong : Hero {
 		IsActive = true;
 	}
 
+	public override bool IsStrong ()
+	{
+		return true;
+	}
+
 }

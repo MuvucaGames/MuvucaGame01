@@ -1,21 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &100118
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 436958}
-  - 61: {fileID: 6151606}
-  m_Layer: 11
-  m_Name: LadderTemp
-  m_TagString: Ladder
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
 --- !u!1 &145600
 GameObject:
   m_ObjectHideFlags: 0
@@ -72,8 +56,9 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 449300}
-  - 114: {fileID: 11430018}
-  m_Layer: 0
+  - 114: {fileID: 11494042}
+  - 61: {fileID: 6157586}
+  m_Layer: 11
   m_Name: ActionableLadder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -119,23 +104,11 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 194822}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.1764817, y: 0.2983507, z: 94.208984}
+  m_LocalPosition: {x: 0, y: 1.2, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 2}
   m_Children: []
   m_Father: {fileID: 449300}
-  m_RootOrder: 3
---- !u!4 &436958
-Transform:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 100118}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.1764817, y: -0.89164937, z: 74.208984}
-  m_LocalScale: {x: 1, y: 1, z: 2}
-  m_Children: []
-  m_Father: {fileID: 449300}
-  m_RootOrder: 0
+  m_RootOrder: 2
 --- !u!4 &438618
 Transform:
   m_ObjectHideFlags: 1
@@ -143,11 +116,11 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 145600}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.1764817, y: -0.89164937, z: 94.208984}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 2}
   m_Children: []
   m_Father: {fileID: 449300}
-  m_RootOrder: 1
+  m_RootOrder: 0
 --- !u!4 &449300
 Transform:
   m_ObjectHideFlags: 1
@@ -155,10 +128,9 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 167512}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.65736103, y: 2.3336508, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 436958}
   - {fileID: 438618}
   - {fileID: 461312}
   - {fileID: 428876}
@@ -173,11 +145,11 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 166010}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.1764817, y: -0.30164945, z: 94.208984}
+  m_LocalPosition: {x: 0, y: 0.6, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 2}
   m_Children: []
   m_Father: {fileID: 449300}
-  m_RootOrder: 2
+  m_RootOrder: 1
 --- !u!4 &471248
 Transform:
   m_ObjectHideFlags: 1
@@ -185,11 +157,11 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 185832}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.1764817, y: 1.4983507, z: 94.208984}
+  m_LocalPosition: {x: 0, y: 2.4, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 2}
   m_Children: []
   m_Father: {fileID: 449300}
-  m_RootOrder: 5
+  m_RootOrder: 4
 --- !u!4 &499766
 Transform:
   m_ObjectHideFlags: 1
@@ -197,17 +169,17 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 148604}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.1764817, y: 0.9083506, z: 94.208984}
+  m_LocalPosition: {x: 0, y: 1.8, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 2}
   m_Children: []
   m_Father: {fileID: 449300}
-  m_RootOrder: 4
---- !u!61 &6151606
+  m_RootOrder: 3
+--- !u!61 &6157586
 BoxCollider2D:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 100118}
+  m_GameObject: {fileID: 167512}
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
@@ -216,7 +188,7 @@ BoxCollider2D:
   m_Offset: {x: 0, y: 1.2}
   serializedVersion: 2
   m_Size: {x: 0.25, y: 3}
---- !u!114 &11430018
+--- !u!114 &11494042
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -228,7 +200,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   initialHeight: 1
-  finalHeight: 4
+  finalHeight: 5
 --- !u!212 &21261542
 SpriteRenderer:
   m_ObjectHideFlags: 1
