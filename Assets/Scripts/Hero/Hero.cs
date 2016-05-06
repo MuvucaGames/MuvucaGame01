@@ -20,8 +20,6 @@ public abstract class Hero : MonoBehaviour
 	private float jumpHeight = 1f;	
 	[SerializeField]
 	private float offsetCarryObjHero = 0.7f;
-	[SerializeField]
-	private bool isHeroStrong = true;
 	
 	[SerializeField]
 	private LayerMask whatIsGround;
@@ -107,7 +105,7 @@ public abstract class Hero : MonoBehaviour
 		bool grounded = isGrounded ();
 		Collider2D coll = GetColliderObjNext (ObjPositionRelHero._Inside);		
 		if (OnLadder)
-			OnLadder = (coll != null && coll.tag=="Ladder" && !grounded);
+			OnLadder = (coll != null && coll.GetComponent<ILadder>()!=null && !grounded);
 		
 		if (grounded) {
 			animator.SetBool ("jumpOnAir", false);
@@ -165,11 +163,12 @@ public abstract class Hero : MonoBehaviour
 	{
 		bool grounded = isGrounded ();
 		Collider2D coll = GetColliderObjNext (ObjPositionRelHero._Inside);
+
 		if (OnLadder)
-			OnLadder = (coll != null && coll.tag=="Ladder" && !grounded);
+			OnLadder = (coll != null && coll.GetComponent<ILadder> () != null && !grounded);
 		else
-			OnLadder = (coll != null && coll.tag=="Ladder" && !grounded && speed !=0f && !Carrying);
-		
+			OnLadder = (coll != null && coll.GetComponent<ILadder> () != null && !grounded && speed != 0f && !Carrying);
+
 		if (OnLadder){
 			GravityScale = 0f;
 			Transform tGO = coll.gameObject.transform;
@@ -331,16 +330,9 @@ public abstract class Hero : MonoBehaviour
 		if (!Carrying) {
 			Collider2D coll = GetColliderObjNext (ObjPositionRelHero._Inside);
 			if (coll != null) {
-				switch (coll.tag) {
-				case "Lever":
-				{
-					coll.SendMessage ("ChangeState");
-					break;
-				}
-				default:
-				{
-					break;
-				}
+				IHeroActionable iHeroActionable = coll.GetComponent<IHeroActionable> ();
+				if (iHeroActionable != null) {
+					iHeroActionable.OnHeroActivate ();
 				}
 			} 
 			else {
@@ -356,7 +348,7 @@ public abstract class Hero : MonoBehaviour
 		
 	}
 	
-	private void TouchedForceField ()
+	public void TouchedForceField ()
 	{
 		float speed = 2;
 		rigidBody2D.AddForce (new Vector2 (facingDirection * maxWalkingSpeed * speed, 0), ForceMode2D.Impulse);
@@ -449,22 +441,26 @@ public abstract class Hero : MonoBehaviour
 		return coll;
 		
 	}
+
 	private void CarryObject(Collider2D coll){
-		if (coll != null && (coll.tag == "CarringObjectLight" || (coll.tag == "CarringObjectHeavy" && isHeroStrong))) {
-			float fator = (coll.tag == "CarringObjectHeavy"?1.5f:1);
-			Carrying = true;
-			CarriedObject = coll.gameObject;
-			CarriedObject.transform.parent = transform;
-			CarriedObject.GetComponent<Rigidbody2D> ().isKinematic = true;
-			CarriedObject.transform.rotation = new Quaternion(0, 0, 0, CarriedObject.transform.localRotation.w);
-			CarriedObject.transform.position = new Vector2 (transform.position.x, transform.position.y + transform.localScale.y + CarriedObject.transform.localScale.y + offsetCarryObjHero*fator);
-			StopPush();
-			animator.SetBool ("carry", true);
+		if (coll != null) {
+			Carriable carriable = coll.GetComponent<Carriable> ();
+			if (carriable != null && (!carriable.isHeavy () || this.IsStrong ())) {
+				float fator = carriable.isHeavy()?1.5f:1f;
+				Carrying = true;
+				CarriedObject = coll.gameObject;
+				CarriedObject.transform.parent = transform;
+				CarriedObject.GetComponent<Rigidbody2D> ().isKinematic = true;
+				CarriedObject.transform.rotation = new Quaternion(0, 0, 0, CarriedObject.transform.localRotation.w);
+				CarriedObject.transform.position = new Vector2 (transform.position.x, transform.position.y + transform.localScale.y + CarriedObject.transform.localScale.y + offsetCarryObjHero*fator);
+				StopPush();
+				animator.SetBool ("carry", true);
+			}
 		}
-		
 	}
+
 	private void ReleaseObject(){
-		float fator = (CarriedObject.tag == "CarringObjectHeavy"?1.5f:1);
+		float fator = (CarriedObject.GetComponent<Carriable>().isHeavy()?1.5f:1);
 		CarriedObject.transform.parent = null;
 		CarriedObject.GetComponent<Rigidbody2D> ().isKinematic = false;
 		if (Crouched) {
@@ -481,4 +477,6 @@ public abstract class Hero : MonoBehaviour
 		CarriedObject = null;
 		animator.SetBool ("carry", false);
 	}
+
+	public abstract bool IsStrong ();
 }
