@@ -63,9 +63,12 @@ public class ActivatorEditor : Editor {
 			}else{
 				if(GUILayout.Button("UNLINK")){
 					for(int i = 0; i<actionableElements_sp.arraySize; i++){
-						if(actionableElements_sp.GetArrayElementAtIndex(i).objectReferenceValue == act_elem){
+                        if (actionableElements_sp.GetArrayElementAtIndex(i).objectReferenceValue == act_elem){
 							actionableElements_sp.DeleteArrayElementAtIndex(i);
 						}
+                        if (actionableElements_sp.GetArrayElementAtIndex(i).objectReferenceValue == null){
+                            actionableElements_sp.DeleteArrayElementAtIndex(i);
+                        }
 					}
 				}
 			}
