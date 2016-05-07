@@ -24,7 +24,7 @@ public class ClawPerSe : Claw {
     void OnTriggerEnter2D(Collider2D other)
     {
         GetComponent<Rigidbody2D>().isKinematic = false;
-        if (!jointInterObject.connectedBody && other.CompareTag ("CarringObjectLight")) 
+        if (!jointInterObject.connectedBody && other.gameObject.GetComponent<CarriableLight>()) 
         {
 			colliderObj = other;
             interactiveObject = other.gameObject;

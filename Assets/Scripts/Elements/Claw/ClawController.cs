@@ -135,7 +135,7 @@ public class ClawController : MonoBehaviour {
     }
 
     void Update() {
-        if (Terminal.playersInside.Count > 0) {
+        if (Terminal.GetQttHeroesInside() > 0) {
             heroFast.changeHeroAllowed = false;
             heroStrong.changeHeroAllowed = false;
             if (active) {
