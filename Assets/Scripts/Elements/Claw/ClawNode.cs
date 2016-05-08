@@ -12,7 +12,7 @@ public class ClawNode : Claw {
         {
             if (heroStrongRigidBody.Equals(other.attachedRigidbody) ||
                 heroFastRigidBody.Equals(other.attachedRigidbody) ||
-                other.gameObject.GetComponent<CarriableLight>())
+                other.gameObject.GetComponent<CarriableLight>() != null)
             {
                 if (!itemsOverPlatform.Contains(other)) {
                     itemsOverPlatform.Add(other);

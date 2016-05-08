@@ -3,30 +3,40 @@ using System.Collections;
 
 public class ClawMechanism : Claw
 {    
-    public bool isOnLimit = false;
+    public bool isOnLeftLimit = false;
     public bool isOnRightLimit = false;
-	
+    
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag ("LeftLimit")) 
+        Limit limit = other.GetComponent<Limit>();
+        if (limit != null) 
         {
-            isOnLimit = true;
-        } 
-
-        else if (other.CompareTag ("RightLimit")) 
-        {
-            isOnRightLimit = true;
+            if (limit.isLeftLimit)
+            {
+                isOnRightLimit= false;
+                isOnLeftLimit = true;
+            }
+            else if (limit.isRightLimit)
+            {
+                isOnLeftLimit = false;
+                isOnRightLimit = true;
+            }
         } 
     }
 
     void OnTriggerExit2D(Collider2D other)
     {
-        if (other.CompareTag ("LeftLimit")) {
-            isOnLimit = false;
-        } 
-
-        else if (other.CompareTag ("RightLimit")) {
-            isOnRightLimit = false;
-        } 
+        Limit limit = other.GetComponent<Limit>();
+        if (limit != null)
+        {
+            if (limit.isLeftLimit)
+            {
+                isOnLeftLimit = false;
+            }
+            else
+            {
+                isOnRightLimit = false;
+            }
+        }
     }
 }

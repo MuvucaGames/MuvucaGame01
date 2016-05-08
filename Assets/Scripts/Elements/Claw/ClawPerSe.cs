@@ -5,7 +5,6 @@ public class ClawPerSe : Claw {
 
     public GameObject interactiveObject = null;
     private Rigidbody2D interObjRigidbody = null;
-	private Collider2D colliderObj = null;
     private HingeJoint2D jointInterObject = null;
 	private ClawNode clawNode = null;
 
@@ -24,9 +23,8 @@ public class ClawPerSe : Claw {
     void OnTriggerEnter2D(Collider2D other)
     {
         GetComponent<Rigidbody2D>().isKinematic = false;
-        if (!jointInterObject.connectedBody && other.gameObject.GetComponent<CarriableLight>()) 
+        if (!jointInterObject.connectedBody && other.gameObject.GetComponent<CarriableLight>() != null) 
         {
-			colliderObj = other;
             interactiveObject = other.gameObject;
             interObjRigidbody = other.attachedRigidbody;
         } 

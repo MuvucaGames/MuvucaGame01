@@ -15,7 +15,7 @@ using System.Collections.Generic;
 //        This depends on some physics matters.
            
 public class ClawController : MonoBehaviour {
-
+    
     [SerializeField]private float horizontalVelocity = 1.5f;
     [SerializeField]private float verticalVelocity = 1.2f;
     [SerializeField]private float minHeight = 10.0f;
@@ -26,7 +26,6 @@ public class ClawController : MonoBehaviour {
     private float verticalPos;
     public bool active = false;
     public bool action = false;
-    private bool terminalActivated = false;
     private HeroStrong heroStrong = null;
     private HeroFast heroFast = null;
     private Stack<SpriteRenderer> nodes = new Stack<SpriteRenderer>();
@@ -44,8 +43,8 @@ public class ClawController : MonoBehaviour {
         clawNode = GetComponentInChildren<ClawNode>();
         clawPerSe = GetComponentInChildren<ClawPerSe>();
         heroStrong = FindObjectOfType<HeroStrong> ();
-        heroFast = FindObjectOfType<HeroFast> ();
-        Terminal = GetComponentInChildren<InvisibleAreaTrigger> ();
+        heroFast = FindObjectOfType<HeroFast>();
+        Terminal = GetComponentInChildren<InvisibleAreaTrigger>();
         clawLastPosition = clawNode.GetComponent<Renderer>().bounds.center;
         cameraControl = FindObjectOfType<CameraController>();
     }
@@ -53,7 +52,6 @@ public class ClawController : MonoBehaviour {
     // Momevent code for claws and parts
     private void MoveClaw(Vector3 direction)
     {
-        Vector3 directionHorizontal = new Vector3(direction.x, 0, direction.z);
         if ((clawNode.itemsOverPlatform.Count > 0) && clawPerSe.closedClaw) {
             foreach (Collider2D coll__ in clawNode.itemsOverPlatform)
                 coll__.attachedRigidbody.transform.Translate(direction);
@@ -168,7 +166,7 @@ public class ClawController : MonoBehaviour {
                     heroStrong.GetComponent<HeroControl>().enabled = false;
                     cameraControl.interactiveFocusableObject = clawPerSe.gameObject;
                     active = true;
-                    terminalActivated = true;
+                    activeHero.StopWalk();
                 }
             }
         }
@@ -195,14 +193,9 @@ public class ClawController : MonoBehaviour {
         Vector3 movement = new Vector3 (horizontalPos, -verticalPos, 0);
         clawCenter = clawNode.GetComponent<Renderer>().bounds.center;
         NodeUpdate();
-        if (active && !clawMechanism.isOnLimit && !clawMechanism.isOnRightLimit)
+        // Everything is fine. No limits hit.
+        if (active && !clawMechanism.isOnLeftLimit && !clawMechanism.isOnRightLimit)
         {
-            if (terminalActivated) {
-                heroFast.StandUp();
-                heroFast.StopWalk();
-                heroStrong.StandUp();
-                heroStrong.StopWalk();
-            }
             if (!clawPerSe.interactiveObject)
             {
                 action = false;
@@ -210,16 +203,16 @@ public class ClawController : MonoBehaviour {
             }
             MoveClaw(movement * Time.deltaTime);
         }
-        
+        // In case claw hit one of the limits...
         else
         {
-            if (clawMechanism.isOnLimit && horizontalPos >= 0 ||
+            if (clawMechanism.isOnLeftLimit && horizontalPos >= 0 ||
                 clawMechanism.isOnRightLimit && horizontalPos <= 0)
             {
                 MoveClaw(movement * Time.deltaTime);
             }
                 
-            else if (clawMechanism.isOnLimit && horizontalPos < 0 ||
+            else if (clawMechanism.isOnLeftLimit && horizontalPos < 0 ||
                      clawMechanism.isOnRightLimit && horizontalPos > 0)
             {
                 // Bounce effect
