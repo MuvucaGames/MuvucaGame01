@@ -2,17 +2,34 @@
 using System.Collections;
 using System.Collections.Generic;
 
-//  TODO: 
-//      - Extend concept for Object Pool to the role build 
-//        https://en.wikipedia.org/wiki/Object_pool_pattern
-
-//  KNOWN BUGS:
-//      - When hero collides with cliff above claw hanging object, 
-//        he moves outside the platform
-//      - When hero is activating the claw crouching, he walks and stays in
-//        crouching position. 
-//      - Sometimes, nodes are placed with some distance between them.
-//        This depends on some physics matters.
+/// <summary>
+///   Controls claws action and movement.
+/// </summary>
+///  Controls claws action and movement. Talks to other controllers such as 
+///  HeroController and CameraController, resulting in changing focus from Hero
+///  to the Claw.
+///  
+///  To activate, one of the heroes must stand within the Terminal bounds, and press the 
+///  button corresponding to Change Hero and then control and camera are transferred to
+///  the claw.
+///
+///  To movement claw, player must use arrows keys, and when the claw is in direct contact
+///  with and object of type 'CarriableLight', user must press button Action in order
+///  to lift the object. Pressing action with object lifted will cause the object to fall
+///  and claw to open.
+///
+///  ### TODO: 
+///  - Extend concept for Object Pool to the role build 
+///    [Object Pool Pattern](https://en.wikipedia.org/wiki/Object_pool_pattern).
+///
+///  ### KNOWN BUGS:
+///  - When hero collides with cliff above claw hanging object, 
+///    he moves outside the platform
+///  - Sometimes, nodes are placed with some distance between them.
+///    This depends on some physics matters.
+///
+///  \sa Claw, ClawNode, ClawPerSe, ClawMechanism, InvisibleAreaTrigger, 
+///  CameraController, CarriableLight, HeroControl
            
 public class ClawController : MonoBehaviour {
     
@@ -49,7 +66,12 @@ public class ClawController : MonoBehaviour {
         cameraControl = FindObjectOfType<CameraController>();
     }
 
-    // Momevent code for claws and parts
+    /// <summary>
+    ///    Momevent code for claw parts.
+    /// </summary>
+    /// <param name="direction">
+    ///   Direction vector applied to claw
+    /// </param>
     private void MoveClaw(Vector3 direction)
     {
         if ((clawNode.itemsOverPlatform.Count > 0) && clawPerSe.closedClaw) {
@@ -72,10 +94,12 @@ public class ClawController : MonoBehaviour {
         }
     }
 
+    /// <summary>
+    ///   Main axis of the claw is duplicated or deleted whether the claw is going
+    ///   downwards or upwards
+    /// </summary>
     private void NodeUpdate()
     {
-        // Main axis of the claw is duplicated or deleted whether the claw is going
-        // downwards or upwards
         if (nodes.Count > 0) {
             SpriteRenderer clone = null;
             clone = nodes.Peek ();
@@ -118,7 +142,11 @@ public class ClawController : MonoBehaviour {
         }
     }
 
-    // This could be some sort of global method
+    // This could be global method
+    /// <summary>
+    ///   Discover wich hero is active
+    /// </summary>
+    /// <returns> Active hero </returns>
     private Hero GetActiveHero()
     {        
         if (heroStrong.m_isActive)

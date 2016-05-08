@@ -1,6 +1,9 @@
 using UnityEngine;
 using System.Collections;
 
+/// <summary>
+///   Piece that move between two physics limits.
+/// </summary>
 public class ClawMechanism : Claw
 {    
     public bool isOnLeftLimit = false;

@@ -1,6 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+/// <summary>
+///   Parent class for Claw Pieces
+/// </summary>
 public class Claw : MonoBehaviour {
 
     public Vector3 clawInitialPos;
@@ -11,8 +14,6 @@ public class Claw : MonoBehaviour {
     protected Collider2D coll;
     protected ClawController controller = null;
 
-
-    // Use this for initialization
     void Awake () {
         controller = GetComponentInParent<ClawController>();
         coll = GetComponent<Collider2D>();

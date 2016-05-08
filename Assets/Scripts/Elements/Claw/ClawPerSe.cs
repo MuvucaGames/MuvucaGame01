@@ -1,8 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+/// Represents the claw itself. When catching an object, claw will close and continue to do so
+/// while holding the object. When letting object go, claw will open.
 public class ClawPerSe : Claw {
-
     public GameObject interactiveObject = null;
     private Rigidbody2D interObjRigidbody = null;
     private HingeJoint2D jointInterObject = null;

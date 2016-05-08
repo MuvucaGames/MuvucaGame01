@@ -2,6 +2,12 @@
 using System.Collections;
 using System.Collections.Generic;
 
+/// <summary>
+///   Support for claw that keeps it fixed on some point.
+/// </summary>
+///   Support for claw that keeps it fixed on some point. Relative to the point wich claw is 
+///   fixed, it moves only upwards or downwards.
+
 public class ClawNode : Claw {
     public List<Collider2D> itemsOverPlatform = new List<Collider2D>();
     public ClawMechanism clawMechanism = null;
