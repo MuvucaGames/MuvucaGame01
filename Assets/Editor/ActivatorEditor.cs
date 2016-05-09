@@ -66,7 +66,11 @@ public class ActivatorEditor : Editor {
 						if(actionableElements_sp.GetArrayElementAtIndex(i).objectReferenceValue == act_elem){
 							actionableElements_sp.DeleteArrayElementAtIndex(i);
 						}
-					}
+                        if (actionableElements_sp.GetArrayElementAtIndex(i).objectReferenceValue == null)
+                        {
+                            actionableElements_sp.DeleteArrayElementAtIndex(i);
+                        }
+                    }
 				}
 			}
 
