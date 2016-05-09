@@ -15,7 +15,7 @@ public class InvisibleAreaTrigger : Activator {
 			return;
 		}
 
-		Hero hero = other.gameObject.GetComponent<Hero> ();
+		Hero hero = other.gameObject.GetComponentInParent<Hero> ();
 
 		if (hero!=null)
         {
@@ -35,10 +35,15 @@ public class InvisibleAreaTrigger : Activator {
 
     void OnTriggerExit2D(Collider2D other)
     {
-		Hero hero = other.gameObject.GetComponent<Hero> ();
+		Hero hero = other.gameObject.GetComponentInParent<Hero> ();
 		if (hero!=null)
         {
 			heroesInside.Remove(hero);
         }
+    }
+
+    public int GetQttHeroesInside()
+    {
+        return heroesInside.Count;
     }
 }
