@@ -11,7 +11,7 @@ public class HeroInteractor : MonoBehaviour {
 	{
 		if (other.gameObject.GetComponent<ILadder>()!=null)
 			ladders.Add (other.gameObject);
-		else if (other.gameObject.GetComponent<IHeroActionable>()!=null)
+		if (other.gameObject.GetComponent<IHeroActionable>()!=null)
 			actionableObjects.Add (other.gameObject);
 		else if (other.gameObject.GetComponent<Carriable>()!=null)
 			carriableObjects.Add (other.gameObject);
