@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 using System;
 
 public abstract class Hero : MonoBehaviour
@@ -37,13 +38,15 @@ public abstract class Hero : MonoBehaviour
 	private HingeJoint2D walkMotor = null;
 	[SerializeField]
 	private Collider2D footCollider = null;
-	
+
+	private HeroInteractor heroInterac;
 	private float motorMaxAngularSpeed = 0f;
 	private int facingDirection=_FACING_RIGHT;
 	private Rigidbody2D rigidBody2D;
 	private double jumpForce;
 	private Animator animator;
-	private bool OnLadder = false;
+	private bool isClimbing = false;
+	public GameObject ladder = null;
 	private float gravityOriginal;
 	private bool Carrying = false;
 	private bool Crouched = false;
@@ -62,8 +65,11 @@ public abstract class Hero : MonoBehaviour
 		get { return m_onAir; }
 	}
 	
+	public abstract bool IsStrong ();
+
 	protected virtual void Awake ()
 	{
+		heroInterac = GetComponentInChildren<HeroInteractor> ();
 		rigidBody2D = GetComponent<Rigidbody2D> ();
 		
 		//get the animator
@@ -92,21 +98,15 @@ public abstract class Hero : MonoBehaviour
 	
 	public bool isPushingSomething ()
 	{
-		//TODO better method to check if grounded
-		//old way:
-		//bool grounded = Physics2D.OverlapCircle (transform.position, 0.2f, whatIsGround.value | heroPlatformMask.value | mapInteractiveObjectsMask.value);
-		//new way:
-		bool grounded = bodyCollider.IsTouchingLayers (mapInteractiveObjectsMask.value);
-		return grounded;
+		return bodyCollider.IsTouchingLayers (mapInteractiveObjectsMask.value) && heroInterac.carriableObject != null;
 	}
-	
+
 	public void Move (float speed)
 	{
 		bool grounded = isGrounded ();
-		Collider2D coll = GetColliderObjNext (ObjPositionRelHero._Inside);		
-		if (OnLadder)
-			OnLadder = (coll != null && coll.GetComponent<ILadder>()!=null && !grounded);
-		
+		if (isClimbing)
+			isClimbing = (heroInterac.ladder != null && heroInterac.ladder.GetComponent<ILadder>()!=null && !grounded);
+
 		if (grounded) {
 			animator.SetBool ("jumpOnAir", false);
 			if (speed == 0.0f) {
@@ -132,11 +132,11 @@ public abstract class Hero : MonoBehaviour
 				animator.SetBool ("carry", true);
 			else
 				StopPush();
-			if (OnLadder){
+			if (isClimbing){
 				if (speed != 0.0f) {
-					Transform tGO = coll.gameObject.transform;
 					int d = speed>0?1:-1;
-					OnLadder = false;
+					isClimbing = false;
+					//ladder = null;
 					animator.SetBool ("jumpOnAir", true);
 				}
 			}
@@ -162,16 +162,15 @@ public abstract class Hero : MonoBehaviour
 	public void VerticalMove(float speed)
 	{
 		bool grounded = isGrounded ();
-		Collider2D coll = GetColliderObjNext (ObjPositionRelHero._Inside);
 
-		if (OnLadder)
-			OnLadder = (coll != null && coll.GetComponent<ILadder> () != null && !grounded);
+		if (isClimbing)
+			isClimbing = (heroInterac.ladder != null && heroInterac.ladder.GetComponent<ILadder>()!=null && !grounded);
 		else
-			OnLadder = (coll != null && coll.GetComponent<ILadder> () != null && !grounded && speed != 0f && !Carrying);
+			isClimbing = (heroInterac.ladder != null && heroInterac.ladder.GetComponent<ILadder>()!=null && !grounded && speed != 0f && !Carrying);
 
-		if (OnLadder){
+		if (isClimbing){
 			GravityScale = 0f;
-			Transform tGO = coll.gameObject.transform;
+			Transform tGO = heroInterac.ladder.transform;
 			
 			transform.position = new Vector2 (tGO.position.x, transform.position.y);
 			rigidBody2D.velocity = new Vector2 (0, -speed * maxClimbingSpeed);
@@ -254,8 +253,7 @@ public abstract class Hero : MonoBehaviour
 	public void Carry ()
 	{
 		if (!Carrying) {
-			Collider2D coll = GetColliderObjNext (ObjPositionRelHero._inFront);
-			CarryObject(coll);
+			CarryObject();
 			CarryingByAction = false;
 		}
 		else
@@ -328,19 +326,18 @@ public abstract class Hero : MonoBehaviour
 	private void DoAction ()
 	{
 		if (!Carrying) {
-			Collider2D coll = GetColliderObjNext (ObjPositionRelHero._Inside);
-			if (coll != null) {
-				IHeroActionable iHeroActionable = coll.GetComponent<IHeroActionable> ();
-				if (iHeroActionable != null) {
-					iHeroActionable.OnHeroActivate ();
+			if (!isClimbing) {
+				if (heroInterac.actionableObject != null) {
+					IHeroActionable iHeroActionable = heroInterac.actionableObject.GetComponent<IHeroActionable> ();
+					if (iHeroActionable != null) {
+						iHeroActionable.OnHeroActivate ();
+					} 
+				} else if (heroInterac.carriableObject != null) {
+					CarryObject ();
+					CarryingByAction = true;
 				}
-			} 
-			else {
-				coll = GetColliderObjNext (ObjPositionRelHero._inFront);
-				CarryObject(coll);
-				CarryingByAction = true;
 			}
-			
+
 		}
 		else{
 			ReleaseObject();
@@ -405,58 +402,21 @@ public abstract class Hero : MonoBehaviour
 		}
 		
 	}
-	public Collider2D GetColliderObjNext(ObjPositionRelHero objPos){
-		Collider2D coll;
-		Vector2 a, b;
-		Renderer r = GetComponentInChildren<Renderer> ();
-		switch (objPos) {
-		case ObjPositionRelHero._Above:
-			a = new Vector2 (transform.position.x - r.bounds.extents.x, transform.position.y - r.bounds.extents.y);
-			b = new Vector2 (transform.position.x + r.bounds.extents.x, transform.position.y - 1.5f*r.bounds.extents.y);
-			break;
-		case ObjPositionRelHero._inFront:
-			a = new Vector2 (transform.position.x + facingDirection*r.bounds.extents.x, transform.position.y - r.bounds.extents.y);
-			b = new Vector2 (transform.position.x + 1.5f*facingDirection*r.bounds.extents.x, transform.position.y + r.bounds.extents.y);
-			break;
-		case ObjPositionRelHero._Behind:
-			a = new Vector2 (transform.position.x - facingDirection*r.bounds.extents.x, transform.position.y - r.bounds.extents.y);
-			b = new Vector2 (transform.position.x - 1.5f*facingDirection*r.bounds.extents.x, transform.position.y + r.bounds.extents.y);
-			break;
-		case ObjPositionRelHero._Bellow:
-			a = new Vector2 (transform.position.x - r.bounds.extents.x, transform.position.y + r.bounds.extents.y);
-			b = new Vector2 (transform.position.x + r.bounds.extents.x, transform.position.y + 1.5f*r.bounds.extents.y);
-			break;
-		default:
-			a = new Vector2 (transform.position.x - r.bounds.extents.x, transform.position.y - r.bounds.extents.x);
-			b = new Vector2 (transform.position.x + r.bounds.extents.x, transform.position.y + r.bounds.extents.x);
-			break;
+	private void CarryObject(){
+		Carriable carriable = heroInterac.carriableObject.GetComponent<Carriable> ();
+		if (carriable != null && (!carriable.isHeavy () || this.IsStrong ())) {
+			float fator = carriable.isHeavy()?1.5f:1f;
+			Carrying = true;
+			CarriedObject = heroInterac.carriableObject;
+			CarriedObject.transform.parent = transform;
+			CarriedObject.GetComponent<Rigidbody2D> ().isKinematic = true;
+			CarriedObject.transform.rotation = new Quaternion(0, 0, 0, CarriedObject.transform.localRotation.w);
+			CarriedObject.transform.position = new Vector2 (transform.position.x, transform.position.y + transform.localScale.y + CarriedObject.transform.localScale.y + offsetCarryObjHero*fator);
+			StopPush();
+			animator.SetBool ("carry", true);
+			CalculateJumpForce ();
 		}
-		if (objPos==ObjPositionRelHero._Inside){
-			coll = Physics2D.OverlapArea (a, b, 1 << 11);
-		}
-		else
-		{
-			coll = Physics2D.OverlapArea (a, b, mapInteractiveObjectsMask.value);
-		}
-		return coll;
-		
-	}
 
-	private void CarryObject(Collider2D coll){
-		if (coll != null) {
-			Carriable carriable = coll.GetComponent<Carriable> ();
-			if (carriable != null && (!carriable.isHeavy () || this.IsStrong ())) {
-				float fator = carriable.isHeavy()?1.5f:1f;
-				Carrying = true;
-				CarriedObject = coll.gameObject;
-				CarriedObject.transform.parent = transform;
-				CarriedObject.GetComponent<Rigidbody2D> ().isKinematic = true;
-				CarriedObject.transform.rotation = new Quaternion(0, 0, 0, CarriedObject.transform.localRotation.w);
-				CarriedObject.transform.position = new Vector2 (transform.position.x, transform.position.y + transform.localScale.y + CarriedObject.transform.localScale.y + offsetCarryObjHero*fator);
-				StopPush();
-				animator.SetBool ("carry", true);
-			}
-		}
 	}
 
 	private void ReleaseObject(){
@@ -476,7 +436,8 @@ public abstract class Hero : MonoBehaviour
 		Carrying = false;
 		CarriedObject = null;
 		animator.SetBool ("carry", false);
+		CalculateJumpForce ();
 	}
 
-	public abstract bool IsStrong ();
+
 }

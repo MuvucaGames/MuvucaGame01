@@ -38,9 +38,24 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: Landscape
+    uniqueID: 3840242219
+    locked: 0
+  - name: Background
+    uniqueID: 4216804749
+    locked: 0
+  - name: Elements_Back
+    uniqueID: 1171343001
+    locked: 0
   - name: Default
     uniqueID: 0
     locked: 0
   - name: Heroes
     uniqueID: 4032916013
+    locked: 0
+  - name: Elements_Front
+    uniqueID: 1546909473
+    locked: 0
+  - name: Foreground
+    uniqueID: 2235265351
     locked: 0

@@ -16,6 +16,23 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &120124
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 427198}
+  - 61: {fileID: 6190088}
+  - 114: {fileID: 11450006}
+  m_Layer: 8
+  m_Name: 'InteractCollider '
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &122942
 GameObject:
   m_ObjectHideFlags: 0
@@ -152,13 +169,25 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 453014}
-  m_RootOrder: 3
+  m_RootOrder: 4
 --- !u!4 &421968
 Transform:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 199118}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 453014}
+  m_RootOrder: 3
+--- !u!4 &427198
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 120124}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -184,11 +213,12 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 122942}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -1.7113879, y: -0.535715, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 442330}
   - {fileID: 405472}
+  - {fileID: 427198}
   - {fileID: 421968}
   - {fileID: 416782}
   - {fileID: 491406}
@@ -206,7 +236,7 @@ Transform:
   m_Children:
   - {fileID: 401910}
   m_Father: {fileID: 453014}
-  m_RootOrder: 4
+  m_RootOrder: 5
 --- !u!50 &5059988
 Rigidbody2D:
   serializedVersion: 2
@@ -290,6 +320,20 @@ BoxCollider2D:
   m_Offset: {x: 0, y: 1.75}
   serializedVersion: 2
   m_Size: {x: 0.7, y: 0.5}
+--- !u!61 &6190088
+BoxCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 120124}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_Offset: {x: 0, y: 0.65}
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1}
 --- !u!61 &6198980
 BoxCollider2D:
   m_ObjectHideFlags: 1
@@ -332,6 +376,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3549de351e2ffd84595bdb598c2badb7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &11450006
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 120124}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b16e33d25373984d96d8cc4fae8eba3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &11475352
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -345,8 +400,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxWalkingSpeed: 4.5
   walkMotorTorque: 80
+  maxClimbingSpeed: 5
   horizontalFlyingForce: 0.5
   jumpHeight: 1.5
+  offsetCarryObjHero: 0.7
   whatIsGround:
     serializedVersion: 2
     m_Bits: 4096
@@ -361,6 +418,7 @@ MonoBehaviour:
   bodyCollider: {fileID: 6003864}
   walkMotor: {fileID: 23342416}
   footCollider: {fileID: 5814716}
+  ladder: {fileID: 0}
   m_isActive: 0
 --- !u!212 &21212648
 SpriteRenderer:
