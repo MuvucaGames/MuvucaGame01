@@ -44,6 +44,7 @@ GameObject:
   - 50: {fileID: 5066174}
   - 114: {fileID: 11475352}
   - 114: {fileID: 11422286}
+  - 234: {fileID: 23469070}
   m_Layer: 8
   m_Name: HeroStrong
   m_TagString: Player
@@ -213,7 +214,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 122942}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.7113879, y: -0.535715, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 442330}
@@ -473,6 +474,31 @@ HingeJoint2D:
   m_AngleLimits:
     m_LowerAngle: 0
     m_UpperAngle: 359
+--- !u!234 &23469070
+SliderJoint2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 122942}
+  m_Enabled: 0
+  serializedVersion: 4
+  m_EnableCollision: 1
+  m_ConnectedRigidBody: {fileID: 0}
+  m_BreakForce: Infinity
+  m_BreakTorque: Infinity
+  m_AutoConfigureConnectedAnchor: 0
+  m_Anchor: {x: 0, y: 0}
+  m_ConnectedAnchor: {x: 0, y: 0}
+  m_AutoConfigureAngle: 0
+  m_Angle: 90
+  m_UseMotor: 0
+  m_Motor:
+    m_MotorSpeed: 0
+    m_MaximumMotorForce: 10000
+  m_UseLimits: 0
+  m_TranslationLimits:
+    m_LowerTranslation: 0
+    m_UpperTranslation: 0
 --- !u!251 &25108664
 PlatformEffector2D:
   m_ObjectHideFlags: 1
