@@ -7,7 +7,7 @@ public class Trampoline : MonoBehaviour {
 	void OnTriggerEnter2D(Collider2D other) {
 		Hero hero = other.GetComponentInParent<Hero> ();
 
-		if (hero != null) {
+		if (hero != null && hero.transform.position.y > transform.position.y) {
 			hero.Jump(maxHeightMultiplier);
 		}
 	}

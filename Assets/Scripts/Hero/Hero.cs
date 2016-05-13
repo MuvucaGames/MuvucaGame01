@@ -7,8 +7,7 @@ public abstract class Hero : MonoBehaviour
 {
 	private static int _FACING_LEFT = -1;
 	private static int _FACING_RIGHT = 1;
-	public enum ObjPositionRelHero {_Above, _inFront, _Bellow, _Behind, _Inside};
-	
+
 	[SerializeField]
 	private float maxWalkingSpeed = 5f;
 	[SerializeField]
@@ -404,25 +403,28 @@ public abstract class Hero : MonoBehaviour
 	}
 	private void CarryObject(){
 		Carriable carriable = heroInterac.carriableObject.GetComponent<Carriable> ();
-		if (carriable != null && (!carriable.isHeavy () || this.IsStrong ())) {
+		bool objIsInFront = heroInterac.carriableObject.transform.position.x*facingDirection > transform.position.x*facingDirection;
+		if (carriable != null && objIsInFront && (!carriable.isHeavy () || this.IsStrong ())) {
 			float fator = carriable.isHeavy()?1.5f:1f;
 			Carrying = true;
 			CarriedObject = heroInterac.carriableObject;
-			CarriedObject.transform.parent = transform;
-			CarriedObject.GetComponent<Rigidbody2D> ().isKinematic = true;
+
+			SliderJoint2D sliderJoint = GetComponent<SliderJoint2D>();
 			CarriedObject.transform.rotation = new Quaternion(0, 0, 0, CarriedObject.transform.localRotation.w);
 			CarriedObject.transform.position = new Vector2 (transform.position.x, transform.position.y + transform.localScale.y + CarriedObject.transform.localScale.y + offsetCarryObjHero*fator);
+			sliderJoint.connectedBody = CarriedObject.GetComponent<Rigidbody2D> ();
+			sliderJoint.enabled = true;
 			StopPush();
 			animator.SetBool ("carry", true);
-			CalculateJumpForce ();
 		}
 
 	}
 
 	private void ReleaseObject(){
 		float fator = (CarriedObject.GetComponent<Carriable>().isHeavy()?1.5f:1);
-		CarriedObject.transform.parent = null;
-		CarriedObject.GetComponent<Rigidbody2D> ().isKinematic = false;
+		SliderJoint2D sliderJoint = GetComponent<SliderJoint2D>();
+		sliderJoint.connectedBody = null;
+		sliderJoint.enabled = false;
 		if (Crouched) {
 			CarriedObject.GetComponent<Rigidbody2D> ().velocity = new Vector2 (0, 0);
 			CarriedObject.transform.rotation = new Quaternion(0, 0, 0, CarriedObject.transform.localRotation.w);
@@ -436,7 +438,6 @@ public abstract class Hero : MonoBehaviour
 		Carrying = false;
 		CarriedObject = null;
 		animator.SetBool ("carry", false);
-		CalculateJumpForce ();
 	}
 
 

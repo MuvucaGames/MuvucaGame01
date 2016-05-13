@@ -53,7 +53,7 @@ public class HeroControl : MonoBehaviour {
 			_changeHeroButtonPressed = true;
 
 		// Jump
-		if (Input.GetButtonDown("Jump"))
+		if (Input.GetButtonDown("Jump") || Input.GetKeyDown(KeyCode.Space))
 			_jumpButtonPressed= true;
 
 		// Action
