@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using System.Collections;
-using UnityEngine.Assertions;
 
 public class SoundManager : MonoBehaviour {
 
@@ -9,15 +8,7 @@ public class SoundManager : MonoBehaviour {
     {
         get
         {
-            try
-            {
-                Assert.raiseExceptions = true;
-                Assert.IsNotNull(instance);
-            }
-            catch(AssertionException exception)
-            {
-                Debug.Log("Instance of SoundManager is not initialized");
-            }
+            Debug.AssertFormat(instance != null, "Instance of SoundManager is not initialized");
             return instance;
         }
     }
