@@ -6,7 +6,7 @@ public class DesignTools : MonoBehaviour {
 
 	public void ResetLevel(){
 
-		Game.ReloadLevel ();
+		//Game.ReloadLevel ();
 	}
 
 }

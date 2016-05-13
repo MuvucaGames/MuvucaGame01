@@ -14,7 +14,8 @@ public class SelectSlot : MonoBehaviour {
 	void Start () {
 		isNewGame = true;
         
-        GameData[] used = Game.savedGames;
+        //GameData[] used = Game.savedGames;
+		/*
 		for (int i = 0; i < used.Length; i++) {
             GameObject slot = GameObject.Find("Slot"+(used[i].Slot));
             Image img = slot.transform.Find("Image").GetComponent<Image>();
@@ -28,14 +29,14 @@ public class SelectSlot : MonoBehaviour {
                 img.sprite = loadFile;
             }
 
-		}
+		}*/
 	}
 
 	public void SlotButton(Button btn){
 		int id = (int)char.GetNumericValue(btn.name[btn.name.Length-1]);
 		Debug.Log ("Starting slot " + id);
 
-        Game.LoadSlot(id - 1);
+        //Game.LoadSlot(id - 1);
 
         //if (isNewGame) {
         //    if (savedGames [id-1]) {
@@ -54,6 +55,6 @@ public class SelectSlot : MonoBehaviour {
 	}
 
 	public void BackButton(){
-        Game.LoadLevel(GameLevel.MainMenu);
+        //Game.LoadLevel(GameLevel.MainMenu);
 	}
 }
