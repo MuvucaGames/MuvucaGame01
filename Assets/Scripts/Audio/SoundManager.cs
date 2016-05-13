@@ -8,6 +8,7 @@ public class SoundManager : MonoBehaviour {
     {
         get
         {
+            Debug.AssertFormat(instance != null, "Instance of SoundManager is not initialized");
             return instance;
         }
     }
