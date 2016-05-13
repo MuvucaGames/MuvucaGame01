@@ -24,4 +24,16 @@ public class MakeScriptableObject{
 
 	}
 
+	[MenuItem("Assets/LevelHolder/Init")]
+	public static void CreateLevelHolder(){
+		LevelHolder levelHolder = ScriptableObject.CreateInstance<LevelHolder> ();
+
+		AssetDatabase.CreateAsset (levelHolder, "Assets/LevelHolder.asset");
+		AssetDatabase.SaveAssets ();
+
+		EditorUtility.FocusProjectWindow ();
+
+		Selection.activeObject = levelHolder;
+	}
+
 }

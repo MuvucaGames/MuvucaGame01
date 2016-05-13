@@ -1,9 +1,20 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour {
 	
-	public static GameManager instance = null;              //Static instance of GameManager which allows it to be accessed by any other script.
+	private static GameManager instance = null;              //Static instance of GameManager which allows it to be accessed by any other script.
+
+	private LevelHolder levelHolder;
+
+	public GameManager Instance {
+		get {
+			
+			return instance;
+		}
+	}
+
 
 	void Awake()
 	{
@@ -19,15 +30,28 @@ public class GameManager : MonoBehaviour {
 		DontDestroyOnLoad(gameObject);
 	}
 
-	public void ReturnToMenu(){
 
+	/// <summary>
+	/// Returns to menu.
+	/// </summary>
+	public void ReturnToMenu(){
+		SceneManager.LoadScene (levelHolder.MenuScene, LoadSceneMode.Single);
 	}
 
-	public void Load(){
 
+	public void Load(Level lvl){
+		
 	}
 
 	public void LoadNext(){
 
+	}
+
+	public enum Level{
+		Level_0,
+		Level_1,
+		Level_2,
+		Level_3,
+		Level_4
 	}
 }
