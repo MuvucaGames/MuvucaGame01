@@ -6,14 +6,12 @@ using UnityEditor;
 public class BirdEditor : Editor
 {
     SerializedProperty pointA_SP; 
-    SerializedProperty pointB_SP;
-    SerializedProperty speed_SP;
+    SerializedProperty pointB_SP;   
 
     public void OnEnable()
     {
         pointA_SP = serializedObject.FindProperty("pointA"); 
         pointB_SP = serializedObject.FindProperty("pointB");
-        speed_SP = serializedObject.FindProperty("speed");
     }
     public void OnSceneGUI()
     {
@@ -35,8 +33,7 @@ public class BirdEditor : Editor
         
         pointB_SP.vector3Value = platform.transform.InverseTransformPoint(pointB);
         Handles.DrawDottedLine(pointA, pointB, 20f);
-
-        float speed = speed_SP.floatValue;   
+        
         serializedObject.ApplyModifiedProperties();
     }
 }
