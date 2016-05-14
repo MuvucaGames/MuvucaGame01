@@ -18,10 +18,11 @@ public class CheckpointManager : MonoBehaviour {
 
 		if (lastCheckpoint > 0) 
 		{
-			GameObject[] checkpoints = GameObject.FindGameObjectsWithTag("Checkpoint");
-			foreach (GameObject o in checkpoints)
+			//GameObject[] checkpoints = GameObject.FindGameObjectsWithTag("Checkpoint");
+			Checkpoint[] checkpoints = GameObject.FindObjectsOfType<Checkpoint> ();
+			foreach (Checkpoint checkpoint in checkpoints)
 			{
-				Checkpoint checkpoint = o.GetComponent<Checkpoint>();
+				
 				if (checkpoint.checkpointOrder == lastCheckpoint)
 				{
 					PlaceHeroes(checkpoint);

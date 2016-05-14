@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.IO;
 using UnityEditor;
 
 public class MakeScriptableObject{
@@ -7,13 +8,32 @@ public class MakeScriptableObject{
 	public static void CreateSentence(){
 		Sentence sentence = ScriptableObject.CreateInstance<Sentence> ();
 
-		AssetDatabase.CreateAsset (sentence, AssetDatabase.GenerateUniqueAssetPath ("Assets/Prefabs/Dialogs/sentence.asset"));
+		string path = AssetDatabase.GetAssetPath (Selection.activeObject);
+		string fileName = "Sentence.asset";
+
+		if (File.Exists(path)) {
+			path = Path.GetDirectoryName (path);
+		}
+
+		AssetDatabase.CreateAsset (sentence, AssetDatabase.GenerateUniqueAssetPath (path + "/" + fileName));
 		AssetDatabase.SaveAssets ();
 
 		EditorUtility.FocusProjectWindow ();
 
 		Selection.activeObject = sentence;
 
+	}
+
+	[MenuItem("Assets/LevelHolder/Init")]
+	public static void CreateLevelHolder(){
+		LevelHolder levelHolder = ScriptableObject.CreateInstance<LevelHolder> ();
+
+		AssetDatabase.CreateAsset (levelHolder, "Assets/LevelHolder.asset");
+		AssetDatabase.SaveAssets ();
+
+		EditorUtility.FocusProjectWindow ();
+
+		Selection.activeObject = levelHolder;
 	}
 
 }

@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 /*
@@ -11,16 +11,16 @@ public class WarpZoneDoor : ActionableElement
     public bool isTimeBased;
     public bool isToggle;
     public bool bothHeroesNeeded;
-    public HeroA heroStrong;
-    public HeroB heroFast;
+    public HeroStrong heroStrong;
+    public HeroFast heroFast;
     public WarpZoneDoor doorTarget;
     public float timeToTeleport = 0.5f;
     public float timeToChangeLockState = 1.0f;
 
     private bool justTeleported = false;
     private bool runningTimeBasedEffect;
-    private bool isHeroAAtDoor = false;
-    private bool isHeroBAtDoor = false;
+    private bool isHeroStrongAtDoor = false;
+    private bool isHeroFastAtDoor = false;
     private Rigidbody2D rigidBodyHeroStrong;
     private Rigidbody2D rigidBodyHeroFast;
 
@@ -48,11 +48,11 @@ public class WarpZoneDoor : ActionableElement
         this.justTeleported = false;
         if (collider.attachedRigidbody == rigidBodyHeroStrong)
         {
-            isHeroAAtDoor = false;
+            isHeroStrongAtDoor = false;
         }
         else if (collider.attachedRigidbody == rigidBodyHeroFast)
         {
-            isHeroBAtDoor = false;
+            isHeroFastAtDoor = false;
         }
     }
 
@@ -66,7 +66,7 @@ public class WarpZoneDoor : ActionableElement
 
         Vector2 doorTargetPosition = doorTarget.transform.position;
 
-        if ((bothHeroesNeeded && isHeroAAtDoor && isHeroBAtDoor))
+        if ((bothHeroesNeeded && isHeroStrongAtDoor && isHeroFastAtDoor))
         {
             heroStrong.gameObject.SetActive(false);
             heroFast.gameObject.SetActive(false);
@@ -92,12 +92,12 @@ public class WarpZoneDoor : ActionableElement
     {
         if (collider.attachedRigidbody == rigidBodyHeroStrong)
         {
-            isHeroAAtDoor = true;
+            isHeroStrongAtDoor = true;
             return heroStrong;
         }
         else if (collider.attachedRigidbody == rigidBodyHeroFast)
         {
-            isHeroBAtDoor = true;
+            isHeroFastAtDoor = true;
             return heroFast;
         }
         return null;

@@ -5,9 +5,10 @@ public class ForceField : ActionableElement
 {
     void OnCollisionEnter2D(Collision2D coll)
     {
-        if (coll.gameObject.tag == "Player")
+		Hero hero = coll.gameObject.GetComponent<Hero> ();
+		if (hero!=null)
         {
-            coll.gameObject.SendMessage("TouchedForceField");
+			hero.TouchedForceField();
         }
     }
 

@@ -1,19 +1,60 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 public class ColorsPuzzle : ActionableElement 
 {
     static public Color Orange = new Color(1.0f, 0.5f, 0);
     static public Color Purple = new Color(0.5f, 0, 0.5f);
-    public HeroA heroStrong;
-    public HeroB heroFast;
-    private PuzzleController puzzleController;
+    public HeroStrong heroStrong;
+    public HeroFast heroFast;
     public bool isActive = false;
-    private Color puzzleSolutionColor;
     public GameObject Terminal;
 
+    private PuzzleController puzzleController;
     private ColorsPuzzleActivator colorsPuzzleActivator;
+    private Color puzzleSolutionColor;
     private bool puzzleSolved = false;
+
+    private void updateSphereColor()
+    {        
+        // TODO: In future, we will not update the sphere color, but we will assign its color
+        // based on value ranges
+        float rotationPosition = puzzleController.cursor.transform.localEulerAngles.z;
+
+        if (rotationPosition >= 0 && rotationPosition < 120)
+        {
+            GetComponent<Renderer>().material.color = Color.red;
+        }
+        
+        else if (rotationPosition >= 120 && rotationPosition < 240)
+        {
+            GetComponent<Renderer>().material.color = Color.blue;
+        }
+
+        else if (rotationPosition >= 240 && rotationPosition < 360)
+        {
+            GetComponent<Renderer>().material.color = Color.yellow;
+        }
+    }
+
+    private Color getRandomPuzzleColor()
+    {
+        Color color = new Color(0, 0, 0);
+        float randomValue = Random.value;
+        if (randomValue < 0.33f)
+        {
+            color = Orange;
+        }
+        else if (randomValue >= 0.33f && randomValue < 0.67f)
+        {
+            color = Purple;
+        }
+        else if (randomValue >= 0.67f)
+        {
+            color = Color.green;
+        }
+        return color;
+    }
     
     void Start ()
     {
@@ -29,8 +70,8 @@ public class ColorsPuzzle : ActionableElement
 
     void Awake()
     {
-        heroStrong = FindObjectOfType<HeroA>();
-        heroFast = FindObjectOfType<HeroB>();
+        heroStrong = FindObjectOfType<HeroStrong>();
+        heroFast = FindObjectOfType<HeroFast>();
         puzzleController = this.GetComponent<PuzzleController>();
     }
 
@@ -89,7 +130,6 @@ public class ColorsPuzzle : ActionableElement
 
         if (puzzleSolved)
         {
-            // TODO: Ensure that puzzle was solved
             clean();
             Terminal.GetComponent<Renderer>().enabled = false;
             colorsPuzzleActivator.activate();
@@ -104,41 +144,7 @@ public class ColorsPuzzle : ActionableElement
 
     void FixedUpdate()
     {
-        float spinningPosition = puzzleController.cursor.transform.localEulerAngles.z;
-
-        if (spinningPosition >= 0 && spinningPosition < 120)
-        {
-            GetComponent<Renderer>().material.color = Color.red;
-        }
-
-        else if (spinningPosition >= 120 && spinningPosition < 240)
-        {
-            GetComponent<Renderer>().material.color = Color.blue;
-        }
-
-        else if (spinningPosition >= 240 && spinningPosition < 360)
-        {
-            GetComponent<Renderer>().material.color = Color.yellow;
-        }
-    }
-
-    private Color getRandomPuzzleColor()
-    {
-        Color color = new Color(0, 0, 0);
-        float randomValue = Random.value;
-        if (randomValue < 0.33f)
-        {
-            color = Orange;
-        }
-        else if (randomValue >= 0.33f && randomValue < 0.67f)
-        {
-            color = Purple;
-        }
-        else if (randomValue >= 0.67f)
-        {
-            color = Color.green;
-        }
-        return color;
+        updateSphereColor();
     }
 
     public void clean()
@@ -150,8 +156,7 @@ public class ColorsPuzzle : ActionableElement
         heroFast.GetComponent<HeroControl>().enabled = true;
         puzzleController.SelectionBox1.GetComponent<Renderer>().enabled = false;
         puzzleController.SelectionBox2.GetComponent<Renderer>().enabled = false;
-        puzzleController.cursor.GetComponent<Renderer>().enabled = false;
-        
+        puzzleController.cursor.GetComponent<Renderer>().enabled = false;        
     }
 
     public void restartPuzzle()
