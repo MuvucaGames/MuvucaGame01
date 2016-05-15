@@ -16,7 +16,7 @@ public class CameraController : MonoBehaviour {
 		get { return m_isOnCutscene; }
 		protected set { m_isOnCutscene = value; }
 	}
-
+    public GameObject interactiveFocusableObject = null;
 
 	void Awake () {
         myCamera = Camera.main;
@@ -43,11 +43,13 @@ public class CameraController : MonoBehaviour {
 
 
         if (!m_isOnCutscene) {
-			if (heroStrong.IsActive) {
-				m_newPosition = new Vector3 (heroStrong.transform.position.x, heroStrong.transform.position.y, cameraZ);
-			} else {
-				m_newPosition = new Vector3 (heroFast.transform.position.x, heroFast.transform.position.y, cameraZ);
-			}
+            if (heroStrong.IsActive) {
+                m_newPosition = new Vector3 (heroStrong.transform.position.x, heroStrong.transform.position.y, cameraZ);
+            } else if (heroFast.IsActive) {
+                m_newPosition = new Vector3 (heroFast.transform.position.x, heroFast.transform.position.y, cameraZ);
+            } else {
+                m_newPosition = new Vector3 (interactiveFocusableObject.transform.position.x, interactiveFocusableObject.transform.position.y, cameraZ);
+            }
 
 			if (Input.GetKey (KeyCode.DownArrow)) {
 				m_newPosition += new Vector3 (0, -1.5f);
