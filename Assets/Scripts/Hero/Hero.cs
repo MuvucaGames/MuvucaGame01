@@ -407,9 +407,6 @@ public abstract class Hero : MonoBehaviour
 		Carriable carriable = heroInterac.carriableObject.GetComponent<Carriable> ();
 		bool objIsInFront = heroInterac.carriableObject.transform.position.x*facingDirection > transform.position.x*facingDirection;
 		if (carriable != null && !carriable.isBeingCarried && objIsInFront && (!carriable.isHeavy () || this.IsStrong ())) {
-			//this commented code is for, just in te case, the hero catch from the other hero
-			/*if (carriable.isBeingCarried && carriable.hero != this)
-				carriable.hero.ReleaseObject ();*/
 			float fator = carriable.isHeavy()?1.5f:1f;
 			Carrying = true;
 			CarriedObject = heroInterac.carriableObject;
@@ -419,8 +416,6 @@ public abstract class Hero : MonoBehaviour
 			sliderJoint.connectedBody = CarriedObject.GetComponent<Rigidbody2D> ();
 			sliderJoint.enabled = true;
 			carriable.isBeingCarried = true;
-			//this commented code is for, just in te case, the hero catch from the other hero
-			//carriable.hero = this;
 			StopPush();
 			animator.SetBool ("carry", true);
 		}
@@ -446,8 +441,6 @@ public abstract class Hero : MonoBehaviour
 		Carrying = false;
 		CarriedObject = null;
 		carriable.isBeingCarried = false;
-		//this commented code is for, just in te case, the hero catch from the other hero
-		//carriable.hero = this;
 		animator.SetBool ("carry", false);
 	}
 
