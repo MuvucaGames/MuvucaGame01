@@ -406,24 +406,25 @@ public abstract class Hero : MonoBehaviour
 	private void CarryObject(){
 		Carriable carriable = heroInterac.carriableObject.GetComponent<Carriable> ();
 		bool objIsInFront = heroInterac.carriableObject.transform.position.x*facingDirection > transform.position.x*facingDirection;
-		if (carriable != null && objIsInFront && (!carriable.isHeavy () || this.IsStrong ())) {
+		if (carriable != null && !carriable.isBeingCarried && objIsInFront && (!carriable.isHeavy () || this.IsStrong ())) {
 			float fator = carriable.isHeavy()?1.5f:1f;
 			Carrying = true;
 			CarriedObject = heroInterac.carriableObject;
-
 			SliderJoint2D sliderJoint = GetComponent<SliderJoint2D>();
 			CarriedObject.transform.rotation = new Quaternion(0, 0, 0, CarriedObject.transform.localRotation.w);
 			CarriedObject.transform.position = new Vector2 (transform.position.x, transform.position.y + transform.localScale.y + CarriedObject.transform.localScale.y + offsetCarryObjHero*fator);
 			sliderJoint.connectedBody = CarriedObject.GetComponent<Rigidbody2D> ();
 			sliderJoint.enabled = true;
+			carriable.isBeingCarried = true;
 			StopPush();
 			animator.SetBool ("carry", true);
 		}
 
 	}
 
-	private void ReleaseObject(){
-		float fator = (CarriedObject.GetComponent<Carriable>().isHeavy()?1.5f:1);
+	public void ReleaseObject(){
+		Carriable carriable = CarriedObject.GetComponent<Carriable> ();
+		float fator = (carriable.isHeavy()?1.5f:1);
 		SliderJoint2D sliderJoint = GetComponent<SliderJoint2D>();
 		sliderJoint.connectedBody = null;
 		sliderJoint.enabled = false;
@@ -439,6 +440,7 @@ public abstract class Hero : MonoBehaviour
 		}
 		Carrying = false;
 		CarriedObject = null;
+		carriable.isBeingCarried = false;
 		animator.SetBool ("carry", false);
 	}
 
