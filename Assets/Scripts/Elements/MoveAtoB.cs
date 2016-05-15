@@ -25,7 +25,9 @@ public class MoveAtoB : MonoBehaviour
 			yield return null;
 		}
 
+        print("Destination reached");
         yield return new WaitForSeconds(3f);
+        print("Coroutine finished");
     }
 }
 
