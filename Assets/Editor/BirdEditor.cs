@@ -16,12 +16,11 @@ public class BirdEditor : Editor
     public void OnSceneGUI()
     {
         serializedObject.Update();
-        MoveAtoB platform = (MoveAtoB)target;   
-        Vector3 pointA = platform.transform.TransformPoint(new Vector3(pointA_SP.vector3Value.x, 0, 0));     
-
+        MoveAtoB platform = (MoveAtoB)target;
+        Vector3 pointA = platform.transform.TransformPoint(pointA_SP.vector3Value);
         Handles.color = Color.blue;       
    
-        Vector3 pointB = platform.transform.TransformPoint(new Vector3(pointB_SP.vector3Value.x, 0, 0));
+        Vector3 pointB = platform.transform.TransformPoint(pointB_SP.vector3Value);
 
         Handles.color = Color.blue;
         pointB = Handles.FreeMoveHandle(
