@@ -33,7 +33,8 @@ public class ClawPerSe : Claw {
 
     void OnTriggerExit2D()
     {
-        GetComponent<Rigidbody2D>().isKinematic = true;       
+        GetComponent<Rigidbody2D>().isKinematic = true;
+        interactiveObject = null;
     }
 
     void Update()
@@ -52,7 +53,7 @@ public class ClawPerSe : Claw {
 					jointInterObject.enabled = false;
 					jointInterObject.connectedBody.freezeRotation = false;
 					jointInterObject.connectedBody = null;
-				} else if (interactiveObject) {
+				} else if (interactiveObject && interactiveObject.gameObject.GetComponent<CarriableLight>() != null) {
 					if (GetComponent<BoxCollider2D> ().IsTouchingLayers (LayerMask.GetMask ("MapInteractiveObjects"))) {
 						openedClaw = false;
 						closedClaw = true;
@@ -75,7 +76,7 @@ public class ClawPerSe : Claw {
 
     void FixedUpdate()
     {
-        if (closedClaw)
+        if (closedClaw && interactiveObject)
         {
             interactiveObject.transform.position = transform.position;
         }

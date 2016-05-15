@@ -30,12 +30,14 @@ using System.Collections.Generic;
 ///
 ///  \sa Claw, ClawNode, ClawPerSe, ClawMechanism, InvisibleAreaTrigger, 
 ///  CameraController, CarriableLight, HeroControl
-           
+
+[ExecuteInEditMode]
 public class ClawController : MonoBehaviour {
     
     [SerializeField]private float horizontalVelocity = 1.5f;
     [SerializeField]private float verticalVelocity = 1.2f;
-    [SerializeField]private float minHeight = 10.0f;
+    [SerializeField]private float minHeight = 4f;
+    [SerializeField]private bool allowDrawing = true;
                                            
     private Vector3 clawLastPosition;
     private Vector3 clawCenter;
@@ -255,5 +257,24 @@ public class ClawController : MonoBehaviour {
                 }
             }
         }
+    }
+
+    void OnDrawGizmos()
+    {
+        // if claw per se has not been initialized yet, must set to the actiual position
+        if (clawPerSe.clawInitialPos == Vector3.zero)
+        {
+            clawPerSe.clawInitialPos = clawPerSe.transform.position;
+        }
+        SpriteRenderer sR = clawPerSe.GetComponentInChildren<SpriteRenderer>();
+        float clawSizeY = sR.bounds.extents.y;
+        Vector3 From = new Vector3(clawPerSe.transform.position.x - 1f,
+                                   clawPerSe.clawInitialPos.y + clawSizeY,
+                                   clawPerSe.transform.position.z);
+        Vector3 To = new Vector3(clawPerSe.transform.position.x + 1f,
+                                 clawPerSe.clawInitialPos.y - minHeight - clawSizeY,
+                                 clawPerSe.transform.position.z);
+        ClawUtils.allowDrawing = allowDrawing;
+        ClawUtils.DrawRectangle(From, To, Color.red);
     }
 }
