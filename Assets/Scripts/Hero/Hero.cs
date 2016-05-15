@@ -52,6 +52,7 @@ public abstract class Hero : MonoBehaviour
 	private bool CarryingByAction = false;
 	private GameObject CarriedObject;
 	public bool m_isActive = false;
+    public bool changeHeroAllowed = true;
 	
 	public bool IsActive {
 		get { return m_isActive; }
@@ -303,10 +304,11 @@ public abstract class Hero : MonoBehaviour
 		motorMaxAngularSpeed = Mathf.Rad2Deg * maxWalkingSpeed / footRadius;
 		
 	}
-	
+
+
 	public void ChangeHero ()
-	{
-		m_isActive = !m_isActive;
+    {
+        if (changeHeroAllowed) m_isActive = !m_isActive;
 	}
 	
 	private void ChangeMotorSpeed (float speed)

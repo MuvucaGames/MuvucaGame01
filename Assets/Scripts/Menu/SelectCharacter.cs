@@ -48,12 +48,12 @@ public class SelectCharacter : MonoBehaviour
 
     public void ConfirmationButton()
     {
-        Game.LoadLevel(GameLevel.PrototypeScene);
+        //Game.LoadLevel(GameLevel.PrototypeScene);
     }
 
     public void BackButton()
     {
-        Game.LoadLevel(GameLevel.MainMenu);
+        //Game.LoadLevel(GameLevel.MainMenu);
     }
 
     private void UpdateSprites()

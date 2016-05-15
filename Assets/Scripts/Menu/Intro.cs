@@ -38,7 +38,8 @@ public class Intro : MonoBehaviour
             StartCoroutine(ShowText());
             if (Input.GetButtonDown("Submit"))
             {
-                Game.LoadLevel(GameLevel.MainMenu);
+				//TODO
+                //Game.LoadLevel(GameLevel.MainMenu);
             }
         }
     }
