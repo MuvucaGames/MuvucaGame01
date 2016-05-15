@@ -34,17 +34,17 @@ using System.Collections.Generic;
 [ExecuteInEditMode]
 public class ClawController : MonoBehaviour {
     
-    [SerializeField]private float horizontalVelocity = 1.5f;
-    [SerializeField]private float verticalVelocity = 1.2f;
-    [SerializeField]private float minHeight = 4f;
+    [SerializeField][Range(0f,10f)]private float horizontalVelocity = 1.5f;
+    [SerializeField][Range(0f,10f)]private float verticalVelocity = 1.2f;
+    [SerializeField][Range(0f,20f)]private float minHeight = 4f;
     [SerializeField]private bool allowDrawing = true;
                                            
     private Vector3 clawLastPosition;
     private Vector3 clawCenter;
     private float horizontalPos;
     private float verticalPos;
-    public bool active = false;
-    public bool action = false;
+    [HideInInspector]public bool active = false;
+    [HideInInspector]public bool action = false;
     private HeroStrong heroStrong = null;
     private HeroFast heroFast = null;
     private Stack<SpriteRenderer> nodes = new Stack<SpriteRenderer>();
