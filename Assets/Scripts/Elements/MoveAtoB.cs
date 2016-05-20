@@ -24,10 +24,6 @@ public class MoveAtoB : MonoBehaviour
 			transform.position = Vector3.MoveTowards(transform.position, pointB, step);
 			yield return null;
 		}
-
-        print("Destination reached");
-        yield return new WaitForSeconds(3f);
-        print("Coroutine finished");
     }
 }
 
