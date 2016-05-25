@@ -346,12 +346,6 @@ public abstract class Hero : MonoBehaviour
 
 	}
 
-	public void TouchedForceField ()
-	{
-		// float speed = 0;
-		// rigidBody2D.AddForce (new Vector2 (facingDirection * maxWalkingSpeed * speed, 0), ForceMode2D.Impulse);
-	}
-
 	public float JumpHeight {
 		get {
 			return this.jumpHeight;
