@@ -3,6 +3,16 @@ using System.Collections;
 
 public class CameraController : MonoBehaviour {
 
+    private static CameraController instance;
+    public static CameraController Instance
+    {
+        get
+        {
+            Debug.AssertFormat(instance != null, "Instance of CameraController is not initialized");
+            return instance;
+        }
+    }
+
     private Camera myCamera;
 
 	[SerializeField] private float cameraSpeed = 0.3f;
@@ -16,9 +26,11 @@ public class CameraController : MonoBehaviour {
 		get { return m_isOnCutscene; }
 		protected set { m_isOnCutscene = value; }
 	}
-    public GameObject interactiveFocusableObject = null;
 
-	void Awake () {
+    public Controllable focusableObject = null;
+
+	void Start () {
+        instance = this;
         myCamera = Camera.main;
         float cameraZ = myCamera.transform.position.z;
 
@@ -29,27 +41,23 @@ public class CameraController : MonoBehaviour {
 				throw new UnityException ("Missing heroes in Camera Control");
 		}
 
-
-		if (heroStrong.IsActive) {
-			m_newPosition = new Vector3(heroStrong.transform.position.x, heroStrong.transform.position.y, cameraZ);
-		} else {
-			m_newPosition = new Vector3(heroFast.transform.position.x, heroFast.transform.position.y, cameraZ);
-		}
+        if (heroStrong.IsActive)
+        {
+            focusableObject = heroStrong;
+        }
+        else if (heroFast.IsActive)
+        {
+            focusableObject = heroFast;
+        }
 	}
 	
 	// Update is called once per frame
 	void Update () {
         float cameraZ = myCamera.transform.position.z;
 
-
-        if (!m_isOnCutscene) {
-            if (heroStrong.IsActive) {
-                m_newPosition = new Vector3 (heroStrong.transform.position.x, heroStrong.transform.position.y, cameraZ);
-            } else if (heroFast.IsActive) {
-                m_newPosition = new Vector3 (heroFast.transform.position.x, heroFast.transform.position.y, cameraZ);
-            } else {
-                m_newPosition = new Vector3 (interactiveFocusableObject.transform.position.x, interactiveFocusableObject.transform.position.y, cameraZ);
-            }
+        if (!m_isOnCutscene && focusableObject != null) {
+            m_newPosition = new Vector3 (focusableObject.transform.position.x, 
+                                         focusableObject.transform.position.y, cameraZ);
 
 			if (Input.GetKey (KeyCode.DownArrow)) {
 				m_newPosition += new Vector3 (0, -1.5f);
@@ -64,4 +72,8 @@ public class CameraController : MonoBehaviour {
 	}
 
 	public Camera getCamera() {return myCamera;}
+    public void SetCameraControl(Controllable obj)
+    {
+        focusableObject = obj;
+    }
 }

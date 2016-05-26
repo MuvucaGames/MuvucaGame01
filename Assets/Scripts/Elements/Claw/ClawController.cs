@@ -5,12 +5,8 @@ using System.Collections.Generic;
 /// <summary>
 ///   Controls claws action and movement.
 /// </summary>
-///  Controls claws action and movement. Talks to other controllers such as 
-///  HeroController and CameraController, resulting in changing focus from Hero
-///  to the Claw.
-///  
-///  To activate, one of the heroes must stand within the Terminal bounds, and press the 
-///  button corresponding to Change Hero and then control and camera are transferred to
+///  To activate, the hero must stand within the Terminal bounds and press the 
+///  corresponding button to 'Change Hero', and then control and camera are transferred to
 ///  the claw.
 ///
 ///  To movement claw, player must use arrows keys, and when the claw is in direct contact
@@ -23,8 +19,6 @@ using System.Collections.Generic;
 ///    [Object Pool Pattern](https://en.wikipedia.org/wiki/Object_pool_pattern).
 ///
 ///  ### KNOWN BUGS:
-///  - When hero collides with cliff above claw hanging object, 
-///    he moves outside the platform
 ///  - Sometimes, nodes are placed with some distance between them.
 ///    This depends on some physics matters.
 ///
@@ -45,13 +39,8 @@ public class ClawController : MonoBehaviour {
     private float verticalPos;
     [HideInInspector]public bool active = false;
     [HideInInspector]public bool action = false;
-    private HeroStrong heroStrong = null;
-    private HeroFast heroFast = null;
     private Stack<SpriteRenderer> nodes = new Stack<SpriteRenderer>();
     private Stack<SpriteRenderer> nodesPool = new Stack<SpriteRenderer>();
-    private InvisibleAreaTrigger Terminal = null;
-    private CameraController cameraControl = null;
-    private Hero activeHero = null;
 
     private ClawMechanism clawMechanism;
     private ClawNode clawNode;
@@ -61,11 +50,7 @@ public class ClawController : MonoBehaviour {
         clawMechanism = GetComponentInChildren<ClawMechanism>();
         clawNode = GetComponentInChildren<ClawNode>();
         clawPerSe = GetComponentInChildren<ClawPerSe>();
-        heroStrong = FindObjectOfType<HeroStrong> ();
-        heroFast = FindObjectOfType<HeroFast>();
-        Terminal = GetComponentInChildren<InvisibleAreaTrigger>();
         clawLastPosition = clawNode.GetComponent<Renderer>().bounds.center;
-        cameraControl = FindObjectOfType<CameraController>();
     }
 
     /// <summary>
@@ -74,26 +59,14 @@ public class ClawController : MonoBehaviour {
     /// <param name="direction">
     ///   Direction vector applied to claw
     /// </param>
-    private void MoveClaw(Vector3 direction)
+    public void MoveClaw(Vector3 direction)
     {
-        if ((clawNode.itemsOverPlatform.Count > 0) && clawPerSe.closedClaw) {
-            foreach (Collider2D coll__ in clawNode.itemsOverPlatform)
-                coll__.attachedRigidbody.transform.Translate(direction);
-        }
-        if (clawCenter.y <= clawNode.clawInitialPos.y &&
-            clawCenter.y >= clawNode.clawInitialPos.y - minHeight)
+        if ((verticalPos <= 0 && clawCenter.y > clawNode.clawInitialPos.y) ||
+            (verticalPos >= 0 && clawCenter.y < clawNode.clawInitialPos.y - minHeight))
         {
-            clawPerSe.transform.Translate (direction);
-        }   
-        else
-        {
-            if ((verticalPos <= 0 && clawCenter.y > clawNode.clawInitialPos.y) ||
-                (verticalPos >= 0 && clawCenter.y < clawNode.clawInitialPos.y - minHeight))
-            {
-                direction.y = 0;
-            }
-            clawPerSe.transform.Translate (direction);
+            direction.y = 0;
         }
+        clawPerSe.transform.Translate (direction);
     }
 
     /// <summary>
@@ -126,84 +99,25 @@ public class ClawController : MonoBehaviour {
             else 
             {
                 // Create chain of nodes
-                float positionY;
-                if (nodes.Count > 0)
-                {
-                    positionY = nodes.Peek().GetComponent<SpriteRenderer>().bounds.max.y;
-                }
-                else
-                {
-                    positionY = clawMechanism.clawInitialPos.y;
-                }
                 clone = nodesPool.Pop();
                 clone.GetComponent<SpriteRenderer> ().enabled = true;
-                clone.transform.position = new Vector3(clawCenter.x, positionY, clawCenter.z);
+                clone.transform.position = new Vector3(clawCenter.x, clawMechanism.clawInitialPos.y, clawCenter.z);
             }
             clone.transform.SetParent (clawPerSe.transform);
             nodes.Push (clone);
         }
     }
 
-    // This could be global method
-    /// <summary>
-    ///   Discover wich hero is active
-    /// </summary>
-    /// <returns> Active hero </returns>
-    private Hero GetActiveHero()
-    {        
-        if (heroStrong.m_isActive)
-        {
-            return heroStrong;
-        }
-        else if (heroFast.m_isActive)
-        {
-            return heroFast;
-        }
-        return null;
-    }
-
     void Update() {
-        if (Terminal.GetQttHeroesInside() > 0) {
-            heroFast.changeHeroAllowed = false;
-            heroStrong.changeHeroAllowed = false;
-            if (active) {
-                if (Input.GetKeyDown (KeyCode.E)) {
-                    action = !action;
-                }
-
-                if (Input.GetButtonDown("ChangeHero")) 
-                {
-                    active = false;
-                    heroStrong.GetComponent<HeroControl>().enabled = true;
-                    heroFast.GetComponent<HeroControl>().enabled = true;
-                    if (activeHero) activeHero.m_isActive = true;
-                    else
-                    {
-                        heroStrong.m_isActive = true;
-                    }
-                    if (cameraControl.interactiveFocusableObject)
-                        cameraControl.interactiveFocusableObject = null;
-                }
-            }
-            else
-            {   
-                if (Input.GetButtonDown("ChangeHero")) 
-                {
-                    activeHero = GetActiveHero();
-                    heroFast.m_isActive = false;
-                    heroStrong.m_isActive = false;
-                    heroFast.GetComponent<HeroControl>().enabled = false;
-                    heroStrong.GetComponent<HeroControl>().enabled = false;
-                    cameraControl.interactiveFocusableObject = clawPerSe.gameObject;
-                    active = true;
-                    activeHero.StopWalk();
-                }
+        if (clawPerSe.IsActive) {
+            active = true;
+            if (Input.GetKeyDown (KeyCode.E)) {
+                action = !action;
             }
         }
         else
         {
-            heroFast.changeHeroAllowed = true;
-            heroStrong.changeHeroAllowed = true;
+            active = false;
         }
     }
 
@@ -213,13 +127,16 @@ public class ClawController : MonoBehaviour {
         float horizontalAxis = Input.GetAxis ("Horizontal");
         float verticalAxis = Input.GetAxis ("Vertical");
         
-        if (horizontalAxis != 0 || verticalAxis != 0 || !active) 
+        if (horizontalAxis != 0 || verticalAxis != 0 || !active)
         {
             horizontalPos = horizontalAxis * horizontalVelocity;
             verticalPos = verticalAxis * verticalVelocity;
         } 
-        else 
-            horizontalPos = verticalPos = 0f;
+        else
+        {
+            horizontalPos = verticalPos = 0f;            
+        }
+
         Vector3 movement = new Vector3 (horizontalPos, -verticalPos, 0);
         clawCenter = clawNode.GetComponent<Renderer>().bounds.center;
         NodeUpdate();
@@ -231,7 +148,7 @@ public class ClawController : MonoBehaviour {
                 action = false;
                 clawPerSe.GetComponent<BoxCollider2D> ().enabled = true;
             }
-            MoveClaw(movement * Time.deltaTime);
+            MoveClaw(movement * Time.deltaTime);   
         }
         // In case claw hit one of the limits...
         else
@@ -262,17 +179,17 @@ public class ClawController : MonoBehaviour {
     void OnDrawGizmos()
     {
         // if claw per se has not been initialized yet, must set to the actiual position
-        if (clawPerSe.clawInitialPos == Vector3.zero)
+        if (clawPerSe.initialPos == Vector3.zero)
         {
-            clawPerSe.clawInitialPos = clawPerSe.transform.position;
+            clawPerSe.initialPos = clawPerSe.transform.position;
         }
         SpriteRenderer sR = clawPerSe.GetComponentInChildren<SpriteRenderer>();
         float clawSizeY = sR.bounds.extents.y;
         Vector3 From = new Vector3(clawPerSe.transform.position.x - 1f,
-                                   clawPerSe.clawInitialPos.y + clawSizeY,
+                                   clawPerSe.initialPos.y + clawSizeY,
                                    clawPerSe.transform.position.z);
         Vector3 To = new Vector3(clawPerSe.transform.position.x + 1f,
-                                 clawPerSe.clawInitialPos.y - minHeight - clawSizeY,
+                                 clawPerSe.initialPos.y - minHeight - clawSizeY,
                                  clawPerSe.transform.position.z);
         ClawUtils.allowDrawing = allowDrawing;
         ClawUtils.DrawRectangle(From, To, Color.red);
