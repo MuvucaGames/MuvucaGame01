@@ -1,19 +1,19 @@
 using UnityEngine;
 using System.Collections;
 
-public class ColorsPuzzle : ActionableElement 
+public class ColorsPuzzle : Controllable
 {
     static public Color Orange = new Color(1.0f, 0.5f, 0);
     static public Color Purple = new Color(0.5f, 0, 0.5f);
     public HeroStrong heroStrong;
     public HeroFast heroFast;
-    public bool isActive = false;
-    public GameObject Terminal;
+    public GameObject ColorPanel;
 
     private PuzzleController puzzleController;
     private ColorsPuzzleActivator colorsPuzzleActivator;
     private Color puzzleSolutionColor;
     private bool puzzleSolved = false;
+    private bool puzzleFail = false;
 
     private void updateSphereColor()
     {        
@@ -59,12 +59,8 @@ public class ColorsPuzzle : ActionableElement
     void Start ()
     {
         puzzleSolutionColor = getRandomPuzzleColor();
-        Terminal.GetComponent<Renderer>().material.color = puzzleSolutionColor;
-        GetComponent<Renderer>().enabled = false;
-        GetComponentInChildren<SpriteRenderer>().enabled = false;
-        puzzleController.SelectionBox1.GetComponent<Renderer>().enabled = false;
-        puzzleController.SelectionBox2.GetComponent<Renderer>().enabled = false;
-        puzzleController.cursor.GetComponent<Renderer>().enabled = false;
+        ColorPanel.GetComponent<Renderer>().material.color = puzzleSolutionColor;
+        clean();
         colorsPuzzleActivator = GetComponent<ColorsPuzzleActivator>();
     }
 
@@ -75,25 +71,22 @@ public class ColorsPuzzle : ActionableElement
         puzzleController = this.GetComponent<PuzzleController>();
     }
 
-    public override void Activate()
+    public override void OnFocus()
     {
-        Terminal.GetComponent<Renderer>().enabled = true;
-        GetComponent<Renderer>().enabled = true;
-        GetComponentInChildren<SpriteRenderer>().enabled = true;
-        puzzleController.SelectionBox1.GetComponent<Renderer>().enabled = true;
-        puzzleController.SelectionBox2.GetComponent<Renderer>().enabled = true;
-        puzzleController.cursor.GetComponent<Renderer>().enabled = true;
-        heroStrong.GetComponent<HeroControl>().enabled = false;
-        heroFast.GetComponent<HeroControl>().enabled = false;
-        heroStrong.StopWalk();
-        heroFast.StopWalk();
-        puzzleController.setControlActive();
-        this.isActive = true;
+        if (!puzzleSolved)
+        {
+            ColorPanel.GetComponent<Renderer>().enabled = true;
+            GetComponent<Renderer>().enabled = true;
+            GetComponentInChildren<SpriteRenderer>().enabled = true;
+            puzzleController.SelectionBox1.GetComponent<Renderer>().enabled = true;
+            puzzleController.SelectionBox2.GetComponent<Renderer>().enabled = true;
+            puzzleController.cursor.GetComponent<Renderer>().enabled = true;
+        }
     }
 
-    public override void Deactivate()
+    public override void OnFocusOut()
     {
-        this.isActive = false;
+        clean();
     }
 
     void Update()
@@ -101,62 +94,69 @@ public class ColorsPuzzle : ActionableElement
         Color colorBox1 = puzzleController.SelectionBox1.GetComponent<Renderer>().material.color;
         Color colorBox2 = puzzleController.SelectionBox2.GetComponent<Renderer>().material.color;
 
-        if (puzzleSolutionColor.Equals(Orange))
+        if (!colorBox1.Equals(puzzleController.getDefaultColor()) &&
+            !colorBox2.Equals(puzzleController.getDefaultColor()))
         {
-            if ((colorBox1.Equals(Color.red) && colorBox2.Equals(Color.yellow)) ||
-                (colorBox1.Equals(Color.yellow) && colorBox2.Equals(Color.red)))
+            if (puzzleSolutionColor.Equals(Orange))
             {
-                puzzleSolved = true;
+                if ((colorBox1.Equals(Color.red) && colorBox2.Equals(Color.yellow)) ||
+                    (colorBox1.Equals(Color.yellow) && colorBox2.Equals(Color.red)))
+                {
+                    puzzleSolved = true;
+                    return;
+                }
             }
-        }
 
-        else if (puzzleSolutionColor.Equals(Purple))
-        {
-            if ((colorBox1.Equals(Color.red) && colorBox2.Equals(Color.blue)) ||
-                (colorBox1.Equals(Color.blue) && colorBox2.Equals(Color.red)))
+            else if (puzzleSolutionColor.Equals(Purple))
             {
-                puzzleSolved = true;
+                if ((colorBox1.Equals(Color.red) && colorBox2.Equals(Color.blue)) ||
+                    (colorBox1.Equals(Color.blue) && colorBox2.Equals(Color.red)))
+                {
+                    puzzleSolved = true;
+                    return;
+                }
             }
-        }
 
-        else if (puzzleSolutionColor.Equals(Color.green))
-        {
-            if ((colorBox1.Equals(Color.yellow) && colorBox2.Equals(Color.blue)) ||
-                 (colorBox1.Equals(Color.blue) && colorBox2.Equals(Color.yellow)))
+            else if (puzzleSolutionColor.Equals(Color.green))
             {
-                puzzleSolved = true;
+                if ((colorBox1.Equals(Color.yellow) && colorBox2.Equals(Color.blue)) ||
+                    (colorBox1.Equals(Color.blue) && colorBox2.Equals(Color.yellow)))
+                {
+                    puzzleSolved = true;
+                    return;
+                }
             }
-        }
-
-        if (puzzleSolved)
-        {
-            clean();
-            Terminal.GetComponent<Renderer>().enabled = false;
-            colorsPuzzleActivator.activate();
-        }
-        else if (!colorBox1.Equals(puzzleController.getDefaultColor()) &&
-                 !colorBox2.Equals(puzzleController.getDefaultColor()))
-        {
-            restartPuzzle();
-            puzzleController.setCurrentBox(puzzleController.SelectionBox1);
+            puzzleFail = true;
         }
     }
 
     void FixedUpdate()
     {
-        updateSphereColor();
+        if (IsActive)
+        {
+            updateSphereColor();
+            if (puzzleSolved)
+            {
+                ColorPanel.GetComponent<Renderer>().enabled = false;
+                HeroUtil.ChangeHero();
+                colorsPuzzleActivator.activate();
+            }            
+            if (puzzleFail)
+            {
+                restartPuzzle();
+                puzzleController.setCurrentBox(puzzleController.SelectionBox1);
+                puzzleFail = false;
+            }
+        }
     }
 
     public void clean()
     {
-        puzzleController.deactivateControl();
         GetComponent<Renderer>().enabled = false;
         GetComponentInChildren<SpriteRenderer>().enabled = false;
-        heroStrong.GetComponent<HeroControl>().enabled = true;
-        heroFast.GetComponent<HeroControl>().enabled = true;
         puzzleController.SelectionBox1.GetComponent<Renderer>().enabled = false;
         puzzleController.SelectionBox2.GetComponent<Renderer>().enabled = false;
-        puzzleController.cursor.GetComponent<Renderer>().enabled = false;        
+        puzzleController.cursor.GetComponent<Renderer>().enabled = false;
     }
 
     public void restartPuzzle()
