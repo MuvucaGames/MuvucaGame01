@@ -12,6 +12,7 @@ GameObject:
   - 23: {fileID: 2366958}
   - 61: {fileID: 6142376}
   - 114: {fileID: 11463646}
+  - 250: {fileID: 25010104}
   m_Layer: 10
   m_Name: ForceField
   m_TagString: Untagged
@@ -73,8 +74,8 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
+  m_IsTrigger: 1
+  m_UsedByEffector: 1
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Size: {x: 1, y: 0.99999994}
@@ -89,6 +90,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4adcead1143c1349b0b61662049e2ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!250 &25010104
+PointEffector2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 170432}
+  m_Enabled: 1
+  m_UseColliderMask: 1
+  m_ColliderMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceMagnitude: 1000
+  m_ForceVariation: 25
+  m_DistanceScale: 1
+  m_Drag: 200
+  m_AngularDrag: 0
+  m_ForceSource: 0
+  m_ForceTarget: 0
+  m_ForceMode: 0
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

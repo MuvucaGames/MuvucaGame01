@@ -3,15 +3,6 @@ using System.Collections;
 
 public class ForceField : ActionableElement
 {
-    void OnCollisionEnter2D(Collision2D coll)
-    {
-		Hero hero = coll.gameObject.GetComponent<Hero> ();
-		if (hero!=null)
-        {
-			hero.TouchedForceField();
-        }
-    }
-
     public override void Activate()
     {
         GetComponent<Renderer>().enabled = false;

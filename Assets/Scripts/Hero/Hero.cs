@@ -17,10 +17,10 @@ public abstract class Hero : MonoBehaviour
 	[SerializeField]
 	private float horizontalFlyingForce = 0.5f;
 	[SerializeField]
-	private float jumpHeight = 1f;	
+	private float jumpHeight = 1f;
 	[SerializeField]
 	private float offsetCarryObjHero = 0.7f;
-	
+
 	[SerializeField]
 	private LayerMask whatIsGround;
 	[SerializeField]
@@ -53,39 +53,39 @@ public abstract class Hero : MonoBehaviour
 	private GameObject CarriedObject;
 	public bool m_isActive = false;
     public bool changeHeroAllowed = true;
-	
+
 	public bool IsActive {
 		get { return m_isActive; }
 		protected set { m_isActive = value; }
 	}
-	
+
 	private bool m_onAir = false;
-	
+
 	public bool OnAir {
 		get { return m_onAir; }
 	}
-	
+
 	public abstract bool IsStrong ();
 
 	protected virtual void Awake ()
 	{
 		heroInterac = GetComponentInChildren<HeroInteractor> ();
 		rigidBody2D = GetComponent<Rigidbody2D> ();
-		
+
 		//get the animator
 		animator = GetComponentInChildren<Animator> ();
-		
+
 		gravityOriginal = rigidBody2D.gravityScale;
-		
+
 		CalculateJumpForce ();
 		CalculateWalkingMotorAngularSpeed ();
 	}
-	
+
 	void FixedUpdate ()
 	{
-		
+
 	}
-	
+
 	public bool isGrounded ()
 	{
 		//TODO better method to check if grounded
@@ -95,7 +95,7 @@ public abstract class Hero : MonoBehaviour
 		bool grounded = footCollider.IsTouchingLayers (whatIsGround.value | heroPlatformMask.value | mapInteractiveObjectsMask.value);
 		return grounded;
 	}
-	
+
 	public bool isPushingSomething ()
 	{
 		return bodyCollider.IsTouchingLayers (mapInteractiveObjectsMask.value) && heroInterac.carriableObject != null;
@@ -142,11 +142,11 @@ public abstract class Hero : MonoBehaviour
 			}
 			else
 				animator.SetBool ("jumpOnAir", true);
-			
+
 		}
 		flipAnimation (speed);
 	}
-	
+
 	public void StopWalk ()
 	{
 		animator.SetBool ("walk", false);
@@ -158,7 +158,7 @@ public abstract class Hero : MonoBehaviour
 		}
 		ChangeMotorSpeed (0f);
 	}
-	
+
 	public void VerticalMove(float speed)
 	{
 		bool grounded = isGrounded ();
@@ -171,7 +171,7 @@ public abstract class Hero : MonoBehaviour
 		if (isClimbing){
 			GravityScale = 0f;
 			Transform tGO = heroInterac.ladder.transform;
-			
+
 			transform.position = new Vector2 (tGO.position.x, transform.position.y);
 			rigidBody2D.velocity = new Vector2 (0, -speed * maxClimbingSpeed);
 			// The code comment bellow is to be undone when the animator animating climb and stop on ladder
@@ -184,8 +184,8 @@ public abstract class Hero : MonoBehaviour
 				animator.SetBool ("stopclimb", false);
 				animator.SetBool ("climb", true);
 			}
-			*/			
-		} 
+			*/
+		}
 		else{
 			GravityScale = gravityOriginal;
 			// The code comment bellow is to be undone when the animator animating climb and stop on ladder
@@ -194,9 +194,9 @@ public abstract class Hero : MonoBehaviour
 			animator.SetBool ("stopclimb", false);
 			*/
 		}
-		
+
 	}
-	
+
 	public void Jump ()
 	{
 		Jump (1);
@@ -210,18 +210,18 @@ public abstract class Hero : MonoBehaviour
 	{
 		//JUMP, IF GROUDED OR ON OTHER HERO PLATFORM
 		bool grounded = isGrounded ();
-		
+
 		if (grounded) {
 			animator.SetTrigger ("jumpOnAir");
-			
+
 			foreach (Rigidbody2D rg2d in transform.GetComponentsInChildren<Rigidbody2D>())
 				rg2d.velocity = new Vector2 (rigidBody2D.velocity.x, 0);
-			
+
 			rigidBody2D.AddForce (new Vector2 (0f, (float)jumpForce) * Mathf.Sqrt(multiplier), ForceMode2D.Impulse);
 			SoundManager.Instance.SendMessage ("PlaySFXJump");
 		}
 	}
-	
+
 	public void Crouch ()
 	{
 		heroPlatform.offset = headCollider.offset - new Vector2 (0, heroPlatform.bounds.size.y);
@@ -229,7 +229,7 @@ public abstract class Hero : MonoBehaviour
 		//Crouch Animation
 		animator.SetBool ("crouch", true);
 	}
-	
+
 	public void StandUp ()
 	{
 		if (!Physics2D.OverlapArea (headCollider.bounds.min, headCollider.bounds.max, whatIsGround.value)) { // Do not stand up inside a short area
@@ -239,17 +239,17 @@ public abstract class Hero : MonoBehaviour
 			animator.SetBool ("crouch", false);
 		}
 	}
-	
+
 	public void Push ()
 	{
 		animator.SetBool ("push", true);
 	}
-	
+
 	public void StopPush ()
 	{
 		animator.SetBool ("push", false);
 	}
-	
+
 	public void Carry ()
 	{
 		if (!Carrying) {
@@ -259,7 +259,7 @@ public abstract class Hero : MonoBehaviour
 		else
 			animator.SetBool ("carry", true);
 	}
-	
+
 	public void StopCarry ()
 	{
 		if (Carrying && !CarryingByAction) {
@@ -267,7 +267,7 @@ public abstract class Hero : MonoBehaviour
 		}
 		animator.SetBool ("carry", false);
 	}
-	
+
 	private void flipAnimation (float horizontalMove)
 	{
 		//Flip the animation
@@ -281,7 +281,7 @@ public abstract class Hero : MonoBehaviour
 			rendererTransform.localScale = theScale;
 		}
 	}
-	
+
 	private void CalculateJumpForce ()
 	{
 		//Impulse to Jump that height
@@ -290,19 +290,19 @@ public abstract class Hero : MonoBehaviour
 		//get the total mass from the he
 		foreach (Rigidbody2D rg2d in transform.GetComponentsInChildren<Rigidbody2D>())
 			totalMass += rg2d.mass;
-		
+
 		//Force using Math instead of Mathf, to use double instead of float. (no big result changes)
 		jumpForce = ((double)totalMass) * ((double)Math.Sqrt ((double)(2D * ((double)jumpHeight) * ((double)rigidBody2D.gravityScale) * ((double)Math.Abs (Physics2D.gravity.y)))));
 		//Add a epsilon to compensate for an unknown error
 		jumpForce *= 1.03;
 	}
-	
+
 	private void CalculateWalkingMotorAngularSpeed ()
 	{
 		float footRadius = walkMotor.GetComponent<CircleCollider2D> ().radius;
-		
+
 		motorMaxAngularSpeed = Mathf.Rad2Deg * maxWalkingSpeed / footRadius;
-		
+
 	}
 
 
@@ -310,20 +310,20 @@ public abstract class Hero : MonoBehaviour
     {
         if (changeHeroAllowed) m_isActive = !m_isActive;
 	}
-	
+
 	private void ChangeMotorSpeed (float speed)
 	{
-		JointMotor2D tMotor = walkMotor.motor; 
+		JointMotor2D tMotor = walkMotor.motor;
 		tMotor.motorSpeed = speed;
 		tMotor.maxMotorTorque = walkMotorTorque;
 		walkMotor.motor = tMotor;
 	}
-	
+
 	public void Action ()
 	{
 		this.DoAction ();
 	}
-	
+
 	private void DoAction ()
 	{
 		if (!Carrying) {
@@ -332,7 +332,7 @@ public abstract class Hero : MonoBehaviour
 					IHeroActionable iHeroActionable = heroInterac.actionableObject.GetComponent<IHeroActionable> ();
 					if (iHeroActionable != null) {
 						iHeroActionable.OnHeroActivate ();
-					} 
+					}
 				} else if (heroInterac.carriableObject != null) {
 					CarryObject ();
 					CarryingByAction = true;
@@ -343,15 +343,9 @@ public abstract class Hero : MonoBehaviour
 		else{
 			ReleaseObject();
 		}
-		
+
 	}
-	
-	public void TouchedForceField ()
-	{
-		float speed = 2;
-		rigidBody2D.AddForce (new Vector2 (facingDirection * maxWalkingSpeed * speed, 0), ForceMode2D.Impulse);
-	}
-	
+
 	public float JumpHeight {
 		get {
 			return this.jumpHeight;
@@ -361,7 +355,7 @@ public abstract class Hero : MonoBehaviour
 			CalculateJumpForce ();
 		}
 	}
-	
+
 	public float WalkMotorTorque {
 		get {
 			return this.walkMotorTorque;
@@ -371,7 +365,7 @@ public abstract class Hero : MonoBehaviour
 			CalculateWalkingMotorAngularSpeed ();
 		}
 	}
-	
+
 	public float MaxWalkingSpeed {
 		get {
 			return this.maxWalkingSpeed;
@@ -381,7 +375,7 @@ public abstract class Hero : MonoBehaviour
 			CalculateWalkingMotorAngularSpeed ();
 		}
 	}
-	
+
 	public float HorizontalFlyingForce {
 		get {
 			return this.horizontalFlyingForce;
@@ -390,18 +384,18 @@ public abstract class Hero : MonoBehaviour
 			horizontalFlyingForce = value;
 		}
 	}
-	
+
 	public float GravityScale {
 		get {
 			return rigidBody2D.gravityScale;
 		}
-		
+
 		set {
 			foreach (Rigidbody2D rg2d in transform.GetComponentsInChildren<Rigidbody2D>())
 				rg2d.gravityScale = value;
 			CalculateJumpForce ();
 		}
-		
+
 	}
 	private void CarryObject(){
 		Carriable carriable = heroInterac.carriableObject.GetComponent<Carriable> ();
