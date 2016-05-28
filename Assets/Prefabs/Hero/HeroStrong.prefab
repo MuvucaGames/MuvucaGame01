@@ -399,7 +399,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b1a1a8bf2edeba4bb189878c796b7ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxWalkingSpeed: 4.5
+  maxWalkingSpeed: 5
   walkMotorTorque: 80
   maxClimbingSpeed: 5
   horizontalFlyingForce: 0.5
@@ -421,6 +421,7 @@ MonoBehaviour:
   footCollider: {fileID: 5814716}
   ladder: {fileID: 0}
   m_isActive: 0
+  changeHeroAllowed: 1
 --- !u!212 &21212648
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -445,7 +446,7 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
+  m_SortingLayerID: -262051283
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 445637133bf6f4646a94200c048dfd0f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
