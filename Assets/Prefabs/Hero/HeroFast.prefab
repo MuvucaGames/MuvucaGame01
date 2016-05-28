@@ -392,7 +392,7 @@ MonoBehaviour:
   walkMotorTorque: 40
   maxClimbingSpeed: 5
   horizontalFlyingForce: 0.25
-  jumpHeight: 2.5
+  jumpHeight: 3.3
   offsetCarryObjHero: 0.2
   whatIsGround:
     serializedVersion: 2
@@ -410,6 +410,7 @@ MonoBehaviour:
   footCollider: {fileID: 5888030}
   ladder: {fileID: 0}
   m_isActive: 0
+  changeHeroAllowed: 1
 --- !u!114 &11476276
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -445,8 +446,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingLayerID: -262051283
+  m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: fc77dc55cd218714f9a35682f3a841b6, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
