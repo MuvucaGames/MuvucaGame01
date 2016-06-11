@@ -400,18 +400,25 @@ public abstract class Hero : MonoBehaviour
 	private void CarryObject(){
 		Carriable carriable = heroInterac.carriableObject.GetComponent<Carriable> ();
 		bool objIsInFront = heroInterac.carriableObject.transform.position.x*facingDirection > transform.position.x*facingDirection;
+		float fator = carriable.isHeavy()?1.5f:1f;
+
 		if (carriable != null && !carriable.isBeingCarried && objIsInFront && (!carriable.isHeavy () || this.IsStrong ())) {
-			float fator = carriable.isHeavy()?1.5f:1f;
-			Carrying = true;
-			CarriedObject = heroInterac.carriableObject;
-			SliderJoint2D sliderJoint = GetComponent<SliderJoint2D>();
-			CarriedObject.transform.rotation = new Quaternion(0, 0, 0, CarriedObject.transform.localRotation.w);
-			CarriedObject.transform.position = new Vector2 (transform.position.x, transform.position.y + transform.localScale.y + CarriedObject.transform.localScale.y + offsetCarryObjHero*fator);
-			sliderJoint.connectedBody = CarriedObject.GetComponent<Rigidbody2D> ();
-			sliderJoint.enabled = true;
-			carriable.isBeingCarried = true;
-			StopPush();
-			animator.SetBool ("carry", true);
+			Vector2 ls = heroInterac.transform.localScale;
+			Vector2 a = new Vector2(transform.position.x - ls.x/2, transform.position.y + transform.localScale.y + ls.y + offsetCarryObjHero*fator - ls.y/2);
+			Vector2 b = new Vector2(transform.position.x + ls.x/2, transform.position.y + transform.localScale.y + ls.y + offsetCarryObjHero*fator + ls.y/2);
+			Collider2D coll = Physics2D.OverlapArea(a, b);
+			if (coll == null) {
+				Carrying = true;
+				CarriedObject = heroInterac.carriableObject;
+				SliderJoint2D sliderJoint = GetComponent<SliderJoint2D> ();
+				CarriedObject.transform.rotation = new Quaternion (0, 0, 0, CarriedObject.transform.localRotation.w);
+				CarriedObject.transform.position = new Vector2 (transform.position.x, transform.position.y + transform.localScale.y + CarriedObject.transform.localScale.y + offsetCarryObjHero * fator);
+				sliderJoint.connectedBody = CarriedObject.GetComponent<Rigidbody2D> ();
+				sliderJoint.enabled = true;
+				carriable.isBeingCarried = true;
+				StopPush ();
+				animator.SetBool ("carry", true);
+			}
 		}
 
 	}
