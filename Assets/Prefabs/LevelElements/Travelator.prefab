@@ -56,7 +56,6 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 469676}
-  - 114: {fileID: 11435064}
   m_Layer: 10
   m_Name: Travelator
   m_TagString: Untagged
@@ -129,17 +128,6 @@ BoxCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Size: {x: 2, y: 0.2}
---- !u!114 &11435064
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 188830}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7e0920dc7911736479cab7d179b03801, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!212 &21283738
 SpriteRenderer:
   m_ObjectHideFlags: 1
