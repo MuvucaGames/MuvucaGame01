@@ -10,7 +10,7 @@ GameObject:
   - 4: {fileID: 490422}
   - 212: {fileID: 21216096}
   - 61: {fileID: 6113050}
-  - 114: {fileID: 11426926}
+  - 114: {fileID: 11484526}
   m_Layer: 11
   m_Name: Terminal
   m_TagString: Untagged
@@ -44,7 +44,7 @@ BoxCollider2D:
   m_Offset: {x: 0, y: 0.5}
   serializedVersion: 2
   m_Size: {x: 0.5, y: 1}
---- !u!114 &11426926
+--- !u!114 &11484526
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -52,13 +52,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 104780}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cfaa8ad1391fe714dad62d5608fc7512, type: 3}
+  m_Script: {fileID: 11500000, guid: a490a6c47f6e3524fa60857753fd4751, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   actionableElements:
   - {fileID: 0}
   triggerOnlyOnce: 0
-  allowDeactivate: 1
+  allowDeactivate: 0
   triggersWithBothInside: 0
 --- !u!212 &21216096
 SpriteRenderer:

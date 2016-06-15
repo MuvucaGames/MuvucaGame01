@@ -327,16 +327,10 @@ public abstract class Hero : Controllable
 					CarryingByAction = true;
 				}
 			}
-
 		}
 		else{
 			ReleaseObject();
 		}
-
-        if(IsTouchingAreaTrigger())
-        {
-            HeroUtil.ChangeToControllable();   
-        }
 	}
 
 	public float JumpHeight {
