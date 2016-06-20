@@ -15,7 +15,6 @@ public class HeroControl : MonoBehaviour {
 	private bool _crouchButtonPressed = false;
 	private bool _carryButtonPressed = false;
 	private bool _actionButtonPressed = false;
-	private bool _changeHeroButtonPressed = false;
 
 
 	void Awake () {
@@ -48,10 +47,6 @@ public class HeroControl : MonoBehaviour {
 
 		//Trigger Buttons, one time activation: (they are deactivated on Fixed Update)
 
-		// Change Hero
-		if (Input.GetButtonDown("ChangeHero"))
-			_changeHeroButtonPressed = true;
-
 		// Jump
 		if (Input.GetButtonDown("Jump") || Input.GetKeyDown(KeyCode.Space))
 			_jumpButtonPressed= true;
@@ -69,9 +64,6 @@ public class HeroControl : MonoBehaviour {
 
 		if (!hero.IsActive) {
 			hero.StopWalk();
-			if (_changeHeroButtonPressed) {
-				hero.ChangeHero();
-			}
 			DeactivateTriggerButtons();
 			return;
 		}
@@ -86,11 +78,6 @@ public class HeroControl : MonoBehaviour {
 			hero.Carry ();
 		} else {
 			hero.StopCarry();
-		}
-
-		if (_changeHeroButtonPressed) {
-			hero.ChangeHero();
-			SoundManager.Instance.SendMessage("PlaySFXSwap");
 		}
 
 		if (_jumpButtonPressed) {
@@ -117,7 +104,6 @@ public class HeroControl : MonoBehaviour {
 
 	private void DeactivateTriggerButtons(){
 		
-		_changeHeroButtonPressed = false;
 		_jumpButtonPressed = false;
 		_actionButtonPressed = false;
 	}

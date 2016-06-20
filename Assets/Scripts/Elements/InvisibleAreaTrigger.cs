@@ -5,6 +5,7 @@ using System.Collections.Generic;
 public class InvisibleAreaTrigger : Activator {
 
 	public bool triggerOnlyOnce = false;
+    public bool allowDeactivate = false;
     public bool triggersWithBothInside = false;
     private bool alreadyTrigged = false;
     private HashSet<Hero> heroesInside = new HashSet<Hero>();
@@ -30,7 +31,6 @@ public class InvisibleAreaTrigger : Activator {
             ActivateAll();
             alreadyTrigged = true;
         }
-
     }
 
     void OnTriggerExit2D(Collider2D other)
@@ -39,6 +39,11 @@ public class InvisibleAreaTrigger : Activator {
 		if (hero!=null)
         {
 			heroesInside.Remove(hero);
+        }
+
+		if ((heroesInside.Count == 0) && alreadyTrigged && allowDeactivate) 
+        {
+            DeactivateAll();
         }
     }
 

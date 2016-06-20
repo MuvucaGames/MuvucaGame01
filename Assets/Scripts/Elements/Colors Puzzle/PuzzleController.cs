@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
-public class PuzzleController : MonoBehaviour 
+public class PuzzleController : MonoBehaviour
 {
     private bool controlActive = false;
     private bool _horizontalButtonPressed = false;
@@ -31,13 +31,21 @@ public class PuzzleController : MonoBehaviour
 
 	void Update () 
     {
-        if (Input.GetKeyDown(KeyCode.Tab))
+        if (colorsPuzzle.IsActive)
         {
-            colorsPuzzle.clean();
+            controlActive = true;
+            if (Input.GetKeyDown(KeyCode.Tab))
+            {
+                colorsPuzzle.clean();
+            }
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                _colorSelected = true;
+            }            
         }
-        if (Input.GetKeyDown(KeyCode.E))
+        else
         {
-            _colorSelected = true;
+            controlActive = false;
         }
 	}
 
@@ -77,16 +85,6 @@ public class PuzzleController : MonoBehaviour
             _colorSelected = false;
         }
         DeactivateTriggerButtons();
-    }
-
-    public void setControlActive()
-    {
-        controlActive = true;
-    }
-
-    public void deactivateControl()
-    {
-        controlActive = false;
     }
 
     public float getRotationPosition()

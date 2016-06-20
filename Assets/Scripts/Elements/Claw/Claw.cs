@@ -12,14 +12,17 @@ public class Claw : MonoBehaviour {
     protected HeroStrong heroStrong = null;
     protected HeroFast heroFast = null;
     protected Collider2D coll;
-    protected ClawController controller = null;
+    public ClawController controller = null;
 
     void Awake () {
         controller = GetComponentInParent<ClawController>();
-        coll = GetComponent<Collider2D>();
-        clawInitialPos = coll.bounds.center;
-        heroStrong = FindObjectOfType<HeroStrong> ();
-        heroFast = FindObjectOfType<HeroFast> ();
+        if (GetComponent<Collider2D>())
+        {
+            coll = GetComponent<Collider2D>();
+            clawInitialPos = coll.bounds.center;            
+        }
+        heroStrong = FindObjectOfType<HeroStrong>();
+        heroFast = FindObjectOfType<HeroFast>();
         heroStrongRigidBody = heroStrong.GetComponent<Rigidbody2D>();
         heroFastRigidBody = heroFast.GetComponent<Rigidbody2D>();
     }
