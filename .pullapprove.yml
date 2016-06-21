@@ -3,6 +3,6 @@ approve_regex: ^Approved
 reject_regex: ^Rejected
 reset_on_push: false
 reviewers:
-  teams: desenvolvimento
+  members: all
   name: default
   required: 2
