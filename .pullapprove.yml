@@ -5,4 +5,4 @@ reset_on_push: false
 reviewers:
   members: all
   name: default
-  required: 2
+  required: 1
