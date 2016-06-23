@@ -37,6 +37,8 @@ public abstract class Hero : Controllable
 	private HingeJoint2D walkMotor = null;
 	[SerializeField]
 	private Collider2D footCollider = null;
+	[SerializeField]
+	private Collider2D groundTrigger = null;
 
 	private HeroInteractor heroInterac;
 	private float motorMaxAngularSpeed = 0f;
@@ -52,6 +54,7 @@ public abstract class Hero : Controllable
 	private bool CarryingByAction = false;
 	private GameObject CarriedObject;
     private Collider2D[] colliders;
+
 	
 	private bool m_onAir = false;
 
@@ -83,11 +86,8 @@ public abstract class Hero : Controllable
 
 	public bool isGrounded ()
 	{
-		//TODO better method to check if grounded
-		//old way:
-		//bool grounded = Physics2D.OverlapCircle (transform.position, 0.2f, whatIsGround.value | heroPlatformMask.value | mapInteractiveObjectsMask.value);
-		//new way:
-		bool grounded = footCollider.IsTouchingLayers (whatIsGround.value | heroPlatformMask.value | mapInteractiveObjectsMask.value);
+		bool grounded = footCollider.IsTouchingLayers (whatIsGround.value | heroPlatformMask.value | mapInteractiveObjectsMask.value)
+			|| groundTrigger.IsTouchingLayers(whatIsGround.value | heroPlatformMask.value | mapInteractiveObjectsMask.value);
 		return grounded;
 	}
 
