@@ -1,10 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class FallingParticleController : MonoBehaviour {
+public class FallingParticleBehavior : MonoBehaviour {
 
-	public int yLimit = 0;
+	public float yLimit = -0.5f;
 	public float speed = 1.5f;
+
 	public GameObject targetObject;
 	private GameObject target;
 
