@@ -294,7 +294,7 @@ PolygonCollider2D:
   m_GameObject: {fileID: 166710}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 6200000, guid: 825096138afbdb94c91ef8421519409a, type: 2}
+  m_Material: {fileID: 6200000, guid: 714bb5d241c131648a78692c0a9ae93b, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_Offset: {x: 0, y: 0}
@@ -315,7 +315,7 @@ BoxCollider2D:
   m_GameObject: {fileID: 199118}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 6200000, guid: 825096138afbdb94c91ef8421519409a, type: 2}
+  m_Material: {fileID: 6200000, guid: 714bb5d241c131648a78692c0a9ae93b, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 1
   m_Offset: {x: 0, y: 1.75}
@@ -420,8 +420,6 @@ MonoBehaviour:
   walkMotor: {fileID: 23342416}
   footCollider: {fileID: 5814716}
   ladder: {fileID: 0}
-  m_isActive: 0
-  changeHeroAllowed: 1
 --- !u!212 &21212648
 SpriteRenderer:
   m_ObjectHideFlags: 1
