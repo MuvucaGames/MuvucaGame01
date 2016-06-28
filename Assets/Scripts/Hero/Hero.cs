@@ -130,7 +130,6 @@ public abstract class Hero : Controllable
 				if (speed != 0.0f) {
 					int d = speed>0?1:-1;
 					isClimbing = false;
-					//ladder = null;
 					animator.SetBool ("jumpOnAir", true);
 				}
 			}
