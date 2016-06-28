@@ -81,7 +81,7 @@ public class HeroControl : MonoBehaviour {
 			hero.StopCarry();
 		}
 
-        if (!hero.IsHeroPushing())
+        if (!hero.isPushingSomething())
         {
             if (_jumpButtonPressed)
             {

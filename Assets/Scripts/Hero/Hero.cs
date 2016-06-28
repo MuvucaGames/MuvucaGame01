@@ -49,7 +49,7 @@ public abstract class Hero : Controllable
 	private float gravityOriginal;
 	private bool Carrying = false;
 	private bool Crouched = false;
-	private bool CarryingByAction = false;
+	public bool CarryingByAction = false;
 	private GameObject CarriedObject;
     private Collider2D[] colliders;
 	
