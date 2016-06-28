@@ -48,11 +48,13 @@ public abstract class Hero : Controllable
     public GameObject ladder = null;
     private float gravityOriginal;
     private bool Carrying = false;
+    private bool Pushing = false;
     private bool Crouched = false;
-    private bool CarryingByAction = false;
+    public bool CarryingByAction = false;
     private GameObject CarriedObject;
     private Collider2D[] colliders;
-    
+
+    public float lastFrameVerticalSpeed = 0;
     private bool m_onAir = false;
 
     public bool OnAir {
@@ -156,6 +158,8 @@ public abstract class Hero : Controllable
 
     public void VerticalMove(float speed)
     {
+        lastFrameVerticalSpeed = speed;
+        
         bool grounded = isGrounded ();
 
         if (isClimbing)
@@ -237,11 +241,13 @@ public abstract class Hero : Controllable
 
     public void Push ()
     {
+        Pushing = true;
         animator.SetBool ("push", true);
     }
 
     public void StopPush ()
     {
+        Pushing = false;
         animator.SetBool ("push", false);
     }
 
@@ -315,13 +321,17 @@ public abstract class Hero : Controllable
 
     private void DoAction ()
     {
-        if (!Carrying) {
+        if (!Carrying)
+        {
             if (!isClimbing) {
 
                 if (heroInterac.carriableObject != null)
                 {
-                    CarryObject ();
-                    CarryingByAction = true;
+                    if (lastFrameVerticalSpeed > 0)
+                    {
+                        CarryObject ();
+                        CarryingByAction = true;
+                    }
                 }
                 else if (heroInterac.actionableObject != null) {
                     IHeroActionable iHeroActionable = heroInterac.actionableObject.GetComponent<IHeroActionable> ();
@@ -331,7 +341,9 @@ public abstract class Hero : Controllable
                 } 
             }
         }
-        else{
+            
+        else
+        {
             ReleaseObject();
         }
     }
@@ -443,6 +455,15 @@ public abstract class Hero : Controllable
             {
                 return true;
             }
+        }
+        return false;
+    }
+
+    public bool IsHeroPushing()
+    {
+        if (Pushing)
+        {
+            return true;
         }
         return false;
     }
