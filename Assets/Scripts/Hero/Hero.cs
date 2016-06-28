@@ -47,7 +47,6 @@ public abstract class Hero : Controllable
 	private double jumpForce;
 	private Animator animator;
 	private bool isClimbing = false;
-	public GameObject ladder = null;
 	private float gravityOriginal;
 	private bool Carrying = false;
 	private bool Crouched = false;
@@ -131,7 +130,6 @@ public abstract class Hero : Controllable
 				if (speed != 0.0f) {
 					int d = speed>0?1:-1;
 					isClimbing = false;
-					//ladder = null;
 					animator.SetBool ("jumpOnAir", true);
 				}
 			}
