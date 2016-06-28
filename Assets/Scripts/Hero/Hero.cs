@@ -45,7 +45,6 @@ public abstract class Hero : Controllable
 	private double jumpForce;
 	private Animator animator;
 	private bool isClimbing = false;
-	public GameObject ladder = null;
 	private float gravityOriginal;
 	private bool Carrying = false;
 	private bool Crouched = false;
