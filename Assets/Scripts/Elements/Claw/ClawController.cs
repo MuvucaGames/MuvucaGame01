@@ -179,17 +179,13 @@ public class ClawController : MonoBehaviour {
     void OnDrawGizmos()
     {
         // if claw per se has not been initialized yet, must set to the actiual position
-        if (clawPerSe.initialPos == Vector3.zero)
-        {
-            clawPerSe.initialPos = clawPerSe.transform.position;
-        }
         SpriteRenderer sR = clawPerSe.GetComponentInChildren<SpriteRenderer>();
         float clawSizeY = sR.bounds.extents.y;
         Vector3 From = new Vector3(clawPerSe.transform.position.x - 1f,
-                                   clawPerSe.initialPos.y + clawSizeY,
+                                   clawPerSe.transform.position.y + clawSizeY,
                                    clawPerSe.transform.position.z);
         Vector3 To = new Vector3(clawPerSe.transform.position.x + 1f,
-                                 clawPerSe.initialPos.y - minHeight - clawSizeY,
+                                 clawPerSe.transform.position.y - minHeight - clawSizeY,
                                  clawPerSe.transform.position.z);
         ClawUtils.allowDrawing = allowDrawing;
         ClawUtils.DrawRectangle(From, To, Color.red);
