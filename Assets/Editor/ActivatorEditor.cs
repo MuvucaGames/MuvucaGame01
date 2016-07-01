@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEditor;
 using System.Linq;
 
-[CustomEditor (typeof(Activator), true)]
+[CustomEditor (typeof(ElementActivator), true)]
 public class ActivatorEditor : Editor {
 
 	SerializedProperty actionableElements_sp;
@@ -15,7 +15,7 @@ public class ActivatorEditor : Editor {
 
 	public void OnSceneGUI(){
 		serializedObject.Update ();
-		Activator activator = (Activator)target;
+		ElementActivator activator = (ElementActivator)target;
 		RemoveRepeatedElements ();
 
 
@@ -33,7 +33,7 @@ public class ActivatorEditor : Editor {
 
 
 		ActionableElement [] allActionablesOnScene = FindObjectsOfType<ActionableElement> ();
-		Activator [] allActivatorsOnScene = FindObjectsOfType<Activator> ();
+		ElementActivator [] allActivatorsOnScene = FindObjectsOfType<ElementActivator> ();
 		foreach (ActionableElement act_elem in allActionablesOnScene) {
 			if(act_elem.gameObject.Equals(activator.gameObject))
 				continue;
@@ -45,7 +45,7 @@ public class ActivatorEditor : Editor {
 			GUILayout.Label(act_elem.name.ToString());
 
 			int count = 0;
-			foreach(Activator activator_i in allActivatorsOnScene){
+			foreach(ElementActivator activator_i in allActivatorsOnScene){
 				if(activator_i!= activator && activator_i.ActionableElements.Contains(act_elem)){
 					count ++;
 				}
@@ -84,7 +84,7 @@ public class ActivatorEditor : Editor {
 	}
 
 	public void RemoveRepeatedElements(){
-		Activator activator = (Activator)target;
+		ElementActivator activator = (ElementActivator)target;
 		activator.ActionableElements = activator.ActionableElements.Distinct ().ToList ();
 	}
 

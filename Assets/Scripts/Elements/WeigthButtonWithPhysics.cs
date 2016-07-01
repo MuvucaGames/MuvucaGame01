@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class WeigthButtonWithPhysics : Activator {
+public class WeigthButtonWithPhysics : ElementActivator {
 
 	[SerializeField] private SpringJoint2D springJoint2D = null;
 	[SerializeField] private float activationWeight = 1f;
