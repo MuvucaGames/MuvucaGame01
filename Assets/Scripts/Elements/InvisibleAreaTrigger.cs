@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class InvisibleAreaTrigger : Activator {
+public class InvisibleAreaTrigger : ElementActivator {
 
 	public bool triggerOnlyOnce = false;
     public bool allowDeactivate = false;

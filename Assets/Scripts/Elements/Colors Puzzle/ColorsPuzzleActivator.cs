@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class ColorsPuzzleActivator : Activator {
+public class ColorsPuzzleActivator : ElementActivator {
 
     public void activate()
     {
