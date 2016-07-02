@@ -315,15 +315,16 @@ public abstract class Hero : Controllable
 	{
 		if (!Carrying) {
 			if (!isClimbing) {
-				if (heroInterac.actionableObject != null) {
+				if (heroInterac.carriableObject != null) {
+					CarryObject ();
+					CarryingByAction = true;
+				}
+				else if (heroInterac.actionableObject != null) {
 					IHeroActionable iHeroActionable = heroInterac.actionableObject.GetComponent<IHeroActionable> ();
 					if (iHeroActionable != null) {
 						iHeroActionable.OnHeroActivate ();
 					}
-				} else if (heroInterac.carriableObject != null) {
-					CarryObject ();
-					CarryingByAction = true;
-				}
+				} 
 			}
 		}
 		else{
