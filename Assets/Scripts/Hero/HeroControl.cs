@@ -15,6 +15,7 @@ public class HeroControl : MonoBehaviour {
 	private bool _crouchButtonPressed = false;
 	private bool _carryButtonPressed = false;
 	private bool _actionButtonPressed = false;
+	private bool _actionButtonPressedPesist = false;
 
 
 	void Awake () {
@@ -80,9 +81,18 @@ public class HeroControl : MonoBehaviour {
 			hero.StopCarry();
 		}
 
-		if (_jumpButtonPressed) {
-			hero.Jump ();
-		}
+        if (!hero.isPushingSomething())
+        {
+            if (_jumpButtonPressed)
+            {
+                hero.Jump ();
+            }            
+        }
+        else if (_verticalMoveButtonSpeed != 0f)
+        {
+            hero.Carry();
+            hero.CarryingByAction = true;            
+        }
 
 		if (_actionButtonPressed) {
 			hero.Action();
