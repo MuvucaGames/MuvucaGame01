@@ -8,15 +8,37 @@ using UnityEditor;
 public class PrefabProcessor : UnityEditor.AssetModificationProcessor {
 
 	static string[] OnWillSaveAssets (string[] paths) {
-		Debug.Log("OnWillSaveAssets");
-		foreach(string path in paths)
-			Debug.Log(path);
+		foreach (string path in paths) {
+			if (path.EndsWith (".prefab")) {
+				ValidatePrefab (path);
+			}
+		}
 		return paths;
 	}
 
-	static string OnWillCreateAsset (string path) {
-		Debug.Log("OnWillCreateAssets");
-		Debug.Log(path);
-		return path;
+	static void OnWillCreateAsset (string path) {
+		if (path.EndsWith (".prefab")) {
+			ValidatePrefab (path);
+		}
 	}
+
+	public static void ValidatePrefab(string path){
+		GameObject go = AssetDatabase.LoadAssetAtPath<GameObject> (path);
+		if (go == null)
+			return;
+		Transform transform = go.GetComponent<Transform> ();
+		if (transform) {
+			if (transform.position != Vector3.zero || transform.rotation.eulerAngles != Vector3.zero || transform.localScale != Vector3.one) {
+
+				if(EditorUtility.DisplayDialog("Prefab fora do Padrao", "O Transform do prefab " + path + "esta fora do padrao. Voce deseja ajusta-lo automaticamente?", "Sim", "Nao, eu sei o que to fazendo")){
+					transform.position = Vector3.zero;
+					transform.rotation = Quaternion.identity;
+					transform.localScale = Vector3.one;
+				}
+			}
+
+		}
+	}
+
+	
 }
