@@ -49,7 +49,7 @@ public class Balloon : MonoBehaviour {
 		this.callback = callback;
 
 		if(sentenceInfo.Hooker!=null)
-			this.transform.position = sentenceInfo.Hooker.transform.position;
+			this.transform.position = new Vector3 (sentenceInfo.Hooker.transform.position.x, sentenceInfo.Hooker.transform.position.y + sentenceInfo.Hooker.transform.lossyScale.y);
 
 		SetCanvasSizeAndImages ();
 
