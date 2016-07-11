@@ -61,6 +61,8 @@ public class Balloon : MonoBehaviour {
 	private void SetCanvasSizeAndImages(){
 		Canvas canvas = GetComponentInChildren<Canvas> ();
 		int imagesAmount = sentenceInfo.sentence.images.Count;
+		if (imagesAmount == 1)
+			margin.x = margin.x + 0.3f;
 		RectTransform canvasRectTransform = canvas.GetComponent<RectTransform> ();
 		canvasRectTransform.sizeDelta = Vector2.Scale (canvasRectTransform.sizeDelta, Vector2.one + 2*margin); 
 		canvasRectTransform.sizeDelta = Vector2.Scale (canvasRectTransform.sizeDelta, new Vector2 (imagesAmount,1)); 
