@@ -21,19 +21,18 @@ public class Balloon : MonoBehaviour {
 	[SerializeField]
 	private Vector2 margin=new Vector2(0.2f, 0.2f);
 	[SerializeField]
+	private float extraMarginWidthToOneIcon=0.3f;
+	[SerializeField]
 	private Vector3 vertex1Triangle = new Vector3 (-0.3f, 0, 0);
 	[SerializeField]
 	private Vector3 vertex2Triangle = new Vector3 (0.2f, 0, 0);
-
+	private Renderer hokkerRenderer=null;
 	void Update () 
 	{
 		if (sentenceInfo != null) {
 			Mesh mesh = GetComponent<MeshFilter>().mesh;
 			mesh.Clear();
-			Renderer hokkerRenderer = sentenceInfo.Hooker.GetComponent<Renderer> ();
-			if (hokkerRenderer == null)				
-				hokkerRenderer = sentenceInfo.Hooker.GetComponentInChildren<Renderer> ();
-			
+
 			if (hokkerRenderer != null) {
 				Vector3 hookerVertex = transform.InverseTransformPoint(new Vector3 (hokkerRenderer.bounds.center.x, hokkerRenderer.bounds.max.y, 0));
 				mesh.vertices = new Vector3[] { vertex1Triangle, vertex2Triangle, hookerVertex};
@@ -48,8 +47,16 @@ public class Balloon : MonoBehaviour {
 		this.sentenceInfo = sentenceInfo;
 		this.callback = callback;
 
-		if(sentenceInfo.Hooker!=null)
-			this.transform.position = new Vector3 (sentenceInfo.Hooker.transform.position.x, sentenceInfo.Hooker.transform.position.y + sentenceInfo.Hooker.transform.lossyScale.y);
+		if (sentenceInfo.Hooker != null) {
+			hokkerRenderer = sentenceInfo.Hooker.GetComponent<Renderer> ();
+			if (hokkerRenderer == null)				
+				hokkerRenderer = sentenceInfo.Hooker.GetComponentInChildren<Renderer> ();
+			
+			if (hokkerRenderer != null)
+				this.transform.position = new Vector3 (sentenceInfo.Hooker.transform.position.x, sentenceInfo.Hooker.transform.position.y + hokkerRenderer.bounds.size.y);
+			else
+				this.transform.position = new Vector3 (sentenceInfo.Hooker.transform.position.x, sentenceInfo.Hooker.transform.position.y);
+		}
 
 		SetCanvasSizeAndImages ();
 
@@ -62,7 +69,7 @@ public class Balloon : MonoBehaviour {
 		Canvas canvas = GetComponentInChildren<Canvas> ();
 		int imagesAmount = sentenceInfo.sentence.images.Count;
 		if (imagesAmount == 1)
-			margin.x = margin.x + 0.3f;
+			margin.x = margin.x + extraMarginWidthToOneIcon;
 		RectTransform canvasRectTransform = canvas.GetComponent<RectTransform> ();
 		canvasRectTransform.sizeDelta = Vector2.Scale (canvasRectTransform.sizeDelta, Vector2.one + 2*margin); 
 		canvasRectTransform.sizeDelta = Vector2.Scale (canvasRectTransform.sizeDelta, new Vector2 (imagesAmount,1)); 
@@ -94,9 +101,6 @@ public class Balloon : MonoBehaviour {
 		if (sentenceInfo.Hooker.GetComponent<Rigidbody2D> ()!= null) {
 			
 			springJoint2D.connectedBody = sentenceInfo.Hooker.GetComponent<Rigidbody2D> ();
-			Renderer hokkerRenderer = sentenceInfo.Hooker.GetComponent<Renderer> ();
-			if (hokkerRenderer == null)				
-				hokkerRenderer = sentenceInfo.Hooker.GetComponentInChildren<Renderer> ();
 			if (hokkerRenderer != null)
 				springJoint2D.connectedAnchor = new Vector2(springJoint2D.connectedAnchor.x, hokkerRenderer.bounds.max.y);
 
