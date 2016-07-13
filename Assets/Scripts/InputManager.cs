@@ -13,6 +13,23 @@ using System.Collections;
 /// using the 'Action' button.
 ///
 /// \sa Claw, ColorsPuzzle, Hero
+
+public struct game_input
+{
+    public bool jump;
+    public bool crouch;
+    public bool action;
+    public bool carry;
+    public bool changeHero;
+
+    // Axis
+    public float horizontalAxis;
+    public float verticalAxis;
+
+    // TODO: Implement Pause button and pause screen
+    public bool pause;
+}
+
 public class InputManager : MonoBehaviour
 {    
     private static InputManager instance;
@@ -27,30 +44,84 @@ public class InputManager : MonoBehaviour
 
     public HeroStrong heroStrong = null;
     public HeroFast heroFast = null;
-	private bool _changeHeroButtonPressed = false;
-	private bool _actionButtonPressed = false;
+    public HeroControl heroStrongControl = null;
+    public HeroControl heroFastControl = null;
+
+	// Input States
+    public game_input GameInput;
 
 	void Start () 
     {
         instance = this;
         heroStrong = FindObjectOfType<HeroStrong>();
         heroFast = FindObjectOfType<HeroFast>();
+        heroStrongControl = heroStrong.GetComponent<HeroControl>();
+        heroFastControl = heroFast.GetComponent<HeroControl>();
     }
+
+	private void detectButtonStates(){
+
+		//Analog Input:
+		GameInput.horizontalAxis = Input.GetAxis("Horizontal");
+		
+		GameInput.verticalAxis = Input.GetAxis("Vertical");
+		
+		//-------------------------------------------
+
+		//Boolean Buttons, or teo state buttons:
+		// Crouch
+
+		if (Input.GetButton("Crouch"))
+			GameInput.crouch = true;
+		else
+			GameInput.crouch = false;
+		
+		// Push
+		if (Input.GetButton("Carry"))
+			GameInput.carry = true;
+		else
+			GameInput.carry = false;
+
+		//----------------------------------------
+
+		//Trigger Buttons, one time activation: (they are deactivated on Fixed Update)
+
+		// Jump
+		if (Input.GetButtonDown("Jump") || Input.GetKeyDown(KeyCode.Space))
+			GameInput.jump = true;
+
+		// Action
+		if (Input.GetButtonDown("Action"))
+			GameInput.action = true;
+
+		// Change Hero
+		if (Input.GetButtonDown("ChangeHero"))
+			GameInput.changeHero = true;
+
+	}
 
     void Update()
     {
-		// Change Hero
-		if (Input.GetButtonDown("ChangeHero"))
-			_changeHeroButtonPressed = true;
+		detectButtonStates();
     }
 
     void FixedUpdate()
     {
-		if (_changeHeroButtonPressed) 
+        heroStrongControl.ProcessHeroInput(GameInput);
+        heroFastControl.ProcessHeroInput(GameInput);
+
+        DeactivateTriggerButtons();
+
+		if (GameInput.changeHero) 
         {
 			HeroUtil.ChangeHero();
-            _changeHeroButtonPressed = false;
-			SoundManager.Instance.SendMessage("PlaySFXSwap");
+            GameInput.changeHero = false;
 		}
     }
+
+	private void DeactivateTriggerButtons(){
+		
+		GameInput.jump = false;
+		GameInput.action = false;
+	}
 }

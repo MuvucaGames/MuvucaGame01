@@ -54,7 +54,9 @@ public abstract class Hero : Controllable
 	private GameObject CarriedObject;
     private Collider2D[] colliders;
 
-	
+    public Collider2D HoldingBox = null;
+    public RaycastHit2D BoxHit;
+
 	private bool m_onAir = false;
 
 	public bool OnAir {
@@ -80,7 +82,25 @@ public abstract class Hero : Controllable
 
 	void FixedUpdate ()
 	{
+        if (HoldingBox != null)
+        {
+            Bounds bounds = GetComponentInChildren<SpriteRenderer>().bounds;
+            Vector3 origin = new Vector3(bounds.center.x, 
+                                         bounds.center.y-(bounds.extents.y/2f), 
+                                         bounds.center.z);
+            Vector3 direction = new Vector3(facingDirection, 0, 0);
+            RaycastHit2D hit = Physics2D.Raycast(origin, direction, bounds.extents.x, 
+                                                 LayerMask.GetMask("MapInteractiveObjects"));
 
+            if ((hit.collider == null) || (hit.collider != BoxHit.collider))
+            {
+                HoldingBox = null;
+            }
+            else
+            {
+                animator.SetBool("push", true);
+            }
+        }
 	}
 
 	public bool isGrounded ()
@@ -106,16 +126,33 @@ public abstract class Hero : Controllable
 			if (speed == 0.0f) {
 				animator.SetBool ("walk", false);
 				StopWalk ();
-				StopPush();
+                if (HoldingBox == null)
+                    StopPush();
+
 				if (Carrying)
 					animator.SetBool ("carry", true);
 			} else {
 				if (Carrying)
 					animator.SetBool ("carry", true);
-				else if (isPushingSomething ())
-					Push ();
-				else
-					StopPush();
+                else if (HoldingBox == null)
+                {
+				    if (isPushingSomething ())
+                        Push ();
+                    else
+                        StopPush();
+                }
+                else
+                {
+                    int d = speed>0?1:-1;
+
+                    // If hero is pulling, or, if the facing direction is opposed to force direction
+                    if ((d*facingDirection) == -1)
+                    {
+                        BoxHit.rigidbody.AddForce(new Vector2 (45f*2*rigidBody2D.mass*-facingDirection, 0));   
+                        return;
+                    }
+                }
+
 				animator.SetBool ("walk", true);
 				ChangeMotorSpeed (motorMaxAngularSpeed * speed);
 			}
@@ -137,7 +174,11 @@ public abstract class Hero : Controllable
 				animator.SetBool ("jumpOnAir", true);
 
 		}
-		flipAnimation (speed);
+
+        if (HoldingBox == null)
+        {
+            flipAnimation (speed);   
+        }
 	}
 
 	public void StopWalk ()
@@ -169,14 +210,14 @@ public abstract class Hero : Controllable
 			rigidBody2D.velocity = new Vector2 (0, -speed * maxClimbingSpeed);
 			// The code comment bellow is to be undone when the animator animating climb and stop on ladder
 			/*
-			if (speed ==0f){
-				animator.SetBool ("climb", false);
-				animator.SetBool ("stopclimb", true);
-			}
-			else{
-				animator.SetBool ("stopclimb", false);
-				animator.SetBool ("climb", true);
-			}
+              if (speed ==0f){
+              animator.SetBool ("climb", false);
+              animator.SetBool ("stopclimb", true);
+              }
+              else{
+              animator.SetBool ("stopclimb", false);
+              animator.SetBool ("climb", true);
+              }
 			*/
 		}
 		else{
@@ -192,7 +233,17 @@ public abstract class Hero : Controllable
 
 	public void Jump ()
 	{
-		Jump (1);
+        if (HoldingBox == null)
+        {
+            Jump (1);
+        }
+
+        else if ((HoldingBox != null) && (InputManager.Instance.GameInput.verticalAxis != 0f))
+        {
+            HoldingBox = null;
+            Carry();
+            CarryingByAction = true;
+        }
 	}
 
 	/// <summary>
@@ -306,6 +357,34 @@ public abstract class Hero : Controllable
 		walkMotor.motor = tMotor;
 	}
 
+    public void HoldObject()
+    {
+        if (HoldingBox == null)
+        {
+            Bounds bounds = GetComponentInChildren<SpriteRenderer>().bounds;
+            Vector3 origin = new Vector3(bounds.center.x, 
+                                         bounds.center.y-(bounds.extents.y/2f), 
+                                         bounds.center.z);
+            Vector3 direction = new Vector3(facingDirection, 0, 0);
+            BoxHit = Physics2D.Raycast(origin, direction, bounds.extents.x,
+                                       LayerMask.GetMask("MapInteractiveObjects"));
+
+            Debug.DrawRay(origin, direction);
+            if (BoxHit.collider != null)
+            {
+                HoldingBox = BoxHit.collider;
+                Push();                
+            }
+
+            // TODO: Animation for holding object while standing still
+        }
+        else
+        {
+            HoldingBox = null;
+            StopPush();
+        }
+    }
+
 	public void Action ()
 	{
 		this.DoAction ();
@@ -316,8 +395,7 @@ public abstract class Hero : Controllable
 		if (!Carrying) {
 			if (!isClimbing) {
 				if (heroInterac.carriableObject != null) {
-					CarryObject ();
-					CarryingByAction = true;
+                    HoldObject();
 				}
 				else if (heroInterac.actionableObject != null) {
 					IHeroActionable iHeroActionable = heroInterac.actionableObject.GetComponent<IHeroActionable> ();
