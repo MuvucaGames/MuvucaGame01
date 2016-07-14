@@ -26,15 +26,15 @@ public class Balloon : MonoBehaviour {
 	private Vector3 vertex1Triangle = new Vector3 (-0.3f, 0, 0);
 	[SerializeField]
 	private Vector3 vertex2Triangle = new Vector3 (0.2f, 0, 0);
-	private Renderer hokkerRenderer=null;
+	private Renderer hookerRenderer=null;
 	void Update () 
 	{
 		if (sentenceInfo != null) {
 			Mesh mesh = GetComponent<MeshFilter>().mesh;
 			mesh.Clear();
 
-			if (hokkerRenderer != null) {
-				Vector3 hookerVertex = transform.InverseTransformPoint(new Vector3 (hokkerRenderer.bounds.center.x, hokkerRenderer.bounds.max.y, 0));
+			if (hookerRenderer != null) {
+				Vector3 hookerVertex = transform.InverseTransformPoint(new Vector3 (hookerRenderer.bounds.center.x, hookerRenderer.bounds.max.y, 0));
 				mesh.vertices = new Vector3[] { vertex1Triangle, vertex2Triangle, hookerVertex};
 				mesh.uv = new Vector2[] { new Vector2 (0, 0), new Vector2 (0, 1), new Vector2 (1, 1) };
 				mesh.triangles = new int[] { 0, 1, 2 };
@@ -48,12 +48,12 @@ public class Balloon : MonoBehaviour {
 		this.callback = callback;
 
 		if (sentenceInfo.Hooker != null) {
-			hokkerRenderer = sentenceInfo.Hooker.GetComponent<Renderer> ();
-			if (hokkerRenderer == null)				
-				hokkerRenderer = sentenceInfo.Hooker.GetComponentInChildren<Renderer> ();
+			hookerRenderer = sentenceInfo.Hooker.GetComponent<Renderer> ();
+			if (hookerRenderer == null)				
+				hookerRenderer = sentenceInfo.Hooker.GetComponentInChildren<Renderer> ();
 			
-			if (hokkerRenderer != null)
-				this.transform.position = new Vector3 (sentenceInfo.Hooker.transform.position.x, sentenceInfo.Hooker.transform.position.y + hokkerRenderer.bounds.size.y);
+			if (hookerRenderer != null)
+				this.transform.position = new Vector3 (sentenceInfo.Hooker.transform.position.x, sentenceInfo.Hooker.transform.position.y + hookerRenderer.bounds.size.y);
 			else
 				this.transform.position = new Vector3 (sentenceInfo.Hooker.transform.position.x, sentenceInfo.Hooker.transform.position.y);
 		}
@@ -101,8 +101,8 @@ public class Balloon : MonoBehaviour {
 		if (sentenceInfo.Hooker.GetComponent<Rigidbody2D> ()!= null) {
 			
 			springJoint2D.connectedBody = sentenceInfo.Hooker.GetComponent<Rigidbody2D> ();
-			if (hokkerRenderer != null)
-				springJoint2D.connectedAnchor = new Vector2(springJoint2D.connectedAnchor.x, hokkerRenderer.bounds.max.y);
+			if (hookerRenderer != null)
+				springJoint2D.connectedAnchor = new Vector2(springJoint2D.connectedAnchor.x, hookerRenderer.bounds.max.y);
 
 		} else {
 			//springJoint2D.enabled = false;
