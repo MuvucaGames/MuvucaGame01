@@ -51,6 +51,11 @@ public class HeroControl : MonoBehaviour {
 			hero.VerticalMove (0.0f);
 		}
 
+        if (GameInput.verticalAxis != 0)
+        {
+            hero.CarryBox();
+        }
+
 	}
 
 }

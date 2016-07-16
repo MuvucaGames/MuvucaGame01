@@ -20,6 +20,8 @@ public abstract class Hero : Controllable
 	private float jumpHeight = 1f;
 	[SerializeField]
 	private float offsetCarryObjHero = 0.7f;
+	[SerializeField]
+	private float pullBoxForce = 80f;
 
 	[SerializeField]
 	private LayerMask whatIsGround;
@@ -89,16 +91,14 @@ public abstract class Hero : Controllable
                                          bounds.center.y-(bounds.extents.y/2f), 
                                          bounds.center.z);
             Vector3 direction = new Vector3(facingDirection, 0, 0);
-            RaycastHit2D hit = Physics2D.Raycast(origin, direction, bounds.extents.x, 
+            RaycastHit2D hit = Physics2D.Raycast(origin, direction, bounds.extents.x+0.1f, 
                                                  LayerMask.GetMask("MapInteractiveObjects"));
 
             if ((hit.collider == null) || (hit.collider != BoxHit.collider))
             {
                 HoldingBox = null;
-            }
-            else
-            {
-                animator.SetBool("push", true);
+                animator.SetBool("pushStandingStill", false);
+                StopPush();
             }
         }
 	}
@@ -126,16 +126,23 @@ public abstract class Hero : Controllable
 			if (speed == 0.0f) {
 				animator.SetBool ("walk", false);
 				StopWalk ();
-                if (HoldingBox == null)
-                    StopPush();
+                StopPush();
 
 				if (Carrying)
+                {
+                    animator.SetBool("pushStandingStill", false);
 					animator.SetBool ("carry", true);
+                }
+
 			} else {
 				if (Carrying)
-					animator.SetBool ("carry", true);
+                {
+                    animator.SetBool("pushStandingStill", false);
+                    animator.SetBool ("carry", true);   
+                }
                 else if (HoldingBox == null)
                 {
+                    animator.SetBool("pushStandingStill", false);
 				    if (isPushingSomething ())
                         Push ();
                     else
@@ -143,12 +150,14 @@ public abstract class Hero : Controllable
                 }
                 else
                 {
+                    Push();
                     int d = speed>0?1:-1;
 
                     // If hero is pulling, or, if the facing direction is opposed to force direction
                     if ((d*facingDirection) == -1)
                     {
-                        BoxHit.rigidbody.AddForce(new Vector2 (45f*2*rigidBody2D.mass*-facingDirection, 0));   
+                        float xForce = pullBoxForce*rigidBody2D.mass*(-facingDirection);
+                        BoxHit.rigidbody.AddForce(new Vector2 (xForce, 0)); 
                         return;
                     }
                 }
@@ -177,7 +186,7 @@ public abstract class Hero : Controllable
 
         if (HoldingBox == null)
         {
-            flipAnimation (speed);   
+            flipAnimation (speed);
         }
 	}
 
@@ -231,6 +240,15 @@ public abstract class Hero : Controllable
 
 	}
 
+    public void CarryBox()
+    {
+        if (HoldingBox != null)
+        {
+            Carry();
+            CarryingByAction = true;
+        }        
+    }
+
 	public void Jump ()
 	{
         if (HoldingBox == null)
@@ -238,12 +256,6 @@ public abstract class Hero : Controllable
             Jump (1);
         }
 
-        else if ((HoldingBox != null) && (InputManager.Instance.GameInput.verticalAxis != 0f))
-        {
-            HoldingBox = null;
-            Carry();
-            CarryingByAction = true;
-        }
 	}
 
 	/// <summary>
@@ -301,7 +313,9 @@ public abstract class Hero : Controllable
 			CarryingByAction = false;
 		}
 		else
+        {
 			animator.SetBool ("carry", true);
+        }
 	}
 
 	public void StopCarry ()
@@ -366,7 +380,7 @@ public abstract class Hero : Controllable
                                          bounds.center.y-(bounds.extents.y/2f), 
                                          bounds.center.z);
             Vector3 direction = new Vector3(facingDirection, 0, 0);
-            BoxHit = Physics2D.Raycast(origin, direction, bounds.extents.x,
+            BoxHit = Physics2D.Raycast(origin, direction, bounds.extents.x+0.1f,
                                        LayerMask.GetMask("MapInteractiveObjects"));
 
             Debug.DrawRay(origin, direction);
@@ -376,11 +390,13 @@ public abstract class Hero : Controllable
                 Push();                
             }
 
+            animator.SetBool("pushStandingStill", true);
             // TODO: Animation for holding object while standing still
         }
         else
         {
             HoldingBox = null;
+            animator.SetBool("pushStandingStill", false);
             StopPush();
         }
     }
@@ -482,6 +498,8 @@ public abstract class Hero : Controllable
 				carriable.isBeingCarried = true;
 				StopPush ();
 				animator.SetBool ("carry", true);
+
+                HoldingBox = null;
 			}
 		}
 
