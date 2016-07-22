@@ -2,7 +2,9 @@ using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
 
-// Follows GameObject
+/// <summary>
+///   Follows GameObject
+/// </summary>
 public class Follower : MonoBehaviour 
 {
     public Rigidbody2D body = null;
@@ -96,8 +98,6 @@ public class Follower : MonoBehaviour
         {
             finalPosition = objectToFollow.GetComponentInChildren<Renderer>().bounds.max;
         }
-
-        Vector3 middlePosition = (initialPosition - finalPosition)/2;
 
         lastPathDirection = Vector3.Normalize(finalPosition - initialPosition);
         distance = finalPosition - initialPosition;
