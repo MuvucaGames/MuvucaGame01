@@ -20,8 +20,6 @@ public abstract class Hero : Controllable
 	private float jumpHeight = 1f;
 	[SerializeField]
 	private float offsetCarryObjHero = 0.7f;
-	[SerializeField]
-	private float pullBoxForce = 80f;
 
 	[SerializeField]
 	private LayerMask whatIsGround;
@@ -40,6 +38,8 @@ public abstract class Hero : Controllable
 	[SerializeField]
 	private Collider2D footCollider = null;
 	[SerializeField]
+	private BoxCollider2D interactCollider = null;
+	[SerializeField]
 	private Collider2D groundTrigger = null;
 
 	private HeroInteractor heroInterac;
@@ -47,7 +47,7 @@ public abstract class Hero : Controllable
 	private int facingDirection=_FACING_RIGHT;
 	private Rigidbody2D rigidBody2D;
 	private double jumpForce;
-	private Animator animator;
+	public Animator animator;
 	private bool isClimbing = false;
 	private float gravityOriginal;
 	private bool Carrying = false;
@@ -56,8 +56,7 @@ public abstract class Hero : Controllable
 	private GameObject CarriedObject;
     private Collider2D[] colliders;
 
-    public Collider2D HoldingBox = null;
-    public RaycastHit2D BoxHit;
+    public bool isHoldingBox = false;
 
 	private bool m_onAir = false;
 
@@ -82,26 +81,14 @@ public abstract class Hero : Controllable
         colliders = GetComponentsInChildren<Collider2D>();
 	}
 
-	void FixedUpdate ()
-	{
-        if (HoldingBox != null)
-        {
-            Bounds bounds = GetComponentInChildren<SpriteRenderer>().bounds;
-            Vector3 origin = new Vector3(bounds.center.x, 
-                                         bounds.center.y-(bounds.extents.y/2f), 
-                                         bounds.center.z);
-            Vector3 direction = new Vector3(facingDirection, 0, 0);
-            RaycastHit2D hit = Physics2D.Raycast(origin, direction, bounds.extents.x+0.1f, 
-                                                 LayerMask.GetMask("MapInteractiveObjects"));
-
-            if ((hit.collider == null) || (hit.collider != BoxHit.collider))
-            {
-                HoldingBox = null;
-                animator.SetBool("pushStandingStill", false);
-                StopPush();
-            }
-        }
-	}
+    public override void OnFocusOut()
+    {
+        // In case hero loses focus, disable animations that only
+        // make sense when heroes are focused
+        StopPush();
+        StopWalk();
+        StandUp();
+    }
 
 	public bool isGrounded ()
 	{
@@ -140,26 +127,23 @@ public abstract class Hero : Controllable
                     animator.SetBool("pushStandingStill", false);
                     animator.SetBool ("carry", true);   
                 }
-                else if (HoldingBox == null)
+                else if (isHoldingBox)
                 {
-                    animator.SetBool("pushStandingStill", false);
+                    if (speed != 0)
+                    {
+                        Push();
+                    }
+                    else
+                    {
+                        StopPush();
+                    }
+                }
+                else
+                {
 				    if (isPushingSomething ())
                         Push ();
                     else
                         StopPush();
-                }
-                else
-                {
-                    Push();
-                    int d = speed>0?1:-1;
-
-                    // If hero is pulling, or, if the facing direction is opposed to force direction
-                    if ((d*facingDirection) == -1)
-                    {
-                        float xForce = pullBoxForce*rigidBody2D.mass*(-facingDirection);
-                        BoxHit.rigidbody.AddForce(new Vector2 (xForce, 0)); 
-                        return;
-                    }
                 }
 
 				animator.SetBool ("walk", true);
@@ -184,7 +168,7 @@ public abstract class Hero : Controllable
 
 		}
 
-        if (HoldingBox == null)
+        if (!isHoldingBox)
         {
             flipAnimation (speed);
         }
@@ -242,7 +226,7 @@ public abstract class Hero : Controllable
 
     public void CarryBox()
     {
-        if (HoldingBox != null)
+        if (isHoldingBox)
         {
             Carry();
             CarryingByAction = true;
@@ -251,7 +235,7 @@ public abstract class Hero : Controllable
 
 	public void Jump ()
 	{
-        if (HoldingBox == null)
+        if (!isHoldingBox)
         {
             Jump (1);
         }
@@ -373,29 +357,41 @@ public abstract class Hero : Controllable
 
     public void HoldObject()
     {
-        if (HoldingBox == null)
+        if (!isHoldingBox)
         {
-            Bounds bounds = GetComponentInChildren<SpriteRenderer>().bounds;
-            Vector3 origin = new Vector3(bounds.center.x, 
-                                         bounds.center.y-(bounds.extents.y/2f), 
-                                         bounds.center.z);
-            Vector3 direction = new Vector3(facingDirection, 0, 0);
-            BoxHit = Physics2D.Raycast(origin, direction, bounds.extents.x+0.1f,
-                                       LayerMask.GetMask("MapInteractiveObjects"));
+            Bounds bounds = GetComponentInChildren<Renderer>().bounds;
+            CarriedObject = heroInterac.carriableObject;
 
-            Debug.DrawRay(origin, direction);
-            if (BoxHit.collider != null)
-            {
-                HoldingBox = BoxHit.collider;
-                Push();                
-            }
+            // Transform to avoid conflict with hero position
+            CarriedObject.transform.position = new Vector2 (transform.position.x + facingDirection*bounds.extents.x, 
+                                                            transform.position.y);
 
+            // To ensure that the box will be at the correct position on holding
+            CarriedObject.transform.rotation = new Quaternion (0, 0, 0, CarriedObject.transform.localRotation.w);
+
+            SliderJoint2D sliderJoint = GetComponent<SliderJoint2D> ();
+            sliderJoint.connectedBody = CarriedObject.GetComponent<Rigidbody2D>();
+            Bounds connectedBounds = sliderJoint.connectedBody.GetComponentInChildren<Renderer>().bounds;
+
+            // Offset due to Sprite of the heroes. Difference between
+            // the bound of interact collider and the animated pixels.
+            float spriteOffset = 0.07f;
+
+            // Joint must be positioned right in front of hero
+            // considering his current facing direction
+            sliderJoint.connectedAnchor = new Vector2(-facingDirection*(interactCollider.size.x/2f+connectedBounds.extents.x-spriteOffset),
+                                                      0);
+            sliderJoint.enabled = true;
+
+            isHoldingBox = true;
             animator.SetBool("pushStandingStill", true);
-            // TODO: Animation for holding object while standing still
         }
         else
         {
-            HoldingBox = null;
+            SliderJoint2D sliderJoint = GetComponent<SliderJoint2D>();
+            sliderJoint.connectedBody = null;
+            sliderJoint.enabled = false;
+            isHoldingBox = false;
             animator.SetBool("pushStandingStill", false);
             StopPush();
         }
@@ -495,11 +491,12 @@ public abstract class Hero : Controllable
 				CarriedObject.transform.position = new Vector2 (transform.position.x, transform.position.y + transform.localScale.y + CarriedObject.transform.localScale.y + offsetCarryObjHero * fator);
 				sliderJoint.connectedBody = CarriedObject.GetComponent<Rigidbody2D> ();
 				sliderJoint.enabled = true;
+                sliderJoint.connectedAnchor = Vector2.zero;
 				carriable.isBeingCarried = true;
 				StopPush ();
 				animator.SetBool ("carry", true);
 
-                HoldingBox = null;
+                isHoldingBox = false;
 			}
 		}
 

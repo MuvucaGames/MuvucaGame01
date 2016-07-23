@@ -15,7 +15,6 @@ public class HeroControl : MonoBehaviour {
     public void ProcessHeroInput(game_input GameInput)
     {
 		if (!hero.IsActive) {
-			hero.StopWalk();
 			return;
 		}
 
