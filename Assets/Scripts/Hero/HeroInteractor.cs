@@ -27,7 +27,8 @@ public class HeroInteractor : MonoBehaviour {
 			ladders.Add (other.gameObject);
 		if (other.gameObject.GetComponent<IHeroActionable>()!=null)
 			actionableObjects.Add (other.gameObject);
-		else if (other.gameObject.GetComponent<Carriable>()!=null)
+		else if (other.gameObject.GetComponent<Carriable>()!=null && 
+                 !carriableObjects.Contains(other.gameObject))
 			carriableObjects.Add (other.gameObject);
 	}
 	/// <summary>
@@ -41,7 +42,19 @@ public class HeroInteractor : MonoBehaviour {
 		if (other.gameObject.GetComponent<IHeroActionable>()!=null)
 			actionableObjects.Remove (other.gameObject);
 		else
-			carriableObjects.Remove (other.gameObject);
+        {
+            // Assure that no collider is touching heroes, avoiding
+            // mispositioning glitches
+            Collider2D[] colls = other.gameObject.GetComponents<Collider2D>();
+            foreach(Collider2D coll in colls)
+            {
+                if (coll.IsTouchingLayers(LayerMask.GetMask("Heroes")))
+                {
+                    return;
+                }
+            }
+			carriableObjects.Remove (other.gameObject);            
+        }
 	}
 	/// <summary>
 	/// Gets the top most ladder.

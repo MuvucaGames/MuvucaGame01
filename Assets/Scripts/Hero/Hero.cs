@@ -360,32 +360,39 @@ public abstract class Hero : Controllable
         if (!isHoldingBox)
         {
             Bounds bounds = GetComponentInChildren<Renderer>().bounds;
-            CarriedObject = heroInterac.carriableObject;
+            GameObject Carried = heroInterac.carriableObject;
 
-            // Transform to avoid conflict with hero position
-            CarriedObject.transform.position = new Vector2 (transform.position.x + facingDirection*bounds.extents.x, 
-                                                            transform.position.y);
+            // Match the box postion and the hero facing direction: if
+            // hero is not facing the box, he will not pick it up
+            if (((Carried.transform.position.x > transform.position.x) && facingDirection == 1) ||
+                ((Carried.transform.position.x < transform.position.x) && facingDirection == -1))
+            {
+                // Transform to avoid conflict with hero
+                // position. Also ensure that the box will be at the
+                // correct position on holding
+                Carried.transform.position = new Vector2 (transform.position.x + facingDirection*bounds.extents.x, 
+                                                          transform.position.y);
+                Carried.transform.rotation = new Quaternion (0, 0, 0, Carried.transform.localRotation.w);
 
-            // To ensure that the box will be at the correct position on holding
-            CarriedObject.transform.rotation = new Quaternion (0, 0, 0, CarriedObject.transform.localRotation.w);
+                SliderJoint2D sliderJoint = GetComponent<SliderJoint2D> ();
+                sliderJoint.connectedBody = Carried.GetComponent<Rigidbody2D>();
+                Bounds connectedBounds = sliderJoint.connectedBody.GetComponentInChildren<Renderer>().bounds;
 
-            SliderJoint2D sliderJoint = GetComponent<SliderJoint2D> ();
-            sliderJoint.connectedBody = CarriedObject.GetComponent<Rigidbody2D>();
-            Bounds connectedBounds = sliderJoint.connectedBody.GetComponentInChildren<Renderer>().bounds;
+                // Offset due to Sprite of the heroes. Difference between
+                // the bound of interact collider and the animated pixels.
+                float spriteOffset = 0.07f;
 
-            // Offset due to Sprite of the heroes. Difference between
-            // the bound of interact collider and the animated pixels.
-            float spriteOffset = 0.07f;
+                // Joint must be positioned right in front of hero
+                // considering his current facing direction
+                sliderJoint.connectedAnchor = new Vector2(-facingDirection*(interactCollider.size.x/2f+connectedBounds.extents.x-spriteOffset),
+                                                          0);
+                sliderJoint.enabled = true;
 
-            // Joint must be positioned right in front of hero
-            // considering his current facing direction
-            sliderJoint.connectedAnchor = new Vector2(-facingDirection*(interactCollider.size.x/2f+connectedBounds.extents.x-spriteOffset),
-                                                      0);
-            sliderJoint.enabled = true;
-
-            isHoldingBox = true;
-            animator.SetBool("pushStandingStill", true);
+                isHoldingBox = true;
+                animator.SetBool("pushStandingStill", true);                
+            }
         }
+
         else
         {
             SliderJoint2D sliderJoint = GetComponent<SliderJoint2D>();
@@ -495,6 +502,7 @@ public abstract class Hero : Controllable
 				carriable.isBeingCarried = true;
 				StopPush ();
 				animator.SetBool ("carry", true);
+                animator.SetBool("pushStandingStill", false);
 
                 isHoldingBox = false;
 			}
@@ -522,6 +530,8 @@ public abstract class Hero : Controllable
 		CarriedObject = null;
 		carriable.isBeingCarried = false;
 		animator.SetBool ("carry", false);
+
+        isHoldingBox = false;
 	}
 
     public bool IsTouchingAreaTrigger()
