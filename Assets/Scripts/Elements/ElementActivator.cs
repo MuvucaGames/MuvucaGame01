@@ -2,7 +2,7 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
-public class Activator : MonoBehaviour{
+public class ElementActivator : MonoBehaviour{
 
 	[SerializeField]protected List<ActionableElement> actionableElements;
 

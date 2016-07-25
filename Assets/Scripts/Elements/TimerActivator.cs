@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
-public class TimerActivator : Activator
+public class TimerActivator : ElementActivator
 {
 
 	public void Activation(){

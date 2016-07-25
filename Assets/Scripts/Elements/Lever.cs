@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Lever : Activator, IHeroActionable
+public class Lever : ElementActivator, IHeroActionable
 {
     [SerializeField]
     private bool isTimeBased = false;

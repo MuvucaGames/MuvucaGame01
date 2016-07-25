@@ -118,6 +118,22 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &197526
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 418840}
+  - 61: {fileID: 6179070}
+  m_Layer: 8
+  m_Name: GroundTrigger
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &199118
 GameObject:
   m_ObjectHideFlags: 0
@@ -142,7 +158,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 172812}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -0.05, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 491406}
@@ -171,6 +187,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 453014}
   m_RootOrder: 4
+--- !u!4 &418840
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 197526}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 453014}
+  m_RootOrder: 6
 --- !u!4 &421968
 Transform:
   m_ObjectHideFlags: 1
@@ -223,6 +251,7 @@ Transform:
   - {fileID: 421968}
   - {fileID: 416782}
   - {fileID: 491406}
+  - {fileID: 418840}
   m_Father: {fileID: 0}
   m_RootOrder: 0
 --- !u!4 &491406
@@ -294,7 +323,7 @@ PolygonCollider2D:
   m_GameObject: {fileID: 166710}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 6200000, guid: 825096138afbdb94c91ef8421519409a, type: 2}
+  m_Material: {fileID: 6200000, guid: 714bb5d241c131648a78692c0a9ae93b, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_Offset: {x: 0, y: 0}
@@ -315,12 +344,26 @@ BoxCollider2D:
   m_GameObject: {fileID: 199118}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 6200000, guid: 825096138afbdb94c91ef8421519409a, type: 2}
+  m_Material: {fileID: 6200000, guid: 714bb5d241c131648a78692c0a9ae93b, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 1
   m_Offset: {x: 0, y: 1.75}
   serializedVersion: 2
   m_Size: {x: 0.7, y: 0.5}
+--- !u!61 &6179070
+BoxCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 197526}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Size: {x: 0.64, y: 0.01}
 --- !u!61 &6190088
 BoxCollider2D:
   m_ObjectHideFlags: 1
@@ -419,9 +462,8 @@ MonoBehaviour:
   bodyCollider: {fileID: 6003864}
   walkMotor: {fileID: 23342416}
   footCollider: {fileID: 5814716}
+  groundTrigger: {fileID: 6179070}
   ladder: {fileID: 0}
-  m_isActive: 0
-  changeHeroAllowed: 1
 --- !u!212 &21212648
 SpriteRenderer:
   m_ObjectHideFlags: 1
