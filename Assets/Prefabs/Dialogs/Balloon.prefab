@@ -222,13 +222,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   backgroundImg: {fileID: 11462492}
   imgTmp: {fileID: 11422782}
-  margin: {x: 0.2, y: 0.2}
-  vertex1Triangle: {x: -0.3, y: 0, z: 0}
-  vertex2Triangle: {x: 0.2, y: 0, z: 0}
   spriteBalloonNormal: {fileID: 21300000, guid: 2f4ad37d3a0704e4097bdc3a95687126,
     type: 3}
   spriteBalloonThink: {fileID: 21300000, guid: ab4ecfa2e2756a84990293be47b43140, type: 3}
   spriteBalloonShout: {fileID: 21300000, guid: 3935f3ea79d7c5644b8b6aaf9250cdc7, type: 3}
+  margin: {x: 0.2, y: 0.2}
+  extraMarginWidthToOneIcon: 0.3
+  vertex1Triangle: {x: -0.3, y: 0, z: 0}
+  vertex2Triangle: {x: 0.2, y: 0, z: 0}
+  SecondToInflate: 0.5
 --- !u!114 &11462492
 MonoBehaviour:
   m_ObjectHideFlags: 1

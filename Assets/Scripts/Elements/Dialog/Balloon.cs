@@ -26,7 +26,12 @@ public class Balloon : MonoBehaviour {
 	private Vector3 vertex1Triangle = new Vector3 (-0.3f, 0, 0);
 	[SerializeField]
 	private Vector3 vertex2Triangle = new Vector3 (0.2f, 0, 0);
+	[SerializeField]
+	private float SecondToInflate=0.5f;
+
 	private Renderer hookerRenderer=null;
+	private Coroutine animateBallonCoroutine=null;
+
 	void Update () 
 	{
 		if (sentenceInfo != null) {
@@ -41,6 +46,30 @@ public class Balloon : MonoBehaviour {
 			}
 
 		}
+	}
+
+	IEnumerator InflateBalloon(){
+		Vector3 initialScale = transform.localScale;
+		Vector3 inflateScalePerSecond = new Vector3 (initialScale.x/SecondToInflate, initialScale.y/SecondToInflate, 0);;
+		float infX, infY, timeLeft=0;
+		transform.localScale = new Vector3 (0, 0, 0);
+
+		while(timeLeft < SecondToInflate){
+			if (transform.lossyScale.x < initialScale.x)
+				infX = inflateScalePerSecond.x*Time.deltaTime;
+			else
+				infX = 0;// transform.localScale.x - initialScale.x;
+
+			if (transform.lossyScale.y < initialScale.y)
+				infY = inflateScalePerSecond.y*Time.deltaTime;
+			else
+				infY = 0;// transform.localScale.y - initialScale.y;
+
+			transform.localScale = transform.localScale + new Vector3 (infX, infY, 0);
+			timeLeft+=Time.deltaTime;
+			yield return null;
+		}
+
 	}
 
 	public void Init(Sentence.Info sentenceInfo, Callback callback){
@@ -62,7 +91,9 @@ public class Balloon : MonoBehaviour {
 
 		SetSpringJoint ();
 
-		Destroy(gameObject, sentenceInfo.timeInSeconds);
+		animateBallonCoroutine = StartCoroutine (InflateBalloon());
+
+		Destroy(gameObject, sentenceInfo.timeInSeconds + SecondToInflate);
 	}
 
 	private void SetCanvasSizeAndImages(){
