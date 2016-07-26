@@ -207,7 +207,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 127062}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: -0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 422442}
@@ -391,7 +391,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_Offset: {x: 0, y: 0.5}
   serializedVersion: 2
-  m_Size: {x: 0.8, y: 0.8}
+  m_Size: {x: 0.9, y: 0.8}
 --- !u!95 &9594732
 Animator:
   serializedVersion: 3
@@ -451,8 +451,11 @@ MonoBehaviour:
   bodyCollider: {fileID: 6087990}
   walkMotor: {fileID: 23335832}
   footCollider: {fileID: 5888030}
+  interactCollider: {fileID: 6182282}
   groundTrigger: {fileID: 6169520}
-  ladder: {fileID: 0}
+  animator: {fileID: 0}
+  CarryingByAction: 0
+  isHoldingBox: 0
 --- !u!114 &11476276
 MonoBehaviour:
   m_ObjectHideFlags: 1

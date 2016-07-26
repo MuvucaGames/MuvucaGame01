@@ -38,6 +38,8 @@ public abstract class Hero : Controllable
 	[SerializeField]
 	private Collider2D footCollider = null;
 	[SerializeField]
+	private BoxCollider2D interactCollider = null;
+	[SerializeField]
 	private Collider2D groundTrigger = null;
 
 	private HeroInteractor heroInterac;
@@ -45,16 +47,17 @@ public abstract class Hero : Controllable
 	private int facingDirection=_FACING_RIGHT;
 	private Rigidbody2D rigidBody2D;
 	private double jumpForce;
-	private Animator animator;
+	public Animator animator;
 	private bool isClimbing = false;
 	private float gravityOriginal;
 	private bool Carrying = false;
 	private bool Crouched = false;
-	private bool CarryingByAction = false;
+	public bool CarryingByAction = false;
 	private GameObject CarriedObject;
     private Collider2D[] colliders;
 
-	
+    public bool isHoldingBox = false;
+
 	private bool m_onAir = false;
 
 	public bool OnAir {
@@ -78,10 +81,14 @@ public abstract class Hero : Controllable
         colliders = GetComponentsInChildren<Collider2D>();
 	}
 
-	void FixedUpdate ()
-	{
-
-	}
+    public override void OnFocusOut()
+    {
+        // In case hero loses focus, disable animations that only
+        // make sense when heroes are focused
+        StopPush();
+        StopWalk();
+        StandUp();
+    }
 
 	public bool isGrounded ()
 	{
@@ -106,16 +113,39 @@ public abstract class Hero : Controllable
 			if (speed == 0.0f) {
 				animator.SetBool ("walk", false);
 				StopWalk ();
-				StopPush();
+                StopPush();
+
 				if (Carrying)
+                {
+                    animator.SetBool("pushStandingStill", false);
 					animator.SetBool ("carry", true);
+                }
+
 			} else {
 				if (Carrying)
-					animator.SetBool ("carry", true);
-				else if (isPushingSomething ())
-					Push ();
-				else
-					StopPush();
+                {
+                    animator.SetBool("pushStandingStill", false);
+                    animator.SetBool ("carry", true);   
+                }
+                else if (isHoldingBox)
+                {
+                    if (speed != 0)
+                    {
+                        Push();
+                    }
+                    else
+                    {
+                        StopPush();
+                    }
+                }
+                else
+                {
+				    if (isPushingSomething ())
+                        Push ();
+                    else
+                        StopPush();
+                }
+
 				animator.SetBool ("walk", true);
 				ChangeMotorSpeed (motorMaxAngularSpeed * speed);
 			}
@@ -137,7 +167,11 @@ public abstract class Hero : Controllable
 				animator.SetBool ("jumpOnAir", true);
 
 		}
-		flipAnimation (speed);
+
+        if (!isHoldingBox)
+        {
+            flipAnimation (speed);
+        }
 	}
 
 	public void StopWalk ()
@@ -169,14 +203,14 @@ public abstract class Hero : Controllable
 			rigidBody2D.velocity = new Vector2 (0, -speed * maxClimbingSpeed);
 			// The code comment bellow is to be undone when the animator animating climb and stop on ladder
 			/*
-			if (speed ==0f){
-				animator.SetBool ("climb", false);
-				animator.SetBool ("stopclimb", true);
-			}
-			else{
-				animator.SetBool ("stopclimb", false);
-				animator.SetBool ("climb", true);
-			}
+              if (speed ==0f){
+              animator.SetBool ("climb", false);
+              animator.SetBool ("stopclimb", true);
+              }
+              else{
+              animator.SetBool ("stopclimb", false);
+              animator.SetBool ("climb", true);
+              }
 			*/
 		}
 		else{
@@ -190,9 +224,22 @@ public abstract class Hero : Controllable
 
 	}
 
+    public void CarryBox()
+    {
+        if (isHoldingBox)
+        {
+            Carry();
+            CarryingByAction = true;
+        }        
+    }
+
 	public void Jump ()
 	{
-		Jump (1);
+        if (!isHoldingBox)
+        {
+            Jump (1);
+        }
+
 	}
 
 	/// <summary>
@@ -250,7 +297,9 @@ public abstract class Hero : Controllable
 			CarryingByAction = false;
 		}
 		else
+        {
 			animator.SetBool ("carry", true);
+        }
 	}
 
 	public void StopCarry ()
@@ -306,6 +355,55 @@ public abstract class Hero : Controllable
 		walkMotor.motor = tMotor;
 	}
 
+    public void HoldObject()
+    {
+        if (!isHoldingBox)
+        {
+            Bounds bounds = GetComponentInChildren<Renderer>().bounds;
+            GameObject Carried = heroInterac.carriableObject;
+
+            // Match the box postion and the hero facing direction: if
+            // hero is not facing the box, he will not pick it up
+            if (((Carried.transform.position.x > transform.position.x) && facingDirection == 1) ||
+                ((Carried.transform.position.x < transform.position.x) && facingDirection == -1))
+            {
+                // Transform to avoid conflict with hero
+                // position. Also ensure that the box will be at the
+                // correct position on holding
+                Carried.transform.position = new Vector2 (transform.position.x + facingDirection*bounds.extents.x, 
+                                                          transform.position.y);
+                Carried.transform.rotation = new Quaternion (0, 0, 0, Carried.transform.localRotation.w);
+
+                SliderJoint2D sliderJoint = GetComponent<SliderJoint2D> ();
+                sliderJoint.connectedBody = Carried.GetComponent<Rigidbody2D>();
+                Bounds connectedBounds = sliderJoint.connectedBody.GetComponentInChildren<Renderer>().bounds;
+
+                // Offset due to Sprite of the heroes. Difference between
+                // the bound of interact collider and the animated pixels.
+                float spriteOffset = 0.07f;
+
+                // Joint must be positioned right in front of hero
+                // considering his current facing direction
+                sliderJoint.connectedAnchor = new Vector2(-facingDirection*(interactCollider.size.x/2f+connectedBounds.extents.x-spriteOffset),
+                                                          0);
+                sliderJoint.enabled = true;
+
+                isHoldingBox = true;
+                animator.SetBool("pushStandingStill", true);                
+            }
+        }
+
+        else
+        {
+            SliderJoint2D sliderJoint = GetComponent<SliderJoint2D>();
+            sliderJoint.connectedBody = null;
+            sliderJoint.enabled = false;
+            isHoldingBox = false;
+            animator.SetBool("pushStandingStill", false);
+            StopPush();
+        }
+    }
+
 	public void Action ()
 	{
 		this.DoAction ();
@@ -316,8 +414,7 @@ public abstract class Hero : Controllable
 		if (!Carrying) {
 			if (!isClimbing) {
 				if (heroInterac.carriableObject != null) {
-					CarryObject ();
-					CarryingByAction = true;
+                    HoldObject();
 				}
 				else if (heroInterac.actionableObject != null) {
 					IHeroActionable iHeroActionable = heroInterac.actionableObject.GetComponent<IHeroActionable> ();
@@ -401,9 +498,13 @@ public abstract class Hero : Controllable
 				CarriedObject.transform.position = new Vector2 (transform.position.x, transform.position.y + transform.localScale.y + CarriedObject.transform.localScale.y + offsetCarryObjHero * fator);
 				sliderJoint.connectedBody = CarriedObject.GetComponent<Rigidbody2D> ();
 				sliderJoint.enabled = true;
+                sliderJoint.connectedAnchor = Vector2.zero;
 				carriable.isBeingCarried = true;
 				StopPush ();
 				animator.SetBool ("carry", true);
+                animator.SetBool("pushStandingStill", false);
+
+                isHoldingBox = false;
 			}
 		}
 
@@ -429,6 +530,8 @@ public abstract class Hero : Controllable
 		CarriedObject = null;
 		carriable.isBeingCarried = false;
 		animator.SetBool ("carry", false);
+
+        isHoldingBox = false;
 	}
 
     public bool IsTouchingAreaTrigger()

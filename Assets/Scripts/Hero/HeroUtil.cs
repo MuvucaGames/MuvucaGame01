@@ -80,6 +80,7 @@ public static class HeroUtil
             heroStrong._OnFocus();
             lastActiveHero = heroStrong;
         }
+        SoundManager.Instance.SendMessage("PlaySFXSwap");
     }
 
     /// <summary>

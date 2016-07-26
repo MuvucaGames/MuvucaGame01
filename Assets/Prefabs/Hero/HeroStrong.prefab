@@ -462,8 +462,11 @@ MonoBehaviour:
   bodyCollider: {fileID: 6003864}
   walkMotor: {fileID: 23342416}
   footCollider: {fileID: 5814716}
+  interactCollider: {fileID: 6190088}
   groundTrigger: {fileID: 6179070}
-  ladder: {fileID: 0}
+  animator: {fileID: 0}
+  CarryingByAction: 0
+  isHoldingBox: 0
 --- !u!212 &21212648
 SpriteRenderer:
   m_ObjectHideFlags: 1
